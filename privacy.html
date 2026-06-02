@@ -275,7 +275,7 @@
     </tr>
     <tr>
       <td>Storage location</td>
-      <td>UK server logs only</td>
+      <td>GitHub Pages + Cloudflare (US); see Section 9</td>
       <td>UK servers, isolated per school</td>
       <td>Wherever the school deploys</td>
     </tr>
@@ -306,7 +306,7 @@
     <li><a href="#s6">Lawful basis</a></li>
     <li><a href="#s7">Data retention</a></li>
     <li><a href="#s8">Security</a></li>
-    <li><a href="#s9">International transfers</a></li>
+    <li><a href="#s9">Hosting and infrastructure</a></li>
     <li><a href="#s10">Your rights under UK GDPR</a></li>
     <li><a href="#s11">Children's data</a></li>
     <li><a href="#s12">Data Processing Agreements</a></li>
@@ -336,6 +336,8 @@
 <p>If you contact us at the email address published on this page, we receive and store that communication, including any personal information you include, solely to respond to your enquiry. We do not add you to any mailing list without explicit consent. Retained for a maximum of two years from the last exchange, then deleted. Earlier deletion available on request.</p>
 
 <p>We do not use analytics, tracking pixels, advertising scripts, or any fingerprinting on this website. No personal data beyond the above is collected.</p>
+
+<p><strong>Important:</strong> This website is hosted on GitHub Pages and served through Cloudflare. These services are operated by third parties and have their own data collection practices. See Section 9 (Hosting and Infrastructure) for details on what data GitHub Pages and Cloudflare collect.</p>
 
 <h2 id="s3"><span class="section-num">3.</span> Data on alpha-hosted instances</h2>
 <p>During the alpha period, we provision and operate Promptathon instances on our own UK infrastructure on behalf of schools. In this arrangement:</p>
@@ -405,8 +407,27 @@
   <strong>Alpha caveat.</strong> Promptathon has not undergone formal independent security audit. While we implement substantive measures, schools processing sensitive student data should conduct a Data Protection Impact Assessment (DPIA) before large-scale deployment and contact us to establish a Data Processing Agreement.
 </div>
 
-<h2 id="s9"><span class="section-num">9.</span> International transfers</h2>
-<p>This website and all alpha-hosted instances are hosted on UK-based infrastructure. We do not transfer personal data outside the UK or EEA. This website loads no external resources that would result in international transfers.</p>
+<h2 id="s9"><span class="section-num">9.</span> Hosting and infrastructure</h2>
+
+<h3>Website hosting</h3>
+<p>This specific website (privacy policy, documentation, and public-facing pages) is hosted on <strong>GitHub Pages</strong>, which is operated by GitHub, Inc. (a Microsoft subsidiary, based in the United States). When you visit this website, GitHub Pages infrastructure processes your connection and may collect standard web server logs including your IP address, browser user agent, referrer, and timestamp. This data is subject to <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy policy</a>.</p>
+
+<h3>Cloudflare proxy</h3>
+<p>This website is served through <strong>Cloudflare</strong>, a content delivery network and DDoS protection service operated by Cloudflare, Inc. (based in the United States). All traffic passes through Cloudflare's servers, which means Cloudflare receives and processes:</p>
+<ul>
+  <li>Your IP address and geolocation data (inferred from IP)</li>
+  <li>HTTP request headers including User-Agent, Referer, and Accept-Language</li>
+  <li>Request timing and frequency data</li>
+  <li>Security threat assessment data (to detect and block malicious requests)</li>
+  <li>Performance analytics (page load times, bandwidth usage)</li>
+</ul>
+<p>Cloudflare may retain this data for up to 30 days for security and analytics purposes. This data is subject to <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>. We do not have control over Cloudflare's data collection practices beyond what is documented in their policy.</p>
+
+<p><strong>Note:</strong> These privacy disclosures apply only to this website (promptathon.uk). If you use the Promptathon alpha-hosted service (the competition platform itself), please see Sections 3–8 above for information about how data is handled on the platform.</p>
+
+<h2 id="s9b"><span class="section-num">9b.</span> International transfers</h2>
+<p>This website is hosted on US-based infrastructure (GitHub Pages and Cloudflare). By accessing this website, you consent to the transfer of your IP address and request metadata to the United States for processing by GitHub and Cloudflare.</p>
+<p>If you use the Promptathon alpha-hosted platform (the competition service itself), that service and all alpha-hosted instances are hosted on UK-based infrastructure. We do not transfer personal data from the platform outside the UK or EEA without explicit consent. The platform loads no external resources that would result in international transfers.</p>
 
 <h2 id="s10"><span class="section-num">10.</span> Your rights under UK GDPR</h2>
 <p>Where we are the data controller, you have the following rights:</p>
