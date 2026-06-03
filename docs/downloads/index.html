@@ -216,6 +216,17 @@
   function filenameFor(version){ return 'promptathon-setup-' + version + '.py'; }
   function commandFor(version){ return 'sudo python3 ' + filenameFor(version); }
 
+  // Compare dotted version strings numerically (e.g. "1.10.0" > "1.9.0").
+  function cmpVer(a, b){
+    var pa = String(a || '').split('.').map(Number);
+    var pb = String(b || '').split('.').map(Number);
+    for (var i = 0; i < Math.max(pa.length, pb.length); i++){
+      var x = pa[i] || 0, y = pb[i] || 0;
+      if (x !== y) return x - y;
+    }
+    return 0;
+  }
+
   function badge(status){
     var cls = STATUS_LABELS[status] ? status : 'unknown';
     var label = STATUS_LABELS[status] || (status ? (status.charAt(0).toUpperCase() + status.slice(1)) : 'Unknown');
@@ -306,6 +317,8 @@
     .then(function(res){ if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
     .then(function(data){
       var releases = (data && data.releases) || [];
+      // Newest first, so the table order is deterministic regardless of manifest order.
+      releases.sort(function(a, b){ return cmpVer(b.version, a.version); });
       var latest = releases.filter(function(r){ return r.status === 'latest'; })[0] || null;
       renderLatest(latest);
       renderTable(releases);
