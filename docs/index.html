@@ -138,255 +138,322 @@
 }
 </script>
 
-<!-- Favicon: Times New Roman P as SVG -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><text x='6' y='26' font-family='Times New Roman, serif' font-size='26' font-weight='bold' fill='white'>P</text></svg>">
+<!-- Favicon: serif P as SVG -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2309090b'/><text x='6.5' y='25' font-family='Georgia, serif' font-size='24' font-weight='bold' fill='white'>P</text></svg>">
 
 <style>
+  :root{
+    --ink:#09090b;           /* primary text */
+    --ink-soft:#52525b;      /* secondary text (>=7:1 on white) */
+    --ink-faint:#71717a;
+    --bg:#ffffff;
+    --bg-soft:#fafafa;
+    --border:#e7e7ea;
+    --accent:#1d4ed8;        /* single accent — trustworthy blue */
+    --accent-dark:#1e3a8a;
+    --accent-soft:#eef3ff;
+    --radius:14px;
+    --radius-sm:9px;
+    --maxw:720px;
+    --serif:Georgia,'Times New Roman',Cambria,'Iowan Old Style',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --shadow:0 1px 2px rgba(9,9,11,.04),0 10px 28px -14px rgba(9,9,11,.16);
+  }
   * { box-sizing: border-box; }
-
-  body {
-    font-family: 'Times New Roman', Times, serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 0 1.5rem 4rem;
-    background: #fff;
-    color: #111;
-    font-size: 1.05rem;
-    line-height: 1.65;
-  }
-
-  /* ── Navigation ── */
-  nav {
-    border-bottom: 2px solid #111;
-    padding: 1rem 0 0.75rem;
-    margin-bottom: 2.5rem;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .nav-brand {
-    font-size: 1.15rem;
-    font-weight: bold;
-    color: #111;
-    text-decoration: none;
-    letter-spacing: -0.01em;
-  }
-  .nav-brand:visited { color: #111; }
-  .nav-brand .alpha-tag {
-    font-size: 0.65rem;
-    font-weight: normal;
-    font-style: italic;
-    color: #666;
-    margin-left: 0.4rem;
-    vertical-align: middle;
-  }
-  .nav-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0 1.5rem;
-    list-style: none;
+  html { scroll-behavior: smooth; }
+  body{
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
     margin: 0;
-    padding: 0;
-    font-size: 0.9rem;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-  .nav-links a {
-    color: #111;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 1px;
+
+  /* ── Sticky nav ── */
+  .site-nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
   }
-  .nav-links a:hover { border-bottom-color: #111; }
-  .nav-links a:visited { color: #111; }
+  .nav-inner{
+    max-width: var(--maxw); margin: 0 auto; padding: 0.65rem 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .nav-brand{
+    font-family: var(--serif); font-size: 1.2rem; font-weight: 700;
+    color: var(--ink); text-decoration: none; letter-spacing: -0.01em;
+    display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;
+  }
+  .nav-brand:visited{ color: var(--ink); }
+  .alpha-tag{
+    font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 0.15rem 0.45rem; border-radius: 999px;
+  }
+  .nav-links{ display: flex; gap: 0.15rem; list-style: none; margin: 0 0 0 auto; padding: 0; }
+  .nav-links a{
+    color: var(--ink-soft); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    padding: 0.4rem 0.65rem; border-radius: var(--radius-sm);
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  .nav-links a:visited{ color: var(--ink-soft); }
+  .nav-links a:hover{ color: var(--ink); background: var(--bg-soft); }
+  .nav-links a.is-active{ color: var(--accent); }
+
+  /* ── Buttons ── */
+  .btn{
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    font-family: var(--sans); font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; cursor: pointer; white-space: nowrap;
+    padding: 0.62rem 1.1rem; border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  }
+  .btn-primary{ background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+  .btn-primary:visited{ color: #fff; }
+  .btn-primary:hover{ background: var(--accent-dark); }
+  .btn-primary:active{ transform: translateY(1px); }
+  .btn-ghost{ background: #fff; color: var(--ink); border-color: var(--border); }
+  .btn-ghost:visited{ color: var(--ink); }
+  .btn-ghost:hover{ border-color: var(--ink); background: var(--bg-soft); }
+  .btn-sm{ padding: 0.42rem 0.8rem; font-size: 0.87rem; }
+  .nav-cta{ margin-left: 0.3rem; }
+  .btn .arrow{ transition: transform 0.15s ease; }
+  .btn:hover .arrow{ transform: translateX(2px); }
+
+  /* ── Layout ── */
+  main{ max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+  section{ padding: 2.6rem 0; scroll-margin-top: 4.5rem; }
+  section + section{ border-top: 1px solid var(--border); }
 
   /* ── Typography ── */
-  h1 { font-size: 2.4rem; margin: 0 0 0.2rem; line-height: 1.15; }
-  h2 {
-    font-size: 1.35rem;
-    margin: 2.5rem 0 0.6rem;
-    padding-bottom: 0.25rem;
-    border-bottom: 1px solid #ccc;
+  .eyebrow{
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 0.9rem;
   }
-  h3 { font-size: 1.05rem; margin: 1.5rem 0 0.25rem; }
-  p  { margin: 0 0 0.75rem; }
-  a  { color: #00e; }
-  a:visited { color: #551a8b; }
-  ul, ol { margin: 0 0 0.75rem 1.75rem; }
-  li { margin-bottom: 0.3rem; }
-  hr { border: none; border-top: 1px solid #ddd; margin: 2.5rem 0; }
-  strong { font-weight: bold; }
+  h1{
+    font-family: var(--serif); font-weight: 700; letter-spacing: -0.022em;
+    font-size: clamp(2.4rem, 6vw, 3.25rem); line-height: 1.08; margin: 0 0 0.7rem;
+  }
+  h2{
+    font-family: var(--serif); font-weight: 700; letter-spacing: -0.012em;
+    font-size: 1.6rem; margin: 0 0 1rem;
+  }
+  h3{ font-family: var(--sans); font-size: 1.05rem; font-weight: 650; margin: 1.6rem 0 0.3rem; }
+  p{ margin: 0 0 0.85rem; max-width: 65ch; }
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ color: var(--accent-dark); text-decoration: underline; }
+  a:visited{ color: var(--accent-dark); }
+  ul, ol{ margin: 0 0 0.85rem 1.5rem; }
+  li{ margin-bottom: 0.35rem; }
+  strong{ font-weight: 650; }
+  em{ font-style: italic; color: var(--ink); }
+  .lead{ font-size: 1.22rem; line-height: 1.5; color: var(--ink-soft); margin: 0 0 1.6rem; max-width: 40ch; }
+
+  /* ── Hero ── */
+  .hero{ padding: 3.4rem 0 2.6rem; }
+  .hero h1{ max-width: 16ch; }
+  .hero-actions{ display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 0 0 2.2rem; }
 
   /* ── Notices ── */
-  .notice {
-    padding: 0.75rem 1rem;
-    margin: 1rem 0 1.5rem;
-    font-size: 0.95rem;
-    border-left: 3px solid #999;
-    background: #f9f9f9;
+  .notice{
+    padding: 1rem 1.15rem; margin: 1.1rem 0; font-size: 0.96rem;
+    border: 1px solid var(--border); border-left: 4px solid var(--ink-faint);
+    border-radius: var(--radius); background: var(--bg-soft);
   }
-  .notice-alpha { border-color: #c9a000; background: #fffdf0; }
-  .notice-free  { border-color: #2d7a2d; background: #f4fff4; }
+  .notice-alpha{ border-left-color: #c98a00; background: #fffaef; }
+  .notice-free { border-left-color: #1f9d55; background: #f2fdf6; }
+  .notice .btn{ margin-top: 0.7rem; }
+  .notice strong{ color: var(--ink); }
 
-  /* ── Tagline ── */
-  .tagline { font-size: 1.15rem; font-style: italic; color: #444; margin-bottom: 1.25rem; }
-
-  /* ── CTA ── */
-  .cta {
-    display: inline-block;
-    margin: 0.5rem 0;
-    font-size: 1rem;
-    font-weight: bold;
+  /* ── Feature cards ── */
+  .features{ list-style: none; margin: 1.2rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+  .features li{
+    position: relative; margin: 0; padding: 0.85rem 1rem 0.85rem 2.3rem;
+    border: 1px solid var(--border); border-radius: var(--radius); background: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
   }
+  .features li::before{
+    content: ""; position: absolute; left: 1rem; top: 1.18rem;
+    width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent);
+  }
+  .features li:hover{ border-color: #d4d4d8; box-shadow: var(--shadow); transform: translateY(-1px); }
+  .features li strong{ display: block; margin-bottom: 0.1rem; }
 
-  /* ── Feature list ── */
-  .features li { margin-bottom: 0.5rem; }
+  /* ── FAQ ── */
+  .faq h3{ margin-top: 1.7rem; }
+  .faq h3:first-of-type{ margin-top: 0.5rem; }
+
+  .tagline{ display: none; } /* replaced by .lead in hero */
 
   /* ── Footer ── */
-  footer {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 2px solid #111;
-    font-size: 0.85rem;
-    color: #555;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .site-footer{ border-top: 1px solid var(--border); margin-top: 1rem; }
+  .footer-inner{
+    max-width: var(--maxw); margin: 0 auto; padding: 1.6rem 1.25rem;
+    font-size: 0.85rem; color: var(--ink-soft);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem;
   }
-  footer a { color: #555; }
+  .footer-inner a{ color: var(--ink-soft); }
+  .footer-inner a:hover{ color: var(--ink); }
 
-  @media (max-width: 520px) {
-    nav { flex-direction: column; }
-    .nav-links { gap: 0.25rem 1rem; }
-    h1 { font-size: 1.9rem; }
-    footer { flex-direction: column; }
+  /* ── Focus visibility ── */
+  a:focus-visible, .btn:focus-visible{
+    outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 560px){
+    .nav-inner{ flex-wrap: wrap; row-gap: 0.4rem; }
+    .nav-links{ order: 3; width: 100%; margin: 0; justify-content: flex-start; gap: 0; }
+    .nav-links a{ padding-left: 0; padding-right: 0.9rem; }
+    .nav-cta{ margin-left: auto; }
+    .hero{ padding-top: 2.4rem; }
+    .footer-inner{ flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ transition: none !important; }
   }
 </style>
 </head>
 <body>
 
-<nav role="navigation" aria-label="Main navigation">
-  <a href="/" class="nav-brand">Promptathon <span class="alpha-tag">(alpha)</span></a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#hosting">Hosting</a></li>
-    <li><a href="#alpha">Alpha</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="downloads/">Downloads</a></li>
-    <li><a href="privacy.html">Privacy</a></li>
-  </ul>
-</nav>
+<header class="site-nav">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a href="/" class="nav-brand">Promptathon <span class="alpha-tag">Alpha</span></a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="downloads/">Downloads</a></li>
+    </ul>
+    <a href="mailto:contact@promptathon.uk" class="btn btn-primary btn-sm nav-cta">Get free access</a>
+  </nav>
+</header>
 
 <main>
 
-<h1>Promptathon</h1>
-<p class="tagline">Host your own school AI competition with ease.</p>
+<section class="hero" id="top">
+  <p class="eyebrow">Free · Student-built · Alpha</p>
+  <h1>Host your own school AI competition with ease.</h1>
+  <p class="lead">Promptathon is competition software for running AI literacy events at schools &mdash; registration, a built-in Academy, secure submissions, and weighted judging in one place.</p>
+  <div class="hero-actions">
+    <a href="mailto:contact@promptathon.uk" class="btn btn-primary">Apply for free access <span class="arrow" aria-hidden="true">&rarr;</span></a>
+    <a href="#features" class="btn btn-ghost">See what's included</a>
+  </div>
 
-<div class="notice notice-alpha">
-  <strong>Alpha software.</strong> Promptathon is under active development. Free for schools willing to test it and give us honest feedback.
-</div>
+  <div class="notice notice-free">
+    <strong>Free during alpha &mdash; we host it for you.</strong> Get a subdomain like <em>yourschool.promptathon.uk</em> or connect your own domain. No servers, no setup, no payment.
+  </div>
 
-<div class="notice notice-free">
-  <strong>Free during alpha &mdash; we host it for you.</strong> Get a subdomain like <em>yourschool.promptathon.uk</em> or connect your own domain. No servers, no setup, no payment.
-  <br><br>
-  <a href="mailto:contact@promptathon.uk" class="cta">Apply for free access &rarr;</a>
-</div>
+  <div class="notice notice-alpha">
+    <strong>Alpha software.</strong> Promptathon is under active development. Free for schools willing to test it and give us honest feedback.
+  </div>
+</section>
 
-<hr id="about">
+<section id="about">
+  <h2>About</h2>
+  <p>Promptathon is competition management software built by students for running AI literacy events at schools. It covers the entire event: participant registration, a built-in learning Academy, secure file submissions, structured judging with weighted rubrics, and GDPR-compliant data handling.</p>
+  <p>We built it because running a good AI competition is hard work and no decent tool existed for schools. We want every school to be able to run one regardless of budget.</p>
 
-<h2>About</h2>
-<p>Promptathon is competition management software built by students for running AI literacy events at schools. It covers the entire event: participant registration, a built-in learning Academy, secure file submissions, structured judging with weighted rubrics, and GDPR-compliant data handling.</p>
-<p>We built it because running a good AI competition is hard work and no decent tool existed for schools. We want every school to be able to run one regardless of budget.</p>
+  <h3>Why does student data privacy matter here?</h3>
+  <p>Promptathon is designed to be entirely self-hosted so data never leaves the institution responsible for it. During alpha we host it carefully on UK servers in per-school isolated databases. After alpha, any school can run Promptathon independently on their own server with zero access from us.</p>
+</section>
 
-<h3>Why does student data privacy matter here?</h3>
-<p>Promptathon is designed to be entirely self-hosted so data never leaves the institution responsible for it. During alpha we host it carefully on UK servers in per-school isolated databases. After alpha, any school can run Promptathon independently on their own server with zero access from us.</p>
+<section id="features">
+  <h2>Features</h2>
+  <ul class="features">
+    <li><strong>Built-in Academy</strong> Self-paced modules covering AI fundamentals, prompt engineering, AI safety, and responsible use. Participants must complete these before they can submit.</li>
+    <li><strong>Configurable tasks</strong> Multiple competition briefs at different difficulty levels. Participants choose their task at submission time, not at registration.</li>
+    <li><strong>Weighted judging rubrics</strong> Define scoring criteria with custom weights. Judges score independently through a dedicated interface. Results aggregate automatically. No spreadsheets.</li>
+    <li><strong>Secure file submissions</strong> PDF and DOCX accepted. DOCX is converted to PDF by an isolated process with no network access. Every file is structurally verified and sanitised before storage.</li>
+    <li><strong>OTP email login</strong> No passwords. Participants log in with a one-time code sent to their email. Registration can be restricted to your school's email domain.</li>
+    <li><strong>Live security dashboard</strong> Real-time connection logs, login failure rates, suspicious file counts, active IP tracking, country restrictions, and IP blocking.</li>
+    <li><strong>Emergency lockdown</strong> One click to halt all registrations and submissions site-wide.</li>
+    <li><strong>GDPR data request portal</strong> Participants can submit access, export, and deletion requests through a self-service portal at any time. All requests are logged.</li>
+    <li><strong>Immutable audit log</strong> Every significant action is recorded with timestamp, actor, and IP address.</li>
+    <li><strong>Admin content editor</strong> Edit every page title, body text, and FAQ from the admin panel without touching code. Theme editor for colours and branding.</li>
+    <li><strong>One-command deployment</strong> Post-alpha, a single Python script installs Caddy (automatic HTTPS), Gunicorn, UFW firewall, email delivery, and all services on any Ubuntu 22.04 server.</li>
+  </ul>
+</section>
 
-<hr id="features">
+<section id="hosting">
+  <h2>Hosting model</h2>
 
-<h2>Features</h2>
-<ul class="features">
-  <li><strong>Built-in Academy</strong> &mdash; self-paced modules covering AI fundamentals, prompt engineering, AI safety, and responsible use. Participants must complete these before they can submit.</li>
-  <li><strong>Configurable tasks</strong> &mdash; multiple competition briefs at different difficulty levels. Participants choose their task at submission time, not at registration.</li>
-  <li><strong>Weighted judging rubrics</strong> &mdash; define scoring criteria with custom weights. Judges score independently through a dedicated interface. Results aggregate automatically. No spreadsheets.</li>
-  <li><strong>Secure file submissions</strong> &mdash; PDF and DOCX accepted. DOCX is converted to PDF by an isolated process with no network access. Every file is structurally verified and sanitised before storage.</li>
-  <li><strong>OTP email login</strong> &mdash; no passwords. Participants log in with a one-time code sent to their email. Registration can be restricted to your school's email domain.</li>
-  <li><strong>Live security dashboard</strong> &mdash; real-time connection logs, login failure rates, suspicious file counts, active IP tracking, country restrictions, and IP blocking.</li>
-  <li><strong>Emergency lockdown</strong> &mdash; one click to halt all registrations and submissions site-wide.</li>
-  <li><strong>GDPR data request portal</strong> &mdash; participants can submit access, export, and deletion requests through a self-service portal at any time. All requests are logged.</li>
-  <li><strong>Immutable audit log</strong> &mdash; every significant action is recorded with timestamp, actor, and IP address.</li>
-  <li><strong>Admin content editor</strong> &mdash; edit every page title, body text, and FAQ from the admin panel without touching code. Theme editor for colours and branding.</li>
-  <li><strong>One-command deployment</strong> &mdash; post-alpha, a single Python script installs Caddy (automatic HTTPS), Gunicorn, UFW firewall, email delivery, and all services on any Ubuntu 22.04 server.</li>
-</ul>
+  <h3>Now (alpha) &mdash; we host it</h3>
+  <p>We provision your Promptathon instance on our infrastructure and hand you the keys. You get a subdomain like <em>yourschool.promptathon.uk</em>, or connect your own domain by pointing a DNS record at us. We configure everything; you customise it through the admin panel and run your competition. Free, with no time limit.</p>
 
-<hr id="hosting">
+  <h3>After alpha &mdash; you own it</h3>
+  <p>Once the platform is stable, any school or organisation can deploy Promptathon independently. One Python setup script on any Ubuntu 22.04 server installs everything: Caddy with automatic HTTPS, the application, firewall rules, email delivery, and all services. Your domain, your database, your server. Zero dependency on us after deployment. Alpha schools get first access and full support migrating to their own server if they want it. <a href="downloads/">See the downloads &rarr;</a></p>
+</section>
 
-<h2>Hosting model</h2>
+<section id="alpha">
+  <h2>Alpha</h2>
+  <p>Promptathon is real, working software. It is also in alpha. We want honest feedback from real schools before growing further.</p>
 
-<h3>Now (alpha) &mdash; we host it</h3>
-<p>We provision your Promptathon instance on our infrastructure and hand you the keys. You get a subdomain like <em>yourschool.promptathon.uk</em>, or connect your own domain by pointing a DNS record at us. We configure everything; you customise it through the admin panel and run your competition. Free, with no time limit.</p>
+  <h3>What works well now</h3>
+  <p>Registration, OTP login, Academy with per-module progress tracking, task selection, text and file submissions with PDF/DOCX conversion and sanitisation, weighted judging, admin panel, GDPR data request portal, live security dashboard, and the automated deployment script.</p>
 
-<h3>After alpha &mdash; you own it</h3>
-<p>Once the platform is stable, any school or organisation can deploy Promptathon independently. One Python setup script on any Ubuntu 22.04 server installs everything: Caddy with automatic HTTPS, the application, firewall rules, email delivery, and all services. Your domain, your database, your server. Zero dependency on us after deployment. Alpha schools get first access and full support migrating to their own server if they want it.</p>
+  <h3>What we are still improving</h3>
+  <p>Email deliverability hardening on self-hosted mail, bulk result exports, additional Academy module formats, documentation, and performance testing at large scale (500 or more simultaneous participants).</p>
 
-<hr id="alpha">
+  <h3>What we ask from alpha schools</h3>
+  <p>Run a real competition or a thorough trial. Tell us what breaks, what confuses participants or organisers, and what would make the biggest difference. That feedback shapes the roadmap directly.</p>
 
-<h2>Alpha</h2>
-<p>Promptathon is real, working software. It is also in alpha. We want honest feedback from real schools before growing further.</p>
+  <h3>What you get</h3>
+  <p>The complete platform hosted by us, free. A subdomain or your own domain. Our personal setup and event support. Priority access to new features and input into what gets built next.</p>
 
-<h3>What works well now</h3>
-<p>Registration, OTP login, Academy with per-module progress tracking, task selection, text and file submissions with PDF/DOCX conversion and sanitisation, weighted judging, admin panel, GDPR data request portal, live security dashboard, and the automated deployment script.</p>
+  <p><strong>To apply: <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a></strong></p>
+</section>
 
-<h3>What we are still improving</h3>
-<p>Email deliverability hardening on self-hosted mail, bulk result exports, additional Academy module formats, documentation, and performance testing at large scale (500 or more simultaneous participants).</p>
+<section id="faq" class="faq">
+  <h2>Frequently asked questions</h2>
 
-<h3>What we ask from alpha schools</h3>
-<p>Run a real competition or a thorough trial. Tell us what breaks, what confuses participants or organisers, and what would make the biggest difference. That feedback shapes the roadmap directly.</p>
+  <h3>Is it really free?</h3>
+  <p>Yes. No hidden costs, no premium tier, no expiry on alpha access. We are students building this to support AI education. Making money is not the current goal.</p>
 
-<h3>What you get</h3>
-<p>The complete platform hosted by us, free. A subdomain or your own domain. Our personal setup and event support. Priority access to new features and input into what gets built next.</p>
+  <h3>Do I need to run a server?</h3>
+  <p>Not during alpha. We host every instance. You contact us, we set it up, you get a link. No servers, no SSH, no configuration. Post-alpha, self-hosting is an option if you want full data sovereignty, using a single setup script on a cheap VPS.</p>
 
-<p><strong>To apply: <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a></strong></p>
+  <h3>Can I use my own domain?</h3>
+  <p>Yes. By default we give you a subdomain like <em>yourschool.promptathon.uk</em>. If you prefer your own domain, mention it and we set it up. You point a DNS CNAME or A record at our server, which takes two minutes.</p>
 
-<hr id="faq">
+  <h3>Where is student data stored?</h3>
+  <p>During alpha: on our servers in a per-school isolated database on UK infrastructure. We treat all data as strictly confidential and do not access it except when explicitly asked for support. Post-alpha, self-hosted: entirely on your own server with zero access from us. That is the long-term design goal.</p>
 
-<h2>Frequently asked questions</h2>
+  <h3>Is it GDPR compliant?</h3>
+  <p>Yes. Built-in data request handling lets participants submit access, export, and deletion requests through a self-service portal. All requests are tracked and logged. No telemetry, no analytics, no external data sharing.</p>
 
-<h3>Is it really free?</h3>
-<p>Yes. No hidden costs, no premium tier, no expiry on alpha access. We are students building this to support AI education. Making money is not the current goal.</p>
+  <h3>How many students can it handle?</h3>
+  <p>Comfortably hundreds on a modest server. The platform uses SQLite with WAL mode for concurrent access and threaded Gunicorn workers. For 300 or more simultaneous submissions we recommend at least a 2-core, 4&nbsp;GB instance.</p>
 
-<h3>Do I need to run a server?</h3>
-<p>Not during alpha. We host every instance. You contact us, we set it up, you get a link. No servers, no SSH, no configuration. Post-alpha, self-hosting is an option if you want full data sovereignty, using a single setup script on a cheap VPS.</p>
+  <h3>What happens after the alpha period?</h3>
+  <p>We have not fixed a commercial model. Alpha schools will have plenty of notice before anything changes and will always be credited for helping build this. The core software will remain open source.</p>
 
-<h3>Can I use my own domain?</h3>
-<p>Yes. By default we give you a subdomain like <em>yourschool.promptathon.uk</em>. If you prefer your own domain, mention it and we set it up. You point a DNS CNAME or A record at our server, which takes two minutes.</p>
+  <h3>Who built Promptathon?</h3>
+  <p>Students who believe AI literacy education should be accessible to every school, not only well-funded ones. We built the thing we wished existed and are sharing it freely while we work out what it wants to become.</p>
+</section>
 
-<h3>Where is student data stored?</h3>
-<p>During alpha: on our servers in a per-school isolated database on UK infrastructure. We treat all data as strictly confidential and do not access it except when explicitly asked for support. Post-alpha, self-hosted: entirely on your own server with zero access from us. That is the long-term design goal.</p>
-
-<h3>Is it GDPR compliant?</h3>
-<p>Yes. Built-in data request handling lets participants submit access, export, and deletion requests through a self-service portal. All requests are tracked and logged. No telemetry, no analytics, no external data sharing.</p>
-
-<h3>How many students can it handle?</h3>
-<p>Comfortably hundreds on a modest server. The platform uses SQLite with WAL mode for concurrent access and threaded Gunicorn workers. For 300 or more simultaneous submissions we recommend at least a 2-core, 4&nbsp;GB instance.</p>
-
-<h3>What happens after the alpha period?</h3>
-<p>We have not fixed a commercial model. Alpha schools will have plenty of notice before anything changes and will always be credited for helping build this. The core software will remain open source.</p>
-
-<h3>Who built Promptathon?</h3>
-<p>Students who believe AI literacy education should be accessible to every school, not only well-funded ones. We built the thing we wished existed and are sharing it freely while we work out what it wants to become.</p>
-
-<hr>
-
-<p><strong>Get in touch: <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a></strong></p>
-<p><a href="privacy.html">Privacy policy</a></p>
+<section id="contact">
+  <h2>Get in touch</h2>
+  <p>Want to run a competition, or just have questions? Email us &mdash; a real person replies.</p>
+  <div class="hero-actions">
+    <a href="mailto:contact@promptathon.uk" class="btn btn-primary">Email contact@promptathon.uk</a>
+    <a href="downloads/" class="btn btn-ghost">Downloads</a>
+  </div>
+</section>
 
 </main>
 
-<footer>
-  <span>Promptathon &mdash; Alpha. Built by students. Free for schools.</span>
-  <span><a href="privacy.html">Privacy</a> &middot; <a href="mailto:contact@promptathon.uk">Contact</a></span>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>Promptathon &mdash; Alpha. Built by students. Free for schools.</span>
+    <span><a href="privacy.html">Privacy</a> &middot; <a href="mailto:contact@promptathon.uk">Contact</a></span>
+  </div>
 </footer>
 
 </body>

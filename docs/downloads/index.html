@@ -16,185 +16,194 @@
 <meta property="og:site_name" content="Promptathon">
 <meta property="og:locale" content="en_GB">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111'/><text x='6' y='26' font-family='Times New Roman, serif' font-size='26' font-weight='bold' fill='white'>P</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2309090b'/><text x='6.5' y='25' font-family='Georgia, serif' font-size='24' font-weight='bold' fill='white'>P</text></svg>">
 
 <style>
+  :root{
+    --ink:#09090b; --ink-soft:#52525b; --ink-faint:#71717a;
+    --bg:#ffffff; --bg-soft:#fafafa; --border:#e7e7ea;
+    --accent:#1d4ed8; --accent-dark:#1e3a8a; --accent-soft:#eef3ff;
+    --radius:14px; --radius-sm:9px; --maxw:760px;
+    --serif:Georgia,'Times New Roman',Cambria,'Iowan Old Style',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --shadow:0 1px 2px rgba(9,9,11,.04),0 10px 28px -14px rgba(9,9,11,.16);
+  }
   * { box-sizing: border-box; }
-
-  body {
-    font-family: 'Times New Roman', Times, serif;
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 0 1.5rem 4rem;
-    background: #fff;
-    color: #111;
-    font-size: 1.05rem;
-    line-height: 1.65;
+  html { scroll-behavior: smooth; }
+  body{
+    font-family: var(--sans); color: var(--ink); background: var(--bg); margin: 0;
+    font-size: 1.02rem; line-height: 1.65; -webkit-font-smoothing: antialiased;
   }
 
-  /* ── Navigation (matches the main site) ── */
-  nav {
-    border-bottom: 2px solid #111;
-    padding: 1rem 0 0.75rem;
-    margin-bottom: 2.5rem;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  /* ── Sticky nav (matches the main site) ── */
+  .site-nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
   }
-  .nav-brand { font-size: 1.15rem; font-weight: bold; color: #111; text-decoration: none; letter-spacing: -0.01em; }
-  .nav-brand:visited { color: #111; }
-  .nav-brand .alpha-tag { font-size: 0.65rem; font-weight: normal; font-style: italic; color: #666; margin-left: 0.4rem; vertical-align: middle; }
-  .nav-links { display: flex; flex-wrap: wrap; gap: 0 1.5rem; list-style: none; margin: 0; padding: 0; font-size: 0.9rem; }
-  .nav-links a { color: #111; text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 1px; }
-  .nav-links a:hover { border-bottom-color: #111; }
-  .nav-links a:visited { color: #111; }
-  .nav-links a.is-active { border-bottom-color: #111; font-weight: bold; }
-
-  h1 { font-size: 2.4rem; margin: 0 0 0.2rem; line-height: 1.15; }
-  h2 { font-size: 1.35rem; margin: 2.5rem 0 0.6rem; padding-bottom: 0.25rem; border-bottom: 1px solid #ccc; }
-  p  { margin: 0 0 0.75rem; }
-  a  { color: #00e; }
-  a:visited { color: #551a8b; }
-  .tagline { font-size: 1.15rem; font-style: italic; color: #444; margin-bottom: 1.25rem; }
-
-  /* ── Notices (matches the main site) ── */
-  .notice { padding: 0.75rem 1rem; margin: 1rem 0 1.5rem; font-size: 0.95rem; border-left: 3px solid #999; background: #f9f9f9; }
-  .notice-alpha { border-color: #c9a000; background: #fffdf0; }
-  .notice-free  { border-color: #2d7a2d; background: #f4fff4; }
-
-  /* ── Release cards / table ── */
-  .card {
-    border: 1px solid #ddd; border-radius: 8px;
-    padding: 1.1rem 1.25rem; margin: 1.25rem 0;
-    background: #fff;
-  }
-  .card.latest { border-color: #2d7a2d; background: #fbfffb; }
-  .card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; }
-
-  .badge {
-    display: inline-block; padding: 0.1rem 0.55rem; border-radius: 999px;
-    font-family: Arial, Helvetica, sans-serif; font-size: 0.72rem; font-weight: 700;
-    vertical-align: middle; white-space: nowrap;
-  }
-  .badge-latest { color: #065f46; background: #d1fae5; }
-  .badge-ok { color: #b45309; background: #fef3c7; }
-  .badge-beta { color: #3730a3; background: #e0e7ff; }
-  .badge-critically_outdated { color: #991b1b; background: #fee2e2; }
-  .badge-unknown { color: #374151; background: #e5e7eb; }
-
-  table.releases { width: 100%; border-collapse: collapse; margin: 0.5rem 0 0; font-size: 0.98rem; }
-  table.releases th, table.releases td { text-align: left; padding: 0.6rem 0.6rem; border-bottom: 1px solid #eee; vertical-align: middle; }
-  table.releases th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #666; border-bottom: 2px solid #ddd; }
-  .table-wrap { overflow-x: auto; border: 1px solid #ddd; border-radius: 8px; }
-  .muted { color: #777; font-size: 0.9rem; }
+  .nav-inner{ max-width: var(--maxw); margin: 0 auto; padding: 0.65rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+  .nav-brand{ font-family: var(--serif); font-size: 1.2rem; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+  .nav-brand:visited{ color: var(--ink); }
+  .alpha-tag{ font-family: var(--sans); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 0.15rem 0.45rem; border-radius: 999px; }
+  .nav-links{ display: flex; gap: 0.15rem; list-style: none; margin: 0 0 0 auto; padding: 0; }
+  .nav-links a{ color: var(--ink-soft); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 0.4rem 0.65rem; border-radius: var(--radius-sm); transition: color 0.15s ease, background 0.15s ease; }
+  .nav-links a:visited{ color: var(--ink-soft); }
+  .nav-links a:hover{ color: var(--ink); background: var(--bg-soft); }
+  .nav-links a.is-active{ color: var(--accent); }
 
   /* ── Buttons ── */
-  .btn {
-    display: inline-block; cursor: pointer; text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif; font-size: 0.85rem; font-weight: 600;
-    padding: 0.45rem 0.85rem; border-radius: 6px; border: 1px solid #111;
-    background: #111; color: #fff;
+  .btn{
+    display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--sans);
+    font-weight: 600; font-size: 0.92rem; text-decoration: none; cursor: pointer; white-space: nowrap;
+    padding: 0.55rem 1rem; border-radius: var(--radius-sm); border: 1px solid transparent;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
   }
-  .btn:visited { color: #fff; }
-  .btn:hover { background: #333; border-color: #333; }
-  .btn-ghost { background: #fff; color: #111; }
-  .btn-ghost:visited { color: #111; }
-  .btn-ghost:hover { background: #f2f2f2; }
-  .btn[disabled], .btn.is-disabled { opacity: 0.5; pointer-events: none; }
+  .btn-primary{ background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+  .btn-primary:visited{ color: #fff; }
+  .btn-primary:hover{ background: var(--accent-dark); }
+  .btn-primary:active{ transform: translateY(1px); }
+  .btn-ghost{ background: #fff; color: var(--ink); border-color: var(--border); }
+  .btn-ghost:visited{ color: var(--ink); }
+  .btn-ghost:hover{ border-color: var(--ink); background: var(--bg-soft); }
+  .btn-sm{ padding: 0.4rem 0.78rem; font-size: 0.86rem; }
+  .btn[disabled], .btn.is-disabled{ opacity: 0.5; pointer-events: none; }
+  .nav-cta{ margin-left: 0.3rem; }
+
+  /* ── Layout & type ── */
+  main{ max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+  .eyebrow{ font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.8rem; }
+  h1{ font-family: var(--serif); font-weight: 700; letter-spacing: -0.022em; font-size: clamp(2.2rem, 5.5vw, 2.9rem); line-height: 1.1; margin: 0 0 0.6rem; }
+  h2{ font-family: var(--serif); font-weight: 700; letter-spacing: -0.012em; font-size: 1.45rem; margin: 2.6rem 0 0.9rem; }
+  p{ margin: 0 0 0.85rem; max-width: 68ch; }
+  a{ color: var(--accent); text-decoration: none; }
+  a:hover{ color: var(--accent-dark); text-decoration: underline; }
+  a:visited{ color: var(--accent-dark); }
+  .lead{ font-size: 1.18rem; line-height: 1.5; color: var(--ink-soft); margin: 0 0 1.6rem; }
+  .muted{ color: var(--ink-faint); font-size: 0.9rem; }
+  .hero{ padding: 3rem 0 1rem; }
+
+  /* ── Notices ── */
+  .notice{ padding: 1rem 1.15rem; margin: 1.1rem 0; font-size: 0.96rem; border: 1px solid var(--border); border-left: 4px solid var(--ink-faint); border-radius: var(--radius); background: var(--bg-soft); }
+  .notice-alpha{ border-left-color: #c98a00; background: #fffaef; }
+  .notice-free { border-left-color: #1f9d55; background: #f2fdf6; }
+  .notice strong{ color: var(--ink); }
+  .notice-error{ border-left-color: #b91c1c; background: #fef2f2; color: #991b1b; }
+
+  /* ── Cards / table ── */
+  .card{ border: 1px solid var(--border); border-radius: var(--radius); padding: 1.15rem 1.3rem; margin: 1.25rem 0; background: #fff; box-shadow: var(--shadow); }
+  .card.latest{ border-color: #bbf7d0; background: #f6fefa; }
+  .card h3{ margin: 0 0 0.45rem; font-family: var(--sans); font-size: 1.15rem; font-weight: 650; }
+
+  .badge{ display: inline-block; padding: 0.12rem 0.6rem; border-radius: 999px; font-family: var(--sans); font-size: 0.72rem; font-weight: 700; vertical-align: middle; white-space: nowrap; }
+  .badge-latest{ color: #065f46; background: #d1fae5; }
+  .badge-ok{ color: #b45309; background: #fef3c7; }
+  .badge-beta{ color: #3730a3; background: #e0e7ff; }
+  .badge-critically_outdated{ color: #991b1b; background: #fee2e2; }
+  .badge-unknown{ color: #3f3f46; background: #e7e7ea; }
+
+  .table-wrap{ overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+  table.releases{ width: 100%; border-collapse: collapse; font-size: 0.96rem; min-width: 520px; }
+  table.releases th, table.releases td{ text-align: left; padding: 0.7rem 0.85rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  table.releases tr:last-child td{ border-bottom: none; }
+  table.releases th{ font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); background: var(--bg-soft); }
 
   /* ── Command box ── */
-  .cmd-area { margin: 1.25rem 0; }
-  pre.cmd {
-    background: #1e293b; color: #e2e8f0;
-    padding: 0.7rem 1rem; border-radius: 6px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.85rem; overflow-x: auto; margin: 0; white-space: pre;
-  }
-  .steps { margin: 0 0 0.75rem 1.4rem; }
-  .steps li { margin-bottom: 0.35rem; }
+  .cmd-area{ border-left: 4px solid var(--accent); }
+  pre.cmd{ background: #0f172a; color: #e2e8f0; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; overflow-x: auto; margin: 0; white-space: pre; }
+  .steps{ margin: 0.5rem 0 0.75rem 1.3rem; }
+  .steps li{ margin-bottom: 0.35rem; }
 
-  footer {
-    margin-top: 3rem; padding-top: 1rem; border-top: 2px solid #111;
-    font-size: 0.85rem; color: #555; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
-  }
-  footer a { color: #555; }
+  /* ── Footer ── */
+  .site-footer{ border-top: 1px solid var(--border); margin-top: 3rem; }
+  .footer-inner{ max-width: var(--maxw); margin: 0 auto; padding: 1.6rem 1.25rem; font-size: 0.85rem; color: var(--ink-soft); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem; }
+  .footer-inner a{ color: var(--ink-soft); }
+  .footer-inner a:hover{ color: var(--ink); }
 
-  @media (max-width: 520px) {
-    nav { flex-direction: column; }
-    .nav-links { gap: 0.25rem 1rem; }
-    h1 { font-size: 1.9rem; }
-    footer { flex-direction: column; }
+  a:focus-visible, .btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-sm); }
+
+  @media (max-width: 560px){
+    .nav-inner{ flex-wrap: wrap; row-gap: 0.4rem; }
+    .nav-links{ order: 3; width: 100%; margin: 0; gap: 0; }
+    .nav-links a{ padding-left: 0; padding-right: 0.9rem; }
+    .nav-cta{ margin-left: auto; }
+    .footer-inner{ flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ transition: none !important; }
   }
 </style>
 </head>
 <body>
 
-<nav role="navigation" aria-label="Main navigation">
-  <a href="/" class="nav-brand">Promptathon <span class="alpha-tag">(alpha)</span></a>
-  <ul class="nav-links">
-    <li><a href="/#about">About</a></li>
-    <li><a href="/#features">Features</a></li>
-    <li><a href="/#hosting">Hosting</a></li>
-    <li><a href="/#alpha">Alpha</a></li>
-    <li><a href="/#faq">FAQ</a></li>
-    <li><a href="/downloads/" class="is-active">Downloads</a></li>
-    <li><a href="/privacy.html">Privacy</a></li>
-  </ul>
-</nav>
+<header class="site-nav">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a href="/" class="nav-brand">Promptathon <span class="alpha-tag">Alpha</span></a>
+    <ul class="nav-links">
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/downloads/" class="is-active" aria-current="page">Downloads</a></li>
+    </ul>
+    <a href="mailto:contact@promptathon.uk" class="btn btn-primary btn-sm nav-cta">Get free access</a>
+  </nav>
+</header>
 
 <main>
 
-<h1>Downloads</h1>
-<p class="tagline">Install Promptathon on your own server.</p>
+<section class="hero">
+  <p class="eyebrow">Self-hosting</p>
+  <h1>Downloads</h1>
+  <p class="lead">Install Promptathon on your own server. One Python script sets up everything &mdash; HTTPS, the app, the firewall, and email.</p>
 
-<div class="notice notice-free">
-  <strong>Free during alpha &mdash; we host it for you.</strong> The simplest way to run Promptathon is to let us host it: you get a subdomain like <em>yourschool.promptathon.uk</em> or connect your own domain, with no servers and no setup.
-  <a href="mailto:contact@promptathon.uk">Apply for free hosted access &rarr;</a>
-</div>
+  <div class="notice notice-free">
+    <strong>Free during alpha &mdash; we host it for you.</strong> The simplest way to run Promptathon is to let us host it: a subdomain like <em>yourschool.promptathon.uk</em> or your own domain, with no servers and no setup. <a href="mailto:contact@promptathon.uk">Apply for free hosted access &rarr;</a>
+  </div>
 
-<div class="notice notice-alpha">
-  <strong>Alpha software.</strong> These installers are for advanced users who want to self-host or test on their own Ubuntu server. The installer is one Python script that sets up Caddy (automatic HTTPS), the application, the firewall, email delivery, and all services.
-</div>
+  <div class="notice notice-alpha">
+    <strong>Alpha software.</strong> These installers are for advanced users who want to self-host or test on their own Ubuntu server. The installer sets up Caddy (automatic HTTPS), the application, the firewall, email delivery, and all services.
+  </div>
+</section>
 
 <h2>Latest release</h2>
 <div id="latest-card" class="card latest">
   <p class="muted">Loading the latest release&hellip;</p>
 </div>
 
-<div id="cmd-area" class="cmd-area card" hidden style="border-left:4px solid #111;">
+<div id="cmd-area" class="card cmd-area" hidden>
   <strong id="cmd-title">Install command</strong>
-  <ol class="steps" style="margin-top:0.5rem;">
+  <ol class="steps">
     <li>Download the installer above onto an Ubuntu 22.04 server.</li>
     <li>Run it as root &mdash; it does the rest:</li>
   </ol>
   <pre id="cmd" class="cmd"></pre>
-  <p style="margin:0.5rem 0 0;"><button type="button" id="cmd-copy" class="btn btn-ghost">Copy command</button></p>
+  <p style="margin:0.6rem 0 0;"><button type="button" id="cmd-copy" class="btn btn-ghost btn-sm">Copy command</button></p>
 </div>
 
 <h2>All versions</h2>
-<p id="dl-error" class="notice" hidden style="border-color:#b00;background:#fff5f5;color:#900;"></p>
+<p id="dl-error" class="notice notice-error" hidden></p>
 <div class="table-wrap">
   <table class="releases">
     <thead>
-      <tr><th style="min-width:90px;">Version</th><th style="min-width:130px;">Status</th><th style="min-width:160px;">Release</th><th style="min-width:150px;">Action</th></tr>
+      <tr><th style="min-width:80px;">Version</th><th style="min-width:120px;">Status</th><th style="min-width:150px;">Release</th><th style="min-width:140px;">Action</th></tr>
     </thead>
     <tbody id="releases-body">
       <tr><td colspan="4" class="muted">Loading releases&hellip;</td></tr>
     </tbody>
   </table>
 </div>
-<p class="muted" style="margin-top:0.6rem;">Critically outdated versions are listed for reference but are not offered for download. Always install the latest release.</p>
+<p class="muted" style="margin-top:0.7rem;">Critically outdated versions are listed for reference but are not offered for download. Always install the latest release.</p>
 
 <h2>Need help?</h2>
 <p>Self-hosting is intended for after alpha and for technical users. If you would rather we host it for you &mdash; free &mdash; just email <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a>.</p>
 
 </main>
 
-<footer>
-  <span>Promptathon &mdash; Alpha. Built by students. Free for schools.</span>
-  <span><a href="/privacy.html">Privacy</a> &middot; <a href="mailto:contact@promptathon.uk">Contact</a></span>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>Promptathon &mdash; Alpha. Built by students. Free for schools.</span>
+    <span><a href="/privacy.html">Privacy</a> &middot; <a href="mailto:contact@promptathon.uk">Contact</a></span>
+  </div>
 </footer>
 
 <script>
@@ -233,10 +242,9 @@
     });
   });
 
-  // A download link that also reveals the matching install command.
   function downloadLink(release, label, ghost){
     var a = document.createElement('a');
-    a.className = 'btn' + (ghost ? ' btn-ghost' : '');
+    a.className = 'btn btn-sm ' + (ghost ? 'btn-ghost' : 'btn-primary');
     a.href = release.download_url;
     a.setAttribute('download', filenameFor(release.version));
     a.rel = 'noopener';
@@ -259,8 +267,8 @@
     var p = document.createElement('p');
     p.innerHTML = 'Version <strong>v' + latest.version + '</strong> &mdash; the recommended release for a fresh install.';
     var actions = document.createElement('p');
-    actions.style.margin = '0.5rem 0 0';
-    actions.appendChild(downloadLink(latest, 'Download installer'));
+    actions.style.margin = '0.6rem 0 0';
+    actions.appendChild(downloadLink(latest, 'Download installer', false));
     card.appendChild(h3); card.appendChild(p); card.appendChild(actions);
   }
 
@@ -273,16 +281,12 @@
     }
     releases.forEach(function(r){
       var tr = document.createElement('tr');
-
-      var tdV = document.createElement('td');
-      tdV.innerHTML = '<strong>v' + (r.version || '?') + '</strong>';
+      var tdV = document.createElement('td'); tdV.innerHTML = '<strong>v' + (r.version || '?') + '</strong>';
       var tdS = document.createElement('td'); tdS.appendChild(badge(r.status));
       var tdN = document.createElement('td'); tdN.className = 'muted'; tdN.textContent = r.name || '—';
       var tdA = document.createElement('td');
-
       if (r.status === 'critically_outdated'){
-        var span = document.createElement('span'); span.className = 'muted';
-        span.textContent = 'Not available'; tdA.appendChild(span);
+        var span = document.createElement('span'); span.className = 'muted'; span.textContent = 'Not available'; tdA.appendChild(span);
       } else {
         tdA.appendChild(downloadLink(r, 'Download', true));
       }
@@ -294,8 +298,7 @@
   function fail(msg){
     var e = document.getElementById('dl-error');
     e.textContent = msg; e.hidden = false;
-    document.getElementById('releases-body').innerHTML =
-      '<tr><td colspan="4" class="muted">Release list unavailable.</td></tr>';
+    document.getElementById('releases-body').innerHTML = '<tr><td colspan="4" class="muted">Release list unavailable.</td></tr>';
     renderLatest(null);
   }
 
