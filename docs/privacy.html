@@ -8,7 +8,11 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://promptathon.uk/privacy.html">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2309090b'/><text x='6.5' y='25' font-family='Georgia, serif' font-size='24' font-weight='bold' fill='white'>P</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0A0A'/><text x='6.5' y='25' font-family='Helvetica, Arial, sans-serif' font-size='25' font-weight='900' fill='%23F4F4F0'>P</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -30,119 +34,144 @@
 
 <style>
   :root{
-    --ink:#09090b; --ink-soft:#52525b; --ink-faint:#71717a;
-    --bg:#ffffff; --bg-soft:#fafafa; --border:#e7e7ea;
-    --accent:#1d4ed8; --accent-dark:#1e3a8a; --accent-soft:#eef3ff;
-    --radius:14px; --radius-sm:9px; --maxw:760px;
-    --serif:Georgia,'Times New Roman',Cambria,'Iowan Old Style',serif;
-    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    --shadow:0 1px 2px rgba(9,9,11,.04),0 10px 28px -14px rgba(9,9,11,.16);
+    --paper:#F4F4F0; --paper-2:#EAE8E3; --paper-3:#E2E0D9;
+    --ink:#0A0A0A; --graphite:#5b5b54; --graphite-meta:#3a3a35;
+    --hazard:#E61919; --hazard-dark:#b51212;
+    --line:#0A0A0A; --line-soft:#cbc9c1;
+    --maxw:880px;
+    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular','Menlo','Consolas',monospace;
+    --ease:cubic-bezier(.2,.7,.2,1);
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
   body{
-    font-family: var(--sans); color: var(--ink); background: var(--bg); margin: 0;
-    font-size: 1.02rem; line-height: 1.7; -webkit-font-smoothing: antialiased;
+    font-family:var(--sans); color:var(--ink); background:var(--paper); margin:0;
+    font-size:1.0rem; line-height:1.7; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
+    opacity:.022; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* ── Sticky nav (matches the main site) ── */
+  /* ── Nav — infrastructure bar ── */
   .site-nav{
-    position: sticky; top: 0; z-index: 50;
-    background: rgba(255,255,255,0.82);
-    backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px);
-    border-bottom: 1px solid var(--border);
+    position:sticky; top:0; z-index:40;
+    background:rgba(244,244,240,.86);
+    backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px);
+    border-bottom:2px solid var(--line);
   }
-  .nav-inner{ max-width: var(--maxw); margin: 0 auto; padding: 0.65rem 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
-  .nav-brand{ font-family: var(--serif); font-size: 1.2rem; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
-  .nav-brand:visited{ color: var(--ink); }
-  .alpha-tag{ font-family: var(--sans); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 0.15rem 0.45rem; border-radius: 999px; }
-  .nav-links{ display: flex; gap: 0.15rem; list-style: none; margin: 0 0 0 auto; padding: 0; }
-  .nav-links a{ color: var(--ink-soft); text-decoration: none; font-size: 0.9rem; font-weight: 500; padding: 0.4rem 0.65rem; border-radius: var(--radius-sm); transition: color 0.15s ease, background 0.15s ease; }
-  .nav-links a:visited{ color: var(--ink-soft); }
-  .nav-links a:hover{ color: var(--ink); background: var(--bg-soft); }
+  .nav-inner{ max-width:var(--maxw); margin:0 auto; display:flex; align-items:stretch; gap:0; min-height:58px; }
+  .nav-brand{
+    display:inline-flex; align-items:center; gap:10px; padding:0 24px;
+    text-decoration:none; color:var(--ink); font-weight:900; font-size:1.05rem;
+    letter-spacing:-.02em; border-right:2px solid var(--line); text-transform:uppercase;
+  }
+  .nav-brand .mark{ width:24px; height:24px; display:grid; place-items:center; background:var(--ink); color:var(--paper); font-weight:900; font-size:.85rem; }
+  .alpha-tag{ font-family:var(--mono); font-size:.62rem; font-weight:700; letter-spacing:.12em; color:var(--hazard); border:1px solid var(--hazard); padding:2px 6px; line-height:1; }
+  .nav-links{ display:flex; align-items:stretch; list-style:none; margin:0 0 0 auto; padding:0; }
+  .nav-links li{ display:flex; }
+  .nav-links a{
+    display:flex; align-items:center; padding:0 20px;
+    font-family:var(--mono); font-size:.74rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--graphite-meta); text-decoration:none; border-left:1px solid var(--line-soft);
+    transition:color .15s var(--ease), background .15s var(--ease);
+  }
+  .nav-links a:hover{ color:var(--ink); background:var(--paper-2); }
+  .nav-cta{
+    display:inline-flex; align-items:center; padding:0 22px; border-left:2px solid var(--line);
+    background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:.74rem; font-weight:700;
+    letter-spacing:.08em; text-transform:uppercase; text-decoration:none;
+    transition:background .15s var(--ease), color .15s var(--ease);
+  }
+  .nav-cta:hover{ background:var(--hazard); color:#fff; }
 
   /* ── Buttons ── */
-  .btn{ display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--sans); font-weight: 600; font-size: 0.92rem; text-decoration: none; cursor: pointer; white-space: nowrap; padding: 0.4rem 0.78rem; border-radius: var(--radius-sm); border: 1px solid transparent; transition: background 0.15s ease, border-color 0.15s ease; }
-  .btn-primary{ background: var(--accent); color: #fff; box-shadow: var(--shadow); }
-  .btn-primary:visited{ color: #fff; }
-  .btn-primary:hover{ background: var(--accent-dark); }
-  .nav-cta{ margin-left: 0.3rem; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-weight:700; font-size:.8rem;
+    letter-spacing:.06em; text-transform:uppercase; text-decoration:none; cursor:pointer;
+    padding:13px 20px; border:2px solid var(--ink);
+    transition:transform .08s var(--ease), background .15s var(--ease), color .15s var(--ease);
+  }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ background:var(--hazard); border-color:var(--hazard); color:#fff; }
+  .btn-primary:active{ transform:translate(1px,1px); }
 
   /* ── Layout ── */
-  main{ max-width: var(--maxw); margin: 0 auto; padding: 0 1.25rem; }
+  main{ max-width:var(--maxw); margin:0 auto; padding:0 24px; position:relative; z-index:2; }
 
   /* ── Page header ── */
-  .page-header{ padding: 2.6rem 0 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
-  .eyebrow{ font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.7rem; }
-  .page-header h1{ font-family: var(--serif); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(2rem, 5vw, 2.6rem); line-height: 1.12; margin: 0 0 0.4rem; }
-  .page-header .meta{ font-size: 0.875rem; color: var(--ink-faint); }
+  .page-header{ padding:48px 0 28px; border-bottom:2px solid var(--line); margin-bottom:36px; }
+  .eyebrow{ font-family:var(--mono); font-size:.74rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--graphite-meta); margin:0 0 16px; display:flex; align-items:center; gap:10px; }
+  .eyebrow::before{ content:"//"; color:var(--hazard); font-weight:700; }
+  .page-header h1{ font-weight:900; letter-spacing:-.04em; text-transform:uppercase; font-size:clamp(2rem,5.5vw,3rem); line-height:.96; margin:0 0 14px; }
+  .page-header .meta{ font-family:var(--mono); font-size:.74rem; color:var(--graphite-meta); letter-spacing:.04em; text-transform:uppercase; }
 
   /* ── Typography ── */
-  h2{ font-family: var(--serif); font-weight: 700; letter-spacing: -0.012em; font-size: 1.4rem; margin: 2.8rem 0 0.7rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border); scroll-margin-top: 4.5rem; }
-  h3{ font-family: var(--sans); font-size: 1.05rem; font-weight: 650; margin: 1.6rem 0 0.3rem; }
-  p{ margin: 0 0 0.8rem; max-width: 72ch; }
-  a{ color: var(--accent); text-decoration: none; }
-  a:hover{ color: var(--accent-dark); text-decoration: underline; }
-  a:visited{ color: var(--accent-dark); }
-  ul, ol{ margin: 0 0 0.8rem 1.5rem; }
-  li{ margin-bottom: 0.35rem; }
-  strong{ font-weight: 650; }
-  em{ font-style: italic; }
-  hr{ border: none; border-top: 1px solid var(--border); margin: 2.6rem 0; }
-  .section-num{ color: var(--ink-faint); font-size: 0.85rem; margin-right: 0.4rem; }
+  h2{ font-weight:800; letter-spacing:-.025em; text-transform:uppercase; font-size:1.4rem; margin:3rem 0 .9rem; padding-bottom:.55rem; border-bottom:2px solid var(--line); scroll-margin-top:74px; }
+  h3{ font-family:var(--mono); font-size:.82rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin:1.8rem 0 .5rem; }
+  h3::before{ content:"› "; color:var(--hazard); }
+  p{ margin:0 0 .85rem; max-width:74ch; color:var(--graphite); }
+  p strong{ color:var(--ink); }
+  a{ color:var(--ink); text-decoration:none; border-bottom:2px solid var(--hazard); transition:color .15s var(--ease); }
+  a:hover{ color:var(--hazard); }
+  ul, ol{ margin:0 0 .85rem 1.4rem; color:var(--graphite); }
+  li{ margin-bottom:.4rem; }
+  li::marker{ color:var(--hazard); }
+  strong{ font-weight:700; }
+  em{ font-style:normal; font-family:var(--mono); font-size:.9em; background:var(--paper-3); padding:1px 5px; }
+  hr{ border:none; border-top:2px solid var(--line); margin:3rem 0; }
+  .section-num{ font-family:var(--mono); color:var(--hazard); font-size:.85rem; font-weight:700; margin-right:.5rem; }
 
   /* ── Notices ── */
-  .notice{ padding: 1rem 1.15rem; margin: 1.1rem 0 1.6rem; font-size: 0.95rem; border: 1px solid var(--border); border-left: 4px solid #c98a00; border-radius: var(--radius); background: #fffaef; }
-  .notice strong{ color: var(--ink); }
+  .notice{ padding:20px 22px; margin:1.2rem 0 1.8rem; font-size:.94rem; line-height:1.6; color:var(--graphite); border:1px solid var(--line); border-left:4px solid var(--hazard); background:var(--paper-2); }
+  .notice strong{ color:var(--ink); text-transform:uppercase; letter-spacing:-.01em; font-size:.9em; }
 
   /* ── Summary table ── */
-  .table-wrap{ overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); margin: 1.5rem 0 2rem; }
-  .summary{ width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 560px; }
-  .summary caption{ font-family: var(--sans); font-weight: 650; text-align: left; padding: 0.85rem 0.85rem 0.5rem; font-size: 0.95rem; }
-  .summary th{ background: var(--bg-soft); border-bottom: 1px solid var(--border); padding: 0.6rem 0.85rem; text-align: left; font-weight: 650; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-faint); }
-  .summary td{ border-bottom: 1px solid var(--border); padding: 0.6rem 0.85rem; vertical-align: top; font-size: 0.88rem; }
-  .summary tbody tr:last-child td{ border-bottom: none; }
-  .summary tr:nth-child(even) td{ background: #fcfcfd; }
-  .yes{ color: #15803d; font-weight: 650; }
-  .no{ color: var(--ink-faint); }
+  .table-wrap{ overflow-x:auto; border:1px solid var(--line); margin:1.6rem 0 2.2rem; }
+  .summary{ width:100%; border-collapse:collapse; font-size:.88rem; min-width:560px; }
+  .summary caption{ font-family:var(--mono); font-weight:700; text-align:left; padding:14px 16px 12px; font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--paper); background:var(--ink); }
+  .summary th{ background:var(--paper-2); border-bottom:2px solid var(--line); border-right:1px solid var(--line-soft); padding:11px 14px; text-align:left; font-family:var(--mono); font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--graphite-meta); }
+  .summary td{ border-bottom:1px solid var(--line-soft); border-right:1px solid var(--line-soft); padding:11px 14px; vertical-align:top; font-size:.86rem; color:var(--graphite); }
+  .summary th:last-child, .summary td:last-child{ border-right:none; }
+  .summary tbody tr:last-child td{ border-bottom:none; }
+  .summary tr:nth-child(even) td{ background:rgba(226,224,217,.4); }
+  .yes{ color:var(--hazard); font-weight:700; font-family:var(--mono); font-size:.82rem; }
+  .no{ color:var(--graphite-meta); font-family:var(--mono); font-size:.82rem; }
 
   /* ── Table of contents ── */
-  .toc{ background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.35rem; margin: 0 0 2.5rem; font-size: 0.92rem; }
-  .toc h2{ font-family: var(--sans); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin: 0 0 0.6rem; border: none; padding: 0; }
-  .toc ol{ margin: 0 0 0 1.25rem; padding: 0; columns: 2; column-gap: 1.5rem; }
-  .toc li{ margin-bottom: 0.25rem; break-inside: avoid; }
+  .toc{ background:var(--paper-2); border:1px solid var(--line); border-left:4px solid var(--hazard); padding:20px 24px; margin:0 0 2.6rem; font-size:.92rem; }
+  .toc h2{ font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink); margin:0 0 .8rem; border:none; padding:0; }
+  .toc ol{ margin:0 0 0 1.25rem; padding:0; columns:2; column-gap:2rem; }
+  .toc li{ margin-bottom:.35rem; break-inside:avoid; }
+  .toc a{ border-bottom:none; color:var(--graphite); }
+  .toc a:hover{ color:var(--hazard); }
 
   /* ── Rights grid ── */
-  .rights{ display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin: 1.2rem 0; }
-  .right-item{ padding: 0.85rem 1.05rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-  .right-item:nth-child(even){ border-right: none; }
-  .right-item:nth-last-child(-n+2){ border-bottom: none; }
-  .right-item .article{ font-size: 0.72rem; color: var(--accent); display: block; margin-bottom: 0.2rem; font-weight: 600; letter-spacing: 0.02em; }
-  .right-item strong{ display: block; margin-bottom: 0.2rem; }
+  .rights{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin:1.3rem 0; }
+  .right-item{ padding:18px 20px; background:var(--paper); font-size:.9rem; color:var(--graphite); }
+  .right-item .article{ font-family:var(--mono); font-size:.68rem; color:var(--hazard); display:block; margin-bottom:.4rem; font-weight:700; letter-spacing:.08em; }
+  .right-item strong{ display:block; margin-bottom:.3rem; color:var(--ink); text-transform:uppercase; font-size:.92rem; letter-spacing:-.01em; }
+  .right-item a{ border-bottom-width:2px; }
 
   /* ── Footer ── */
-  .site-footer{ border-top: 1px solid var(--border); margin-top: 3rem; }
-  .footer-inner{ max-width: var(--maxw); margin: 0 auto; padding: 1.6rem 1.25rem; font-size: 0.85rem; color: var(--ink-soft); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.6rem; }
-  .footer-inner a{ color: var(--ink-soft); }
-  .footer-inner a:hover{ color: var(--ink); }
+  .site-footer{ position:relative; z-index:2; border-top:2px solid var(--line); margin-top:4rem; background:var(--paper); }
+  .footer-inner{ max-width:var(--maxw); margin:0 auto; padding:30px 24px; font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--graphite-meta); display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  .footer-inner a{ color:var(--graphite-meta); border-bottom:none; }
+  .footer-inner a:hover{ color:var(--hazard); }
 
-  a:focus-visible, .btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-sm); }
+  a:focus-visible, .btn:focus-visible{ outline:2px solid var(--hazard); outline-offset:3px; }
 
-  @media (max-width: 560px){
-    .nav-inner{ flex-wrap: wrap; row-gap: 0.4rem; }
-    .nav-links{ order: 3; width: 100%; margin: 0; gap: 0; }
-    .nav-links a{ padding-left: 0; padding-right: 0.9rem; }
-    .nav-cta{ margin-left: auto; }
-    .toc ol{ columns: 1; }
-    .rights{ grid-template-columns: 1fr; }
-    .right-item{ border-right: none !important; }
-    .right-item:nth-last-child(-n+2){ border-bottom: 1px solid var(--border); }
-    .right-item:last-child{ border-bottom: none; }
-    .footer-inner{ flex-direction: column; }
+  @media (max-width: 680px){
+    .nav-links{ display:none; }
+    .toc ol{ columns:1; }
+    .rights{ grid-template-columns:1fr; }
+    .footer-inner{ flex-direction:column; }
   }
   @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior: auto; }
-    *{ transition: none !important; }
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
   }
 </style>
 </head>
@@ -150,13 +179,13 @@
 
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
-    <a href="/" class="nav-brand">Promptathon <span class="alpha-tag">Alpha</span></a>
+    <a href="/" class="nav-brand"><span class="mark">P</span> Promptathon <span class="alpha-tag">ALPHA</span></a>
     <ul class="nav-links">
       <li><a href="/#features">Features</a></li>
       <li><a href="/#faq">FAQ</a></li>
       <li><a href="/downloads/">Downloads</a></li>
     </ul>
-    <a href="mailto:contact@promptathon.uk" class="btn btn-primary nav-cta">Get free access</a>
+    <a href="mailto:contact@promptathon.uk" class="nav-cta">Get Access →</a>
   </nav>
 </header>
 
@@ -226,7 +255,7 @@
     <tr>
       <td>Storage location</td>
       <td>GitHub Pages + Cloudflare (US); see Section 9</td>
-      <td>UK servers, isolated per school</td>
+      <td>VPS in the EU/UK, logically isolated per school</td>
       <td>Wherever the school deploys</td>
     </tr>
     <tr>
@@ -291,7 +320,7 @@
 <p><strong>Important:</strong> This website is hosted on GitHub Pages and served through Cloudflare. These services are operated by third parties and have their own data collection practices. See Section 9 (Hosting and Infrastructure) for details on what data GitHub Pages and Cloudflare collect.</p>
 
 <h2 id="s3"><span class="section-num">3.</span> Data on alpha-hosted instances</h2>
-<p>During the alpha period, we provision and operate Promptathon instances on our own UK infrastructure on behalf of schools. In this arrangement:</p>
+<p>During the alpha period, we provision and operate Promptathon instances on a Virtual Private Server (VPS) hosted in the EU/UK on behalf of schools. In this arrangement:</p>
 <ul>
   <li><strong>The school is the data controller.</strong> The school determines the purposes and means of processing participant data and is responsible for providing appropriate privacy notices to participants and ensuring a lawful basis for processing.</li>
   <li><strong>We are the data processor.</strong> We process personal data only on the school's instructions and only to the extent necessary to operate, maintain, and support the instance.</li>
@@ -311,7 +340,7 @@
 <h3>How we protect this data</h3>
 <ul>
   <li>Each school's data is stored in a logically isolated database. No cross-school access is possible at the application layer.</li>
-  <li>All data is stored on UK servers and is not transferred outside the UK or EEA.</li>
+  <li>All data is stored on a VPS hosted in the EU/UK and is not transferred outside the UK or EEA.</li>
   <li>All connections use HTTPS with TLS 1.2 or higher.</li>
   <li>We do not access any school's data except when the school explicitly asks us to provide technical support, and only to the minimum extent necessary.</li>
   <li>We do not sell, license, share, or otherwise disclose school or participant data to any third party for any purpose whatsoever.</li>
@@ -378,7 +407,7 @@
 
 <h2 id="s9b"><span class="section-num">9b.</span> International transfers</h2>
 <p>This website is hosted on US-based infrastructure (GitHub Pages and Cloudflare). By accessing this website, you consent to the transfer of your IP address and request metadata to the United States for processing by GitHub and Cloudflare.</p>
-<p>If you use the Promptathon alpha-hosted platform (the competition service itself), that service and all alpha-hosted instances are hosted on UK-based infrastructure. We do not transfer personal data from the platform outside the UK or EEA without explicit consent. The platform loads no external resources that would result in international transfers.</p>
+<p>If you use the Promptathon alpha-hosted platform (the competition service itself), that service and all alpha-hosted instances are hosted on a VPS in the EU/UK. We do not transfer personal data from the platform outside the UK or EEA without explicit consent. The platform loads no external resources that would result in international transfers.</p>
 
 <h2 id="s10"><span class="section-num">10.</span> Your rights under UK GDPR</h2>
 <p>Where we are the data controller, you have the following rights:</p>
@@ -424,14 +453,14 @@
   <li>Attempt to gain unauthorised access to any system, account, or data belonging to another school or to our infrastructure.</li>
   <li>Use the service to collect personal data beyond what is necessary for running a legitimate competition.</li>
   <li>Misrepresent your school or your authority to accept these terms.</li>
-  <li>Reverse-engineer, decompile, or attempt to extract source code from the hosted service (note: the source code is openly available; there is no legitimate reason to do this covertly).</li>
+  <li>Reverse-engineer, decompile, or attempt to extract source code from the hosted service (note: the source code is source-available; there is no legitimate reason to do this covertly).</li>
   <li>Resell, sublicense, or otherwise commercialise access to the hosted service.</li>
   <li>Conduct automated testing, load testing, or penetration testing against the hosted service without our prior written consent.</li>
 </ul>
 
 <h2 id="s14"><span class="section-num">14.</span> Software licence</h2>
-<p>The Promptathon source code is open source. You may inspect, use, modify, and deploy it subject to the terms of the applicable open-source licence included with the source code repository. Use of the hosted service is subject to these terms regardless of the open-source licence.</p>
-<p>Nothing in these terms restricts your right to deploy your own self-hosted instance using the open-source software.</p>
+<p>The Promptathon source code is source-available. You may inspect, use, modify, and deploy it subject to the terms of the applicable source-available licence included with the source code repository. Use of the hosted service is subject to these terms regardless of the source-available licence.</p>
+<p>Nothing in these terms restricts your right to deploy your own self-hosted instance using the source-available software.</p>
 
 <h2 id="s15"><span class="section-num">15.</span> Alpha disclaimer and liability</h2>
 <p>Promptathon is provided as alpha software on an "as is" and "as available" basis. We make no warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
@@ -453,7 +482,7 @@
 <h2 id="s17"><span class="section-num">17.</span> Termination</h2>
 <p>Either party may end the arrangement at any time without cause. You may request deletion of your instance and all associated data at any time. We will delete the instance within 30 days of a written request and confirm deletion in writing.</p>
 <p>We may terminate your access to the hosted service if you materially breach these terms, if we reasonably believe continued operation poses a security or legal risk, or if we discontinue the alpha programme. In the event of termination by us other than for cause, we will give you not less than 30 days' notice to export your data, except where immediate termination is required to address an urgent security or legal issue.</p>
-<p>On termination, your right to access the hosted service ceases. Your data will be deleted in accordance with the retention policy in Section 7. Your right to use the open-source software independently is unaffected by termination of the hosted service.</p>
+<p>On termination, your right to access the hosted service ceases. Your data will be deleted in accordance with the retention policy in Section 7. Your right to use the source-available software independently is unaffected by termination of the hosted service.</p>
 
 <h2 id="s18"><span class="section-num">18.</span> Changes to this document</h2>
 <p>We may update this document as the platform develops. Material changes affecting schools with alpha-hosted instances will be communicated to the contact email on record at least 14 days before taking effect where reasonably practicable. The date at the top of this page reflects the most recent update. Continued use of the service after notification of material changes constitutes acceptance of the updated terms, unless you object in writing before the effective date.</p>
@@ -475,8 +504,8 @@
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>Promptathon &mdash; Alpha. Built by students.</span>
-    <span><a href="/">Home</a> &middot; <a href="mailto:contact@promptathon.uk">Contact</a></span>
+    <span>Promptathon&trade; &mdash; Alpha &middot; Built by students</span>
+    <span><a href="/">Home</a> <span class="sep">/</span> <a href="mailto:contact@promptathon.uk">Contact</a></span>
   </div>
 </footer>
 
