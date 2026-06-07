@@ -14,6 +14,13 @@
 <meta property="og:title" content="Downloads — HexFox">
 <meta property="og:description" content="Download the HexFox self-hosted installer. One command installs everything on Ubuntu. Free during alpha.">
 <meta property="og:site_name" content="HexFox">
+<meta property="og:image" content="https://hexfoxlabs.com/hexfox-brand-content/card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Downloads — HexFox">
+<meta name="twitter:description" content="Download the HexFox self-hosted installer. One command installs everything on Ubuntu. Free during alpha.">
+<meta name="twitter:image" content="https://hexfoxlabs.com/hexfox-brand-content/card.png">
 
 <link rel="icon" href="../hexfox-brand-content/logo.ico" type="image/x-icon">
 
@@ -69,13 +76,15 @@ body::before {
   backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom: 2px solid var(--line);
 }
-.nav-inner { max-width: var(--maxw); margin: 0 auto; display: flex; align-items: stretch; min-height: 58px; position: relative; }
+.nav-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: stretch; min-height: 58px; position: relative; }
 .nav-brand {
   display: inline-flex; align-items: center; padding: 0 22px;
-  text-decoration: none; color: var(--ink);
-  border-right: 2px solid var(--line); flex-shrink: 0;
+  text-decoration: none; color: var(--white);
+  border-right: 2px solid var(--line); background: var(--ink);
+  flex-shrink: 0; transition: background .15s var(--ease);
 }
-.nav-logo-text { height: 24px; width: auto; display: block; }
+.nav-brand:hover { background: var(--orange); }
+.nav-logo-text { height: 26px; width: auto; display: block; }
 .nav-links { display: flex; align-items: stretch; list-style: none; margin: 0 0 0 auto; padding: 0; }
 .nav-links li { display: flex; }
 .nav-links a {
@@ -84,7 +93,7 @@ body::before {
   color: var(--graph-m); text-decoration: none; border-left: 1px solid var(--line-s);
   transition: color .15s var(--ease), background .15s var(--ease);
 }
-.nav-links a:hover { color: var(--ink); background: var(--white-2); }
+.nav-links a:hover { color: #fff; background: var(--orange); }
 .nav-links a.is-active { color: var(--orange); background: var(--white-2); }
 .nav-cta {
   display: inline-flex; align-items: center; padding: 0 20px; border-left: 2px solid var(--line);
@@ -123,8 +132,8 @@ body::before {
 main { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
 .eyebrow { font-family: var(--mono); font-size: .74rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--graph-m); margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
 .eyebrow::before { content: "//"; color: var(--orange); font-weight: 700; }
-h1 { font-family: var(--title); letter-spacing: .03em; font-size: clamp(2.2rem,6vw,3.4rem); line-height: .94; margin: 0 0 16px; }
-h2 { font-family: var(--title); letter-spacing: .03em; font-size: 1.4rem; margin: 3rem 0 1rem; padding-bottom: .55rem; border-bottom: 2px solid var(--line); }
+h1 { font-family: var(--title); letter-spacing: .03em; font-size: clamp(2.2rem,6vw,3.4rem); line-height: 1.4; margin: 0 0 16px; }
+h2 { font-family: var(--title); letter-spacing: .03em; font-size: 1.4rem; line-height: 1.4; margin: 3rem 0 1rem; padding-bottom: .55rem; border-bottom: 2px solid var(--line); }
 p { margin: 0 0 .85rem; max-width: 70ch; color: var(--graphite); }
 p strong { color: var(--ink); }
 a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--orange); transition: color .15s var(--ease); }
@@ -170,13 +179,32 @@ pre.cmd { background: var(--ink); color: #eaeaea; padding: 14px 16px; font-famil
 .steps li::marker { color: var(--orange); }
 
 /* ── Footer ── */
-.site-footer { position: relative; z-index: 2; border-top: 2px solid var(--line); margin-top: 4rem; background: var(--white); }
-.footer-inner { max-width: var(--maxw); margin: 0 auto; padding: 28px 24px; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--graph-m); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-.footer-inner a { color: var(--graph-m); border-bottom: none; }
-.footer-inner a:hover { color: var(--orange); }
-.footer-inner .sep { color: var(--line-s); }
+.site-footer { position: relative; z-index: 2; background: var(--white); margin-top: 4rem; }
+.rule { height: 1px; background: var(--line); border: 0; margin: 0; opacity: .12; }
+.foot-inner { max-width: 1180px; margin: 0 auto; padding: 28px 24px; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--graph-m); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; align-items: center; }
+.foot-inner a { color: var(--graph-m); border-bottom: none; }
+.foot-inner a:hover { color: var(--orange); }
+.foot-inner .sep { color: var(--line-s); }
+.foot-logo { display: inline-flex; align-items: center; text-decoration: none; opacity: .82; transition: opacity .2s; border-bottom: none; }
+.foot-logo:hover { opacity: 1; color: inherit; }
 
 a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+/* ── Dramatic animations ── */
+@keyframes slideUpIn { from { opacity:0; transform:translateY(36px); } to { opacity:1; transform:none; } }
+@keyframes glitchSlide {
+  0%   { opacity:0; transform:translateX(-16px) skewX(-5deg); clip-path:inset(0 100% 0 0); }
+  35%  { clip-path:inset(0 35% 0 0); transform:translateX(5px) skewX(3deg); opacity:.8; }
+  65%  { clip-path:inset(0 4% 0 0); transform:translateX(-2px) skewX(-1deg); }
+  100% { opacity:1; transform:none; clip-path:inset(0 0 0 0); }
+}
+.hero .eyebrow { animation: glitchSlide .7s cubic-bezier(.2,.7,.2,1) .05s both; }
+.hero h1 { animation: slideUpIn .85s cubic-bezier(.2,.7,.2,1) .2s both; }
+.hero .lead { animation: slideUpIn .7s cubic-bezier(.2,.7,.2,1) .4s both; }
+.hero .notice { animation: slideUpIn .6s cubic-bezier(.2,.7,.2,1) .55s both; }
+.hero .notice + .notice { animation-delay: .68s; }
+.card { transition: transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .2s cubic-bezier(.2,.7,.2,1); }
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 0 0 var(--ink); }
 
 @media (max-width: 680px) {
   .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-bottom: 2px solid var(--line); z-index: 100; }
@@ -184,7 +212,7 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
   .nav-links li { display: block; }
   .nav-links a { border-left: none; border-top: 1px solid var(--line-s); padding: 16px 22px; }
   .nav-toggle { display: flex; }
-  .footer-inner { flex-direction: column; }
+  .foot-inner { flex-direction: column; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -197,10 +225,12 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
     <a href="/" class="nav-brand">
-      <img src="../hexfox-brand-content/logo-text.svg" alt="HexFox" class="nav-logo-text">
+      <img src="../hexfox-brand-content/hexfox-logo-text-white.svg" alt="HexFox Labs" class="nav-logo-text">
     </a>
     <ul class="nav-links" id="navLinks">
+      <li><a href="/#competitions">Competitions</a></li>
       <li><a href="/#features">Features</a></li>
+      <li><a href="/#hosting">Hosting</a></li>
       <li><a href="/#faq">FAQ</a></li>
       <li><a href="/downloads/" class="is-active" aria-current="page">Downloads</a></li>
     </ul>
@@ -262,9 +292,10 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 </main>
 
 <footer class="site-footer">
-  <div class="footer-inner">
-    <span><img src="../hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" style="height:16px;width:auto;display:block;opacity:.7"></span>
-    <span><a href="/privacy.html">Privacy</a> <span class="sep">/</span> <a href="mailto:contact@hexfoxlabs.com">Contact</a></span>
+  <hr class="rule">
+  <div class="foot-inner">
+    <a href="/" class="foot-logo"><img src="../hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" style="height:30px;width:auto;display:block;"></a>
+    <span><a href="/privacy.html">Privacy</a> <span class="sep">/</span> <a href="mailto:contact@hexfoxlabs.com">Contact</a> <span class="sep">/</span> <a href="/downloads/">Downloads</a></span>
   </div>
 </footer>
 
