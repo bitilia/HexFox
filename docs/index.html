@@ -4,519 +4,454 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Primary SEO -->
-<title>Promptathon — Free AI Competition Platform for Schools</title>
-<meta name="description" content="Promptathon is free, student-built software for running AI literacy competitions at schools. Includes a built-in Academy, secure submissions, weighted judging, and GDPR-compliant data handling. Hosted by us during alpha at no cost.">
-<meta name="keywords" content="AI competition schools, promptathon, AI literacy, school competition software, prompt engineering competition, free school software, AI education UK">
-<meta name="author" content="Promptathon">
-<link rel="canonical" href="https://promptathon.uk/">
+<title>HexFox — Competition Platform for Schools</title>
+<meta name="description" content="HexFox is free competition management software for schools. Run essay competitions, design challenges, and more — with secure submissions, weighted judging, and GDPR-compliant data handling.">
+<meta name="keywords" content="competition software schools, school competition platform, essay competition, design competition, free school software">
+<meta name="author" content="HexFox">
+<link rel="canonical" href="https://hexfoxlabs.com/">
 
-<!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://promptathon.uk/">
-<meta property="og:title" content="Promptathon — Free AI Competition Platform for Schools">
-<meta property="og:description" content="Run an AI literacy competition at your school. We host it for free during alpha. Built-in Academy, secure submissions, weighted judging, GDPR-compliant. No servers needed.">
-<meta property="og:site_name" content="Promptathon">
-<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://hexfoxlabs.com/">
+<meta property="og:title" content="HexFox — Competition Platform for Schools">
+<meta property="og:description" content="Run competitions at your school. We host it free during alpha. Secure submissions, weighted judging, GDPR-compliant.">
+<meta property="og:site_name" content="HexFox">
 
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Promptathon — Free AI Competition Platform for Schools">
-<meta name="twitter:description" content="Run an AI literacy competition at your school. Free during alpha. Built by students. No servers needed.">
+<meta name="twitter:title" content="HexFox — Competition Platform for Schools">
+<meta name="twitter:description" content="Run competitions at your school. Free during alpha. Built by students. No servers needed.">
 
-<!-- Robots -->
 <meta name="robots" content="index, follow">
 
-<!-- Structured Data: SoftwareApplication -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Promptathon",
-  "url": "https://promptathon.uk",
-  "description": "Free, self-hosted AI competition management software for schools. Includes participant Academy, secure submissions, weighted judging, and GDPR-compliant data handling.",
+  "name": "HexFox",
+  "url": "https://hexfoxlabs.com",
+  "description": "Free, self-hosted competition management software for schools. Includes a built-in Learning Hub, secure submissions, weighted judging, and GDPR-compliant data handling.",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "GBP",
-    "description": "Free for schools during alpha period"
-  },
-  "audience": {
-    "@type": "EducationalAudience",
-    "educationalRole": "teacher"
-  },
-  "creator": {
-    "@type": "Organization",
-    "name": "Promptathon"
-  },
-  "featureList": [
-    "Built-in AI Academy with progress tracking",
-    "Configurable competition tasks",
-    "Weighted judging rubrics",
-    "Secure PDF and DOCX file submissions",
-    "OTP email login, no passwords",
-    "Live security dashboard",
-    "GDPR data request portal",
-    "Immutable audit log",
-    "One-command deployment"
-  ],
-  "softwareVersion": "Alpha",
-  "releaseNotes": "Alpha release. Free for schools willing to test and provide feedback.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP", "description": "Free for schools during alpha" },
+  "audience": { "@type": "EducationalAudience", "educationalRole": "teacher" },
+  "creator": { "@type": "Person", "name": "HexFox developers" },
+  "softwareVersion": "Beta",
   "inLanguage": "en-GB"
 }
 </script>
 
-<!-- Structured Data: FAQPage -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is Promptathon free?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, completely free for schools willing to test it during the alpha period and provide honest feedback. No hidden costs, no premium tier, no expiry."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need to set up a server to use Promptathon?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Not during alpha. We host every instance on our own infrastructure. You contact us, we set it up, and you receive a link. No servers, no SSH, no configuration required."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I use my own domain with Promptathon?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. By default we give you a subdomain like yourschool.promptathon.uk. If you prefer your own domain, mention it when you get in touch and we will set it up."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is Promptathon GDPR compliant?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Built-in data request handling lets participants submit access, export, and deletion requests through a self-service portal. All requests are tracked and logged. No telemetry or external data sharing."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Where is student data stored?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "During alpha, on a VPS in the EU/UK in a per-school logically isolated database. We treat all data as strictly confidential. Post-alpha, if you self-host, data is entirely on your own server with zero access from us."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Who built Promptathon?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Students who believe AI literacy education should be accessible to every school, not only well-funded ones."
-      }
-    }
+    { "@type": "Question", "name": "Is HexFox free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free for schools willing to test it during alpha and provide honest feedback. No hidden costs, no premium tier, no expiry." } },
+    { "@type": "Question", "name": "Do I need a server to use HexFox?", "acceptedAnswer": { "@type": "Answer", "text": "Not during alpha. We host every instance on our infrastructure. You contact us, we set it up, and you receive a link. No servers, no SSH, no configuration." } },
+    { "@type": "Question", "name": "Can I use my own domain with HexFox?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. By default we give you a subdomain like yourschool.hexfox.app. If you prefer your own domain, mention it when you get in touch and we will set it up." } }
   ]
 }
 </script>
 
-<!-- Structured Data: BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://promptathon.uk/" },
-    { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://promptathon.uk/privacy.html" }
-  ]
-}
-</script>
+<link rel="icon" href="hexfox-brand-content/logo.ico" type="image/x-icon">
 
-<!-- Favicon: square brutalist P -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0A0A'/><text x='6.5' y='25' font-family='Helvetica, Arial, sans-serif' font-size='25' font-weight='900' fill='%23F4F4F0'>P</text></svg>">
-
-<!-- Fonts: Inter (grotesk macro) + JetBrains Mono (telemetry micro) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
-  :root{
-    /* ── Substrate: Swiss Industrial Print ── */
-    --paper:#F4F4F0;          /* unbleached documentation paper */
-    --paper-2:#EAE8E3;        /* recessed panel */
-    --paper-3:#E2E0D9;        /* deeper panel */
-    --ink:#0A0A0A;            /* carbon ink */
-    --ink-2:#222220;
-    --graphite:#5b5b54;       /* secondary text */
-    --graphite-meta:#3a3a35;  /* mono metadata (>=7:1 on paper) */
-    --hazard:#E61919;         /* the only accent — aviation red */
-    --hazard-dark:#b51212;
-    --line:#0A0A0A;           /* hard structural border */
-    --line-soft:#cbc9c1;      /* thin technical divider */
+@font-face {
+  font-family: 'Boldonse';
+  src: url('hexfox-brand-content/fonts/Boldonse.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('hexfox-brand-content/fonts/Montserrat.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 
-    --maxw:1180px;
-    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular','Menlo','Consolas',monospace;
-    --ease:cubic-bezier(.2,.7,.2,1);
-  }
+:root {
+  --white:   #ffffff;
+  --white-2: #f5f5f5;
+  --white-3: #ebebeb;
+  --ink:     #0a0a0a;
+  --graphite:#5b5b54;
+  --graph-m: #3a3a35;
+  --orange:  #f27d00;
+  --orange-d:#d46a00;
+  --line:    #0a0a0a;
+  --line-s:  #d4d4d0;
 
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  --maxw:  1180px;
+  --title: 'Boldonse', serif;
+  --body:  'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --ease:  cubic-bezier(.2,.7,.2,1);
+}
 
-  body{
-    font-family:var(--sans);
-    color:var(--ink);
-    background:var(--paper);
-    margin:0;
-    font-size:1.0rem;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-  }
-  body::before{
-    /* mechanical noise overlay — kept very faint, never behind body copy */
-    content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
-    opacity:.022; mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  /* contained engineering grid — only where it reads as texture, not under prose */
-  .gridbg{
-    background-image:
-      linear-gradient(var(--line-soft) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
-    background-size:56px 56px, 56px 56px;
-    background-position:center;
-  }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
-  /* ── Shared rails ── */
-  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
-  .rule{ height:1px; background:var(--line); border:0; margin:0; opacity:.14; }
+body {
+  font-family: var(--body);
+  color: var(--ink);
+  background: var(--white);
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: .016; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-  /* ════ NAV — software infrastructure bar ════ */
-  .site-nav{
-    position:sticky; top:0; z-index:40;
-    background:rgba(244,244,240,.86);
-    backdrop-filter:saturate(140%) blur(10px);
-    -webkit-backdrop-filter:saturate(140%) blur(10px);
-    border-bottom:2px solid var(--line);
-  }
-  .nav-inner{
-    max-width:var(--maxw); margin:0 auto;
-    display:flex; align-items:stretch; gap:0;
-    min-height:58px;
-  }
-  .nav-brand{
-    display:inline-flex; align-items:center; gap:10px;
-    padding:0 24px; text-decoration:none; color:var(--ink);
-    font-weight:900; font-size:1.05rem; letter-spacing:-.02em;
-    border-right:2px solid var(--line);
-    text-transform:uppercase;
-  }
-  .nav-brand .mark{
-    width:24px; height:24px; display:grid; place-items:center;
-    background:var(--ink); color:var(--paper);
-    font-weight:900; font-size:.85rem;
-  }
-  .alpha-tag{
-    font-family:var(--mono); font-size:.62rem; font-weight:700;
-    letter-spacing:.12em; color:var(--hazard);
-    border:1px solid var(--hazard); padding:2px 6px; line-height:1;
-  }
-  .nav-links{
-    display:flex; align-items:stretch; list-style:none; margin:0 0 0 auto; padding:0;
-  }
-  .nav-links li{ display:flex; }
-  .nav-links a{
-    display:flex; align-items:center; padding:0 20px;
-    font-family:var(--mono); font-size:.74rem; font-weight:500;
-    letter-spacing:.08em; text-transform:uppercase;
-    color:var(--graphite-meta); text-decoration:none;
-    border-left:1px solid var(--line-soft);
-    transition:color .15s var(--ease), background .15s var(--ease);
-  }
-  .nav-links a:hover{ color:var(--ink); background:var(--paper-2); }
-  .nav-cta{
-    display:inline-flex; align-items:center; padding:0 22px;
-    border-left:2px solid var(--line); background:var(--ink); color:var(--paper);
-    font-family:var(--mono); font-size:.74rem; font-weight:700;
-    letter-spacing:.08em; text-transform:uppercase; text-decoration:none;
-    transition:background .15s var(--ease), color .15s var(--ease);
-  }
-  .nav-cta:hover{ background:var(--hazard); color:#fff; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+.rule { height: 1px; background: var(--line); border: 0; margin: 0; opacity: .12; }
 
-  /* ════ BUTTONS — tactile, mechanical ════ */
-  .btn{
-    position:relative; display:inline-flex; align-items:center; gap:10px;
-    font-family:var(--mono); font-weight:700; font-size:.8rem;
-    letter-spacing:.06em; text-transform:uppercase; text-decoration:none;
-    padding:15px 22px; cursor:pointer; border:2px solid var(--ink);
-    transition:transform .08s var(--ease), background .15s var(--ease), color .15s var(--ease), box-shadow .12s var(--ease);
-  }
-  .btn-primary{ background:var(--ink); color:var(--paper); box-shadow:5px 5px 0 0 rgba(10,10,10,.12); }
-  .btn-primary:hover{ background:var(--hazard); border-color:var(--hazard); color:#fff; box-shadow:5px 5px 0 0 var(--ink); }
-  .btn-primary:active{ transform:translate(2px,2px); box-shadow:2px 2px 0 0 var(--ink); }
-  .btn-ghost{ background:transparent; color:var(--ink); }
-  .btn-ghost:hover{ background:var(--ink); color:var(--paper); }
-  .btn-ghost:active{ transform:translate(1px,1px); }
-  .btn .arrow{ transition:transform .15s var(--ease); }
-  .btn:hover .arrow{ transform:translateX(4px); }
+/* ════ NAV ════ */
+.site-nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(140%) blur(12px);
+  -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 2px solid var(--line);
+}
+.nav-inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: stretch;
+  min-height: 58px; position: relative;
+}
+.nav-brand {
+  display: inline-flex; align-items: center;
+  padding: 0 22px; text-decoration: none; color: var(--ink);
+  border-right: 2px solid var(--line);
+  flex-shrink: 0;
+}
+.nav-logo-text { height: 26px; width: auto; display: block; }
+.nav-links {
+  display: flex; align-items: stretch; list-style: none; margin: 0 0 0 auto; padding: 0;
+}
+.nav-links li { display: flex; }
+.nav-links a {
+  display: flex; align-items: center; padding: 0 18px;
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--graph-m); text-decoration: none;
+  border-left: 1px solid var(--line-s);
+  transition: color .15s var(--ease), background .15s var(--ease);
+}
+.nav-links a:hover { color: var(--ink); background: var(--white-2); }
+.nav-cta {
+  display: inline-flex; align-items: center; padding: 0 20px;
+  border-left: 2px solid var(--line); background: var(--ink); color: var(--white);
+  font-family: var(--mono); font-size: .72rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+  transition: background .15s var(--ease);
+  flex-shrink: 0;
+}
+.nav-cta:hover { background: var(--orange); }
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+  width: 52px; min-height: 58px; background: none; border: none;
+  border-left: 1px solid var(--line-s); cursor: pointer; padding: 0; flex-shrink: 0;
+}
+.nav-toggle span {
+  display: block; width: 20px; height: 2px; background: var(--ink);
+  transition: transform .2s var(--ease), opacity .2s var(--ease);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ════ SECTION SCAFFOLD ════ */
-  section{ position:relative; z-index:2; scroll-margin-top:72px; }
-  .sec-head{
-    display:flex; align-items:baseline; gap:18px; flex-wrap:wrap;
-    border-bottom:2px solid var(--line); padding:18px 0 14px; margin-bottom:36px;
-  }
-  .sec-idx{
-    font-family:var(--mono); font-size:.78rem; font-weight:700;
-    letter-spacing:.1em; color:var(--hazard);
-  }
-  .sec-title{
-    font-weight:800; font-size:clamp(1.5rem,3.2vw,2.1rem);
-    letter-spacing:-.03em; text-transform:uppercase; margin:0; line-height:1;
-  }
-  .sec-meta{
-    margin-left:auto; font-family:var(--mono); font-size:.7rem;
-    letter-spacing:.08em; color:var(--graphite-meta); text-transform:uppercase;
-  }
-  .pad{ padding:64px 0; }
-  section + section{ border-top:1px solid var(--line); border-color:rgba(10,10,10,.1); }
+/* ════ BUTTONS ════ */
+.btn {
+  position: relative; display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--mono); font-weight: 700; font-size: .8rem;
+  letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  padding: 15px 22px; cursor: pointer; border: 2px solid var(--ink);
+  transition: transform .08s var(--ease), background .15s var(--ease),
+              color .15s var(--ease), box-shadow .12s var(--ease);
+}
+.btn-primary { background: var(--ink); color: var(--white); box-shadow: 4px 4px 0 0 rgba(10,10,10,.14); }
+.btn-primary:hover { background: var(--orange); border-color: var(--orange); color: #fff; box-shadow: 4px 4px 0 0 var(--ink); }
+.btn-primary:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 0 var(--ink); }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--white); }
+.btn-ghost:active { transform: translate(1px,1px); }
+.btn .arrow { transition: transform .15s var(--ease); }
+.btn:hover .arrow { transform: translateX(4px); }
 
-  /* ════ HERO ════ */
-  .hero{ border-bottom:2px solid var(--line); overflow:hidden; }
-  .hero-grid{ display:block; }
-  .hero-main{ max-width:var(--maxw); margin:0 auto; padding:72px 24px 64px; }
+/* ════ SECTIONS ════ */
+section { position: relative; z-index: 2; scroll-margin-top: 74px; }
+.sec-head {
+  display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--line); padding: 18px 0 14px; margin-bottom: 36px;
+}
+.sec-idx { font-family: var(--mono); font-size: .78rem; font-weight: 700; letter-spacing: .1em; color: var(--orange); }
+.sec-title { font-family: var(--title); font-size: clamp(1.4rem,3vw,1.9rem); letter-spacing: .03em; margin: 0; line-height: 1; }
+.sec-meta { margin-left: auto; font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; color: var(--graph-m); text-transform: uppercase; }
+.pad { padding: 64px 0; }
+section + section { border-top: 1px solid rgba(10,10,10,.07); }
 
-  .eyebrow{
-    font-family:var(--mono); font-size:.74rem; font-weight:500;
-    letter-spacing:.16em; text-transform:uppercase; color:var(--graphite-meta);
-    display:flex; align-items:center; gap:10px; margin:0 0 28px;
-  }
-  .eyebrow::before{ content:"//"; color:var(--hazard); font-weight:700; }
-  .status-dot{
-    width:8px; height:8px; background:var(--hazard); margin-left:4px;
-    box-shadow:0 0 0 0 rgba(230,25,25,.6); animation:pulse 2.4s var(--ease) infinite;
-  }
-  @keyframes pulse{ 0%{box-shadow:0 0 0 0 rgba(230,25,25,.55);} 70%{box-shadow:0 0 0 7px rgba(230,25,25,0);} 100%{box-shadow:0 0 0 0 rgba(230,25,25,0);} }
+/* ════ HERO ════ */
+.hero { border-bottom: 2px solid var(--line); }
+.hero-main { max-width: var(--maxw); margin: 0 auto; padding: 80px 24px 64px; }
 
-  h1.hero-title{
-    margin:0 0 26px; font-weight:900; text-transform:uppercase;
-    font-size:clamp(2.7rem,7.2vw,5.4rem); line-height:.92; letter-spacing:-.045em;
-  }
-  h1.hero-title .red{ color:var(--hazard); }
-  .lead{
-    font-size:clamp(1.05rem,1.6vw,1.22rem); line-height:1.5; color:var(--graphite);
-    max-width:46ch; margin:0 0 34px; font-weight:500;
-  }
-  .hero-actions{ display:flex; flex-wrap:wrap; gap:14px; }
+.eyebrow {
+  font-family: var(--mono); font-size: .72rem; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--graph-m);
+  display: flex; align-items: center; gap: 10px; margin: 0 0 28px;
+}
+.eyebrow::before { content: "//"; color: var(--orange); font-weight: 700; }
+.status-dot {
+  width: 8px; height: 8px; background: var(--orange); margin-left: 4px;
+  animation: pulse 2.4s var(--ease) infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(242,125,0,.55); }
+  70%  { box-shadow: 0 0 0 7px rgba(242,125,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(242,125,0,0); }
+}
+h1.hero-title {
+  font-family: var(--title);
+  margin: 0 0 26px;
+  font-size: clamp(2.4rem,6.5vw,5rem);
+  line-height: 1.1; letter-spacing: .03em;
+  text-wrap: balance;
+}
+h1.hero-title .accent { color: var(--orange); }
+.lead {
+  font-size: clamp(1.05rem,1.6vw,1.22rem); line-height: 1.55; color: var(--graphite);
+  max-width: 46ch; margin: 0 0 34px; font-weight: 500;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 
+.notices { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--line); }
+.notice {
+  padding: 22px 24px; font-size: .92rem; line-height: 1.55; color: var(--graphite);
+  border-left: 4px solid var(--ink);
+}
+.notice + .notice { border-left: 1px solid var(--line-s); }
+.notice-free { border-left-color: var(--orange); }
+.notice b { display: block; color: var(--ink); font-weight: 700; font-size: .86rem; margin-bottom: 5px; }
+.notice code { font-family: var(--mono); font-size: .85em; background: var(--white-3); padding: 1px 5px; }
 
-  /* notices */
-  .notices{ display:grid; grid-template-columns:1fr 1fr; border-top:2px solid var(--line); }
-  .notice{
-    padding:22px 24px; font-size:.92rem; line-height:1.5; color:var(--graphite);
-    border-left:4px solid var(--ink);
-  }
-  .notice + .notice{ border-left:1px solid var(--line-soft); }
-  .notice-free{ border-left-color:var(--hazard); }
-  .notice b{ display:block; color:var(--ink); font-weight:800; text-transform:uppercase;
-    letter-spacing:-.01em; font-size:.86rem; margin-bottom:5px; }
-  .notice code{ font-family:var(--mono); font-size:.85em; background:var(--paper-3); padding:1px 5px; }
+/* ════ COMPETITION TILES ════ */
+.comp-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+}
+.comp-tile {
+  background: var(--white); padding: 36px 28px 40px;
+  position: relative; overflow: hidden;
+  transition: background .18s var(--ease);
+}
+.comp-tile::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: var(--line); transition: background .25s var(--ease);
+}
+.comp-tile:hover { background: var(--white-2); }
+.comp-tile:hover::before { background: var(--orange); }
+.comp-num {
+  font-family: var(--mono); font-size: .72rem; font-weight: 700;
+  color: var(--orange); letter-spacing: .08em; display: block; margin-bottom: 18px;
+}
+.comp-tile h3 { font-family: var(--title); font-size: 1.25rem; margin: 0 0 14px; line-height: 1.1; letter-spacing: .03em; }
+.comp-tile p { color: var(--graphite); font-size: .93rem; line-height: 1.55; margin: 0; }
 
-  /* ════ ABOUT / MANIFESTO ════ */
-  .manifesto{
-    font-size:clamp(1.3rem,2.6vw,1.9rem); font-weight:700; line-height:1.28;
-    letter-spacing:-.02em; max-width:24ch; margin:0;
-  }
-  .manifesto .red{ color:var(--hazard); }
-  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0; }
-  .about-grid > div{ padding:0 32px; }
-  .about-grid > div:first-child{ padding-left:0; border-right:1px solid var(--line-soft); }
-  .about-grid > div:last-child{ padding-right:0; }
-  .about-grid p{ color:var(--graphite); margin:0 0 14px; max-width:54ch; }
-  .about-grid h3{
-    font-family:var(--mono); font-size:.74rem; font-weight:700; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--ink); margin:0 0 14px;
-  }
-  .about-grid h3::before{ content:"› "; color:var(--hazard); }
+/* ════ ABOUT ════ */
+.manifesto {
+  font-family: var(--title); font-size: clamp(1.25rem,2.8vw,1.9rem);
+  letter-spacing: .03em; max-width: 22ch; margin: 0; line-height: 1.15;
+}
+.manifesto .accent { color: var(--orange); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.about-grid > div { padding: 0 32px; }
+.about-grid > div:first-child { padding-left: 0; border-right: 1px solid var(--line-s); }
+.about-grid > div:last-child { padding-right: 0; }
+.about-grid p { color: var(--graphite); margin: 0 0 14px; max-width: 54ch; }
+.about-grid h3 { font-family: var(--mono); font-size: .74rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin: 0 0 14px; }
+.about-grid h3::before { content: "› "; color: var(--orange); }
 
-  /* ════ FEATURES — brutalist card matrix ════ */
-  .features{
-    list-style:none; margin:0; padding:0;
-    display:grid; grid-template-columns:repeat(3,1fr);
-    gap:1px; background:var(--line); border:1px solid var(--line);
-  }
-  .features li{
-    background:var(--paper); padding:26px 24px 28px; margin:0;
-    position:relative; transition:background .18s var(--ease), transform .18s var(--ease);
-  }
-  .features li::after{
-    content:""; position:absolute; left:0; bottom:0; width:0; height:3px;
-    background:var(--hazard); transition:width .25s var(--ease);
-  }
-  .features li:hover{ background:var(--paper-2); }
-  .features li:hover::after{ width:100%; }
-  .feat-idx{
-    font-family:var(--mono); font-size:.72rem; font-weight:700; color:var(--hazard);
-    letter-spacing:.08em; display:block; margin-bottom:14px;
-  }
-  .features li strong{
-    display:block; font-size:1.02rem; font-weight:800; letter-spacing:-.01em;
-    text-transform:uppercase; margin-bottom:8px;
-  }
-  .features li span{ display:block; color:var(--graphite); font-size:.9rem; line-height:1.5; }
+/* ════ FEATURES ════ */
+.features {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+}
+.features li {
+  background: var(--white); padding: 26px 24px 28px; margin: 0;
+  position: relative; transition: background .18s var(--ease);
+}
+.features li::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 3px;
+  background: var(--orange); transition: width .25s var(--ease);
+}
+.features li:hover { background: var(--white-2); }
+.features li:hover::after { width: 100%; }
+.feat-idx { font-family: var(--mono); font-size: .72rem; font-weight: 700; color: var(--orange); letter-spacing: .08em; display: block; margin-bottom: 14px; }
+.features li strong { display: block; font-size: .98rem; font-weight: 700; margin-bottom: 8px; }
+.features li span { display: block; color: var(--graphite); font-size: .9rem; line-height: 1.5; }
 
-  /* ════ HOSTING — two compartments ════ */
-  .duo{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); }
-  .duo article{ background:var(--paper); padding:32px 30px 34px; }
-  .duo .tag{
-    font-family:var(--mono); font-size:.7rem; font-weight:700; letter-spacing:.12em;
-    text-transform:uppercase; display:inline-flex; align-items:center; gap:8px; margin-bottom:18px;
-    border:1px solid var(--line); padding:5px 10px;
-  }
-  .duo .tag.now{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
-  .duo h3{ font-size:1.3rem; font-weight:800; letter-spacing:-.02em; text-transform:uppercase; margin:0 0 14px; }
-  .duo p{ color:var(--graphite); margin:0 0 14px; font-size:.94rem; }
-  .duo code{ font-family:var(--mono); font-size:.85em; background:var(--paper-3); padding:1px 5px; }
-  .duo a.inline{ color:var(--ink); font-weight:700; text-decoration:none; border-bottom:2px solid var(--hazard); }
-  .duo a.inline:hover{ color:var(--hazard); }
+/* ════ HOSTING ════ */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.duo article { background: var(--white); padding: 32px 30px 34px; }
+.duo .tag {
+  font-family: var(--mono); font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; display: inline-flex; align-items: center; gap: 8px;
+  margin-bottom: 18px; border: 1px solid var(--line); padding: 5px 10px;
+}
+.duo .tag.now { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.duo h3 { font-family: var(--title); font-size: 1.3rem; letter-spacing: .03em; margin: 0 0 14px; }
+.duo p { color: var(--graphite); margin: 0 0 14px; font-size: .94rem; }
+.duo code { font-family: var(--mono); font-size: .85em; background: var(--white-3); padding: 1px 5px; }
+.duo a.inline { color: var(--ink); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--orange); }
+.duo a.inline:hover { color: var(--orange); }
 
-  /* ════ ALPHA — status board ════ */
-  .board{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
-  .board section, .board > div{ background:var(--paper); padding:26px 22px 28px; border:0; }
-  .board .col-head{
-    font-family:var(--mono); font-size:.7rem; font-weight:700; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--ink); margin:0 0 16px; padding-bottom:12px;
-    border-bottom:2px solid var(--line); display:flex; justify-content:space-between; align-items:center;
-  }
-  .board .col-head .n{ color:var(--hazard); }
-  .board ul{ list-style:none; margin:0; padding:0; }
-  .board li{
-    font-size:.86rem; color:var(--graphite); line-height:1.4; padding:7px 0 7px 16px;
-    position:relative; border-bottom:1px solid var(--line-soft);
-  }
-  .board li:last-child{ border-bottom:0; }
-  .board li::before{ content:"—"; position:absolute; left:0; color:var(--hazard); font-family:var(--mono); }
+/* ════ STATUS BOARD ════ */
+.board { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.board > div { background: var(--white); padding: 26px 22px 28px; }
+.board .col-head {
+  font-family: var(--mono); font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink); margin: 0 0 16px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--line); display: flex; justify-content: space-between; align-items: center;
+}
+.board .col-head .n { color: var(--orange); }
+.board ul { list-style: none; margin: 0; padding: 0; }
+.board li {
+  font-size: .86rem; color: var(--graphite); line-height: 1.4; padding: 7px 0 7px 16px;
+  position: relative; border-bottom: 1px solid var(--line-s);
+}
+.board li:last-child { border-bottom: 0; }
+.board li::before { content: "—"; position: absolute; left: 0; color: var(--orange); font-family: var(--mono); }
 
-  /* ════ FAQ — terminal accordion ════ */
-  .faq-list{ border:1px solid var(--line); }
-  details.qa{ border-bottom:1px solid var(--line-soft); background:var(--paper); }
-  details.qa:last-child{ border-bottom:0; }
-  details.qa summary{
-    list-style:none; cursor:pointer; padding:20px 24px;
-    display:flex; align-items:center; gap:16px;
-    font-weight:700; font-size:1.02rem; letter-spacing:-.01em;
-    transition:background .15s var(--ease);
-  }
-  details.qa summary::-webkit-details-marker{ display:none; }
-  details.qa summary:hover{ background:var(--paper-2); }
-  details.qa .q-idx{ font-family:var(--mono); font-size:.74rem; font-weight:700; color:var(--hazard); flex:none; }
-  details.qa .q-sign{ margin-left:auto; font-family:var(--mono); font-weight:700; color:var(--graphite-meta); transition:transform .2s var(--ease); flex:none; }
-  details.qa[open] .q-sign{ transform:rotate(45deg); color:var(--hazard); }
-  details.qa .a{ padding:0 24px 22px 60px; color:var(--graphite); font-size:.95rem; max-width:72ch; }
-  details.qa .a code, details.qa .a em{ font-family:var(--mono); font-style:normal; font-size:.88em; background:var(--paper-3); padding:1px 5px; }
+/* ════ FAQ ════ */
+.faq-list { border: 1px solid var(--line); }
+details.qa { border-bottom: 1px solid var(--line-s); background: var(--white); }
+details.qa:last-child { border-bottom: 0; }
+details.qa summary {
+  list-style: none; cursor: pointer; padding: 20px 24px;
+  display: flex; align-items: center; gap: 16px;
+  font-weight: 600; font-size: 1rem;
+  transition: background .15s var(--ease);
+}
+details.qa summary::-webkit-details-marker { display: none; }
+details.qa summary:hover { background: var(--white-2); }
+details.qa .q-idx { font-family: var(--mono); font-size: .74rem; font-weight: 700; color: var(--orange); flex: none; }
+details.qa .q-sign { margin-left: auto; font-family: var(--mono); font-weight: 700; color: var(--graph-m); transition: transform .2s var(--ease); flex: none; }
+details.qa[open] .q-sign { transform: rotate(45deg); color: var(--orange); }
+details.qa .a { padding: 0 24px 22px 60px; color: var(--graphite); font-size: .95rem; max-width: 72ch; }
+details.qa .a code, details.qa .a em { font-family: var(--mono); font-style: normal; font-size: .88em; background: var(--white-3); padding: 1px 5px; }
 
-  /* ════ CONTACT BAND ════ */
-  .cta{ background:var(--ink); color:var(--paper); border-top:2px solid var(--line); border-bottom:2px solid var(--line);
-    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-    background-size:64px 64px,64px 64px; }
-  .cta .wrap{ padding:72px 24px; }
-  .cta .eyebrow{ color:#a8a8a2; }
-  .cta .eyebrow::before{ color:var(--hazard); }
-  .cta h2{
-    font-size:clamp(2rem,5vw,3.6rem); font-weight:900; text-transform:uppercase;
-    letter-spacing:-.04em; line-height:.95; margin:0 0 16px;
-  }
-  .cta p{ color:#c4c4be; max-width:50ch; margin:0 0 32px; font-size:1.05rem; }
-  .cta .btn-primary{ background:var(--paper); color:var(--ink); border-color:var(--paper); box-shadow:5px 5px 0 0 rgba(230,25,25,.5); }
-  .cta .btn-primary:hover{ background:var(--hazard); border-color:var(--hazard); color:#fff; box-shadow:5px 5px 0 0 var(--paper); }
-  .cta .btn-ghost{ color:var(--paper); border-color:var(--paper); }
-  .cta .btn-ghost:hover{ background:var(--paper); color:var(--ink); }
+/* ════ CTA BAND ════ */
+.cta {
+  background: var(--ink); color: var(--white);
+  border-top: 2px solid var(--line); border-bottom: 2px solid var(--line);
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px;
+}
+.cta .wrap { padding: 72px 24px; }
+.cta .eyebrow { color: #a8a8a2; }
+.cta .eyebrow::before { color: var(--orange); }
+.cta h2 { font-family: var(--title); font-size: clamp(2rem,5vw,3.4rem); letter-spacing: .03em; line-height: 1.1; margin: 0 0 16px; }
+.cta p { color: #c4c4be; max-width: 50ch; margin: 0 0 32px; font-size: 1.05rem; }
+.cta .btn-primary { background: var(--white); color: var(--ink); border-color: var(--white); box-shadow: 5px 5px 0 0 rgba(242,125,0,.45); }
+.cta .btn-primary:hover { background: var(--orange); border-color: var(--orange); color: #fff; box-shadow: 5px 5px 0 0 var(--white); }
+.cta .btn-ghost { color: var(--white); border-color: var(--white); }
+.cta .btn-ghost:hover { background: var(--white); color: var(--ink); }
 
-  /* ════ FOOTER ════ */
-  .site-footer{ position:relative; z-index:2; background:var(--paper); }
-  .foot-inner{
-    max-width:var(--maxw); margin:0 auto; padding:30px 24px;
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;
-    font-family:var(--mono); font-size:.72rem; letter-spacing:.06em;
-    text-transform:uppercase; color:var(--graphite-meta);
-  }
-  .foot-inner a{ color:var(--graphite-meta); text-decoration:none; }
-  .foot-inner a:hover{ color:var(--hazard); }
-  .foot-inner .sep{ color:var(--line-soft); }
+/* ════ FOOTER ════ */
+.site-footer { position: relative; z-index: 2; background: var(--white); }
+.foot-inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 28px 24px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--graph-m);
+}
+.foot-inner a { color: var(--graph-m); text-decoration: none; }
+.foot-inner a:hover { color: var(--orange); }
+.foot-inner .sep { color: var(--line-s); }
 
-  /* ════ MOTION — scroll reveal ════ */
-  [data-reveal]{ opacity:0; transform:translateY(16px); }
-  [data-reveal].in{ opacity:1; transform:none; transition:opacity .6s var(--ease), transform .6s var(--ease); }
+/* ════ REVEAL ════ */
+[data-reveal] { opacity: 0; transform: translateY(16px); }
+[data-reveal].in { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); }
 
-  /* ════ FOCUS ════ */
-  a:focus-visible, .btn:focus-visible, summary:focus-visible{
-    outline:2px solid var(--hazard); outline-offset:3px;
-  }
+/* ════ FOCUS ════ */
+a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
-  /* ════ RESPONSIVE ════ */
-  @media (max-width:920px){
-    .features{ grid-template-columns:repeat(2,1fr); }
-    .board{ grid-template-columns:repeat(2,1fr); }
-  }
-  @media (max-width:680px){
-    .nav-links{ display:none; }
-    .features{ grid-template-columns:1fr; }
-    .board{ grid-template-columns:1fr; }
-    .duo, .about-grid, .notices{ grid-template-columns:1fr; }
-    .about-grid > div{ padding:0 !important; border-right:0 !important; }
-    .about-grid > div:first-child{ border-bottom:1px solid var(--line-soft); padding-bottom:24px !important; margin-bottom:24px; }
-    .notice + .notice{ border-left:4px solid var(--ink); border-top:1px solid var(--line-soft); }
-    .pad{ padding:48px 0; }
-  }
-  @media (prefers-reduced-motion:reduce){
-    html{ scroll-behavior:auto; }
-    *{ transition:none !important; animation:none !important; }
-    [data-reveal]{ opacity:1; transform:none; }
-  }
+/* ════ RESPONSIVE ════ */
+@media (max-width: 960px) {
+  .features { grid-template-columns: repeat(2,1fr); }
+  .board { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 680px) {
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-bottom: 2px solid var(--line); z-index: 100; }
+  .nav-links.is-open { display: flex; }
+  .nav-links li { display: block; }
+  .nav-links a { border-left: none; border-top: 1px solid var(--line-s); padding: 16px 22px; font-size: .8rem; }
+  .nav-toggle { display: flex; }
+  .comp-grid { grid-template-columns: 1fr; }
+  .features { grid-template-columns: 1fr; }
+  .board { grid-template-columns: 1fr; }
+  .duo, .about-grid, .notices { grid-template-columns: 1fr; }
+  .about-grid > div { padding: 0 !important; border-right: 0 !important; }
+  .about-grid > div:first-child { border-bottom: 1px solid var(--line-s); padding-bottom: 24px !important; margin-bottom: 24px; }
+  .notice + .notice { border-left: 4px solid var(--ink); border-top: 1px solid var(--line-s); }
+  .pad { padding: 48px 0; }
+  .hero-main { padding: 56px 24px 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+  [data-reveal] { opacity: 1; transform: none; }
+}
 </style>
 </head>
 <body>
 
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
-    <a href="/" class="nav-brand"><span class="mark">P</span> Promptathon <span class="alpha-tag">ALPHA</span></a>
-    <ul class="nav-links">
+    <a href="/" class="nav-brand">
+      <img src="hexfox-brand-content/logo-text.svg" alt="HexFox" class="nav-logo-text">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#competitions">Competitions</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#hosting">Hosting</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="downloads/">Downloads</a></li>
     </ul>
-    <a href="mailto:contact@promptathon.uk" class="nav-cta">Get Access →</a>
+    <a href="mailto:contact@hexfoxlabs.com" class="nav-cta">Get Access →</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 </header>
 
 <main>
 
-<!-- ════════ HERO ════════ -->
+<!-- ════ HERO ════ -->
 <section class="hero" id="top">
-  <div class="hero-grid">
-    <div class="hero-main">
-      <p class="eyebrow">Free · Student-Built · Alpha <span class="status-dot" aria-hidden="true"></span></p>
-      <h1 class="hero-title">Run a serious AI&nbsp;competition. <span class="red">End to end.</span></h1>
-      <p class="lead">Registration, a built-in Academy, secure submissions and weighted judging — one engineered platform for AI literacy events at schools. Free during alpha. We host it for you.</p>
-      <div class="hero-actions">
-        <a href="mailto:contact@promptathon.uk" class="btn btn-primary">Apply for access <span class="arrow" aria-hidden="true">→</span></a>
-        <a href="#features" class="btn btn-ghost">View specification</a>
-      </div>
+  <div class="hero-main">
+    <p class="eyebrow">Free · Student-Built · Alpha <span class="status-dot" aria-hidden="true"></span></p>
+    <h1 class="hero-title">Run a serious<br>competition. <span class="accent">End to end.</span></h1>
+    <p class="lead">Registration, a built-in Learning Hub, secure submissions and weighted judging — one platform for educational competitions at schools and institutions. Free during alpha. We host it for you.</p>
+    <div class="hero-actions">
+      <a href="mailto:contact@hexfoxlabs.com" class="btn btn-primary">Apply for access <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="#features" class="btn btn-ghost">View features</a>
     </div>
   </div>
   <div class="notices">
     <div class="notice notice-free">
       <b>Free during alpha — we host it</b>
-      Get a subdomain like <code>yourschool.promptathon.uk</code>, or connect your own domain. No servers, no setup, no payment.
+      Get a subdomain like <code>yourschool.hexfox.app</code>, or connect your own domain. No servers, no setup, no payment.
     </div>
     <div class="notice">
       <b>Alpha software</b>
@@ -525,61 +460,94 @@
   </div>
 </section>
 
-<!-- ════════ ABOUT ════════ -->
-<section id="about" class="pad">
+<!-- ════ WHAT CAN YOU HOST ════ -->
+<section id="competitions" class="pad">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-idx">01</span>
+      <h2 class="sec-title">What can you host?</h2>
+      <span class="sec-meta">3 Competition Types</span>
+    </div>
+    <div class="comp-grid" data-reveal>
+      <div class="comp-tile">
+        <span class="comp-num">C-01</span>
+        <h3>Promptathons</h3>
+        <p>Fast-paced creative challenges where participants craft structured responses to defined prompts. Custom rubrics, blind judging, and real-time score aggregation.</p>
+      </div>
+      <div class="comp-tile">
+        <span class="comp-num">C-02</span>
+        <h3>Essay Competitions</h3>
+        <p>Long-form written competitions with secure file submissions, anonymous blind scoring, and multi-criteria weighted judging across any subject matter.</p>
+      </div>
+      <div class="comp-tile">
+        <span class="comp-num">C-03</span>
+        <h3>Design Competitions</h3>
+        <p>Visual and creative challenges with multi-format file upload, portfolio-style review, and flexible scoring criteria for any creative discipline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ ABOUT ════ -->
+<section id="about" class="pad">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-idx">02</span>
       <h2 class="sec-title">About</h2>
       <span class="sec-meta">Mission / Architecture</span>
     </div>
-    <p class="manifesto" data-reveal>Every school should be able to run a great AI competition — <span class="red">regardless of budget.</span></p>
+    <p class="manifesto" data-reveal>Every school should be able to run a great competition — <span class="accent">regardless of budget.</span></p>
     <div style="height:36px"></div>
     <div class="about-grid" data-reveal>
       <div>
         <h3>What it is</h3>
-        <p>Competition management software built by students for AI literacy events at schools. It covers the entire event: participant registration, a built-in learning Academy, secure file submissions, structured judging with weighted rubrics, and GDPR-compliant data handling.</p>
-        <p>We built it because running a good AI competition is hard work, and no decent tool existed for schools.</p>
+        <p>Competition management software built for educational events at schools and institutions. It covers the entire event: participant registration, a built-in Learning Hub, secure file submissions, structured judging with weighted rubrics, and GDPR-compliant data handling.</p>
+        <p>We built it because running a good competition is hard work, and no decent free tool existed for schools.</p>
       </div>
       <div>
         <h3>Why privacy is the foundation</h3>
-        <p>Promptathon is designed to be entirely self-hosted, so data never leaves the institution responsible for it. During alpha we host it carefully on a VPS in the EU/UK in per-school logically isolated databases.</p>
-        <p>After alpha, any school can run Promptathon independently on their own server — with zero access from us.</p>
+        <p>HexFox is designed to be entirely self-hosted, so data never leaves the institution responsible for it. During alpha we host it carefully on a VPS in the EU/UK, in per-school logically isolated databases.</p>
+        <p>After alpha, any school can run HexFox independently on their own server — with zero access from us.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ════════ FEATURES ════════ -->
+<!-- ════ FEATURES ════ -->
 <section id="features" class="pad">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-idx">02</span>
+      <span class="sec-idx">03</span>
       <h2 class="sec-title">Capabilities</h2>
-      <span class="sec-meta">10 Modules / Production-Ready</span>
+      <span class="sec-meta">11 Modules / Production-Ready</span>
     </div>
     <ul class="features" data-reveal>
-      <li><span class="feat-idx">F-01</span><strong>Built-in Academy</strong><span>Self-paced modules on AI fundamentals, prompt engineering, safety, and responsible use. Required before submission.</span></li>
+      <li><span class="feat-idx">F-01</span><strong>Built-in Learning Hub</strong><span>Self-paced preparation modules on competition topics and subject matter. Progress tracked. Required before submission.</span></li>
       <li><span class="feat-idx">F-02</span><strong>Configurable Tasks</strong><span>Multiple briefs across difficulty levels. Participants choose their task at submission, not registration.</span></li>
       <li><span class="feat-idx">F-03</span><strong>Weighted Judging</strong><span>Define criteria with custom weights. Judges score independently; results aggregate automatically. No spreadsheets.</span></li>
       <li><span class="feat-idx">F-04</span><strong>Secure Submissions</strong><span>PDF and DOCX accepted. DOCX converts to PDF in an isolated, network-free process. Every file is verified and sanitised.</span></li>
-      <li><span class="feat-idx">F-05</span><strong>OTP Email Login</strong><span>No passwords. One-time codes by email. Registration can be locked to your school's email domain.</span></li>
+      <li><span class="feat-idx">F-05</span><strong>OTP Email Login</strong><span>No passwords. One-time codes by email. Registration can be locked to your institution's email domain.</span></li>
       <li><span class="feat-idx">F-06</span><strong>Security Dashboard</strong><span>Live connection logs, login-failure rates, suspicious-file counts, IP tracking, country restrictions, and blocking.</span></li>
       <li><span class="feat-idx">F-07</span><strong>Emergency Lockdown</strong><span>One click halts all registrations and submissions site-wide.</span></li>
       <li><span class="feat-idx">F-08</span><strong>GDPR Request Portal</strong><span>Participants submit access, export, and deletion requests through self-service. Every request is logged.</span></li>
       <li><span class="feat-idx">F-09</span><strong>Immutable Audit Log</strong><span>Every significant action recorded with timestamp, actor, and IP address.</span></li>
-      <li><span class="feat-idx">F-10</span><strong>Content & Theme Editor</strong><span>Edit page titles, body text, and FAQs from the admin panel. Theme editor for colours and branding. No code.</span></li>
-      <li><span class="feat-idx">F-11</span><strong>One-Command Deploy</strong><span>Post-alpha, a single Python script installs Caddy (auto HTTPS), Gunicorn, UFW, email, and all services on Ubuntu 22.04.</span></li>
-      <li style="background:var(--ink);display:flex;flex-direction:column;justify-content:center"><span class="feat-idx" style="color:var(--hazard)">↳ NEXT</span><strong style="color:var(--paper)">Run Your Event</strong><span style="color:#b8b8b2">Apply for free hosted access and we'll provision your instance.</span><a href="mailto:contact@promptathon.uk" style="margin-top:14px;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--hazard);text-decoration:none">Get access →</a></li>
+      <li><span class="feat-idx">F-10</span><strong>Content &amp; Theme Editor</strong><span>Edit page titles, body text, and FAQs from the admin panel. Theme editor for colours and branding. No code.</span></li>
+      <li><span class="feat-idx">F-11</span><strong>One-Command Deploy</strong><span>Post-alpha, a single script installs Caddy (auto HTTPS), the application, firewall, email, and all services on Ubuntu 22.04.</span></li>
+      <li style="background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:26px 24px 28px">
+        <span class="feat-idx" style="color:var(--orange)">↳ NEXT</span>
+        <strong style="color:var(--white);font-size:.98rem;margin-bottom:8px">Run Your Event</strong>
+        <span style="color:#b8b8b2;font-size:.9rem;line-height:1.5">Apply for free hosted access and we'll provision your instance.</span>
+        <a href="mailto:contact@hexfoxlabs.com" style="margin-top:14px;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);text-decoration:none">Get access →</a>
+      </li>
     </ul>
   </div>
 </section>
 
-<!-- ════════ HOSTING ════════ -->
+<!-- ════ HOSTING ════ -->
 <section id="hosting" class="pad">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-idx">03</span>
+      <span class="sec-idx">04</span>
       <h2 class="sec-title">Hosting Model</h2>
       <span class="sec-meta">Now → Post-Alpha</span>
     </div>
@@ -587,24 +555,24 @@
       <article>
         <span class="tag now">● Now / Alpha</span>
         <h3>We host it</h3>
-        <p>We provision your instance on our infrastructure and hand you the keys. You get a subdomain like <code>yourschool.promptathon.uk</code>, or point a DNS record at us for your own domain.</p>
-        <p>We configure everything; you customise it through the admin panel and run your competition. Free, with no time limit.</p>
+        <p>We provision your instance on our infrastructure and hand you the keys. You get a subdomain like <code>yourschool.hexfox.app</code>, or point a DNS record at us for your own domain.</p>
+        <p>We configure everything; you customise through the admin panel and run your competition. Free, with no time limit.</p>
       </article>
       <article>
         <span class="tag">○ After Alpha</span>
         <h3>You own it</h3>
-        <p>Once stable, any school can deploy Promptathon independently. One Python script on any Ubuntu 22.04 server installs everything: Caddy with automatic HTTPS, the application, firewall, email, and all services.</p>
+        <p>Once stable, any school can deploy HexFox independently. One script on Ubuntu 22.04 installs everything: Caddy with automatic HTTPS, the application, firewall, email, and all services.</p>
         <p>Your domain, your database, your server — zero dependency on us. Alpha schools get first access and full migration support. <a class="inline" href="downloads/">See downloads →</a></p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ════════ ALPHA STATUS BOARD ════════ -->
-<section id="alpha" class="pad">
+<!-- ════ STATUS BOARD ════ -->
+<section id="status" class="pad">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-idx">04</span>
+      <span class="sec-idx">05</span>
       <h2 class="sec-title">Alpha Status</h2>
       <span class="sec-meta">Live / Honest</span>
     </div>
@@ -613,7 +581,7 @@
         <p class="col-head">Operational <span class="n">[OK]</span></p>
         <ul>
           <li>Registration &amp; OTP login</li>
-          <li>Academy + progress tracking</li>
+          <li>Learning Hub + progress</li>
           <li>Task selection</li>
           <li>File submissions + sanitisation</li>
           <li>Weighted judging</li>
@@ -628,7 +596,7 @@
         <ul>
           <li>Self-hosted email hardening</li>
           <li>Bulk result exports</li>
-          <li>More Academy formats</li>
+          <li>More Learning Hub formats</li>
           <li>Documentation</li>
           <li>Scale testing (500+ users)</li>
         </ul>
@@ -656,46 +624,46 @@
   </div>
 </section>
 
-<!-- ════════ FAQ ════════ -->
+<!-- ════ FAQ ════ -->
 <section id="faq" class="pad">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-idx">05</span>
+      <span class="sec-idx">06</span>
       <h2 class="sec-title">FAQ</h2>
       <span class="sec-meta">8 Entries</span>
     </div>
     <div class="faq-list" data-reveal>
       <details class="qa" open>
         <summary><span class="q-idx">Q-01</span> Is it really free? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Yes. No hidden costs, no premium tier, no expiry on alpha access. We're students building this to support AI education — making money is not the current goal.</div>
+        <div class="a">Yes. No hidden costs, no premium tier, no expiry on alpha access. We're students building this to support education — making money is not the current goal.</div>
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-02</span> Do I need to run a server? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Not during alpha. We host every instance — you contact us, we set it up, you get a link. No servers, no SSH, no configuration. Post-alpha, self-hosting is an option for full data sovereignty, via a single setup script on a cheap VPS.</div>
+        <div class="a">Not during alpha. We host every instance — you contact us, we set it up, you get a link. No servers, no SSH, no configuration required. Post-alpha, self-hosting is an option for full data sovereignty via a single setup script on a cheap VPS.</div>
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-03</span> Can I use my own domain? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Yes. By default we give you a subdomain like <em>yourschool.promptathon.uk</em>. Prefer your own domain? Mention it and we'll set it up — you point a DNS CNAME or A record at our server, which takes two minutes.</div>
+        <div class="a">Yes. By default we give you a subdomain like <em>yourschool.hexfox.app</em>. Prefer your own domain? Mention it and we'll set it up — you point a DNS CNAME or A record at our server.</div>
       </details>
       <details class="qa">
-        <summary><span class="q-idx">Q-04</span> Where is student data stored? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">During alpha: on a VPS in the EU/UK in a per-school logically isolated database. We treat all data as strictly confidential and never access it except when explicitly asked for support. Post-alpha self-hosted: entirely on your own server, with zero access from us. That's the long-term design goal.</div>
+        <summary><span class="q-idx">Q-04</span> Where is participant data stored? <span class="q-sign" aria-hidden="true">+</span></summary>
+        <div class="a">During beta: on a VPS in the EU/UK in a per-school logically isolated database. We treat all data as strictly confidential and never access it except when explicitly asked for support. Post-alpha self-hosted: entirely on your own server, with zero access from us.</div>
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-05</span> Is it GDPR compliant? <span class="q-sign" aria-hidden="true">+</span></summary>
         <div class="a">Yes. Built-in data-request handling lets participants submit access, export, and deletion requests through a self-service portal. All requests are tracked and logged. No telemetry, no analytics, no external data sharing.</div>
       </details>
       <details class="qa">
-        <summary><span class="q-idx">Q-06</span> How many students can it handle? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Comfortably hundreds on a modest server. The platform uses SQLite with WAL mode for concurrent access and threaded Gunicorn workers. For 300+ simultaneous submissions we recommend at least a 2-core, 4&nbsp;GB instance.</div>
+        <summary><span class="q-idx">Q-06</span> How many participants can it handle? <span class="q-sign" aria-hidden="true">+</span></summary>
+        <div class="a">Comfortably hundreds on a modest server. The platform uses SQLite with WAL mode for concurrent access and threaded workers. For 300+ simultaneous submissions we recommend at least a 2-core, 4&nbsp;GB instance.</div>
       </details>
       <details class="qa">
-        <summary><span class="q-idx">Q-07</span> What happens after alpha? <span class="q-sign" aria-hidden="true">+</span></summary>
+        <summary><span class="q-idx">Q-07</span> What happens after beta? <span class="q-sign" aria-hidden="true">+</span></summary>
         <div class="a">We haven't fixed a commercial model. Alpha schools get plenty of notice before anything changes, and will always be credited for helping build this. The core software will remain source-available.</div>
       </details>
       <details class="qa">
-        <summary><span class="q-idx">Q-08</span> Who built Promptathon? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Students who believe AI literacy education should be accessible to every school, not only well-funded ones. We built the thing we wished existed and are sharing it freely while we work out what it wants to become.</div>
+        <summary><span class="q-idx">Q-08</span> Who built HexFox? <span class="q-sign" aria-hidden="true">+</span></summary>
+        <div class="a">Students who believe good competitions should be accessible to every school, not only well-funded ones. We built the thing we wished existed and are sharing it freely while we work out what it wants to become.</div>
       </details>
     </div>
   </div>
@@ -703,14 +671,14 @@
 
 </main>
 
-<!-- ════════ CONTACT BAND ════════ -->
+<!-- ════ CONTACT ════ -->
 <section class="cta" id="contact">
   <div class="wrap">
     <p class="eyebrow">Direct Line · A Real Person Replies</p>
     <h2>Get in touch.</h2>
     <p>Want to run a competition, or just have questions? Email us — apply for free hosted access and we'll provision your instance.</p>
     <div class="hero-actions">
-      <a href="mailto:contact@promptathon.uk" class="btn btn-primary">contact@promptathon.uk <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="mailto:contact@hexfoxlabs.com" class="btn btn-primary">contact@hexfoxlabs.com <span class="arrow" aria-hidden="true">→</span></a>
       <a href="downloads/" class="btn btn-ghost">Downloads</a>
     </div>
   </div>
@@ -719,22 +687,33 @@
 <footer class="site-footer">
   <hr class="rule">
   <div class="foot-inner">
-    <span>Promptathon™ · Alpha · Built by students · Free for schools</span>
-    <span><a href="privacy.html">Privacy</a> <span class="sep">/</span> <a href="mailto:contact@promptathon.uk">Contact</a> <span class="sep">/</span> <a href="downloads/">Downloads</a></span>
+    <span><img src="hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" style="height:16px;width:auto;display:block;opacity:.7"></span>
+    <span><a href="privacy.html">Privacy</a> <span class="sep">/</span> <a href="mailto:contact@hexfoxlabs.com">Contact</a> <span class="sep">/</span> <a href="downloads/">Downloads</a></span>
   </div>
 </footer>
 
 <script>
-  // Scroll reveal — progressive enhancement, respects reduced-motion via CSS
   (function(){
-    if(!('IntersectionObserver' in window)) {
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', function(){
+      var open = links.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', function(e){
+      if(!toggle.contains(e.target) && !links.contains(e.target)){
+        links.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+  (function(){
+    if(!('IntersectionObserver' in window)){
       document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('in'); });
       return;
     }
     var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-      });
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
     document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
   })();

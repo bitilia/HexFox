@@ -3,189 +3,227 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy &amp; Terms of Use &mdash; Promptathon</title>
-<meta name="description" content="Promptathon privacy policy and terms of use. Covers data handling during the alpha hosted period and self-hosted deployments, UK GDPR compliance, and software terms.">
+<title>Privacy Policy &amp; Terms of Use — HexFox</title>
+<meta name="description" content="HexFox privacy policy and terms of use. Covers data handling during the alpha hosted period and self-hosted deployments, UK GDPR compliance, and software terms.">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://promptathon.uk/privacy.html">
+<link rel="canonical" href="https://hexfoxlabs.com/privacy.html">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%230A0A0A'/><text x='6.5' y='25' font-family='Helvetica, Arial, sans-serif' font-size='25' font-weight='900' fill='%23F4F4F0'>P</text></svg>">
+<link rel="icon" href="hexfox-brand-content/logo.ico" type="image/x-icon">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Promptathon Privacy Policy and Terms of Use",
-  "url": "https://promptathon.uk/privacy.html",
-  "description": "Privacy policy and terms of use for Promptathon, a free AI competition platform for schools.",
-  "isPartOf": { "@type": "WebSite", "url": "https://promptathon.uk" },
+  "name": "HexFox Privacy Policy and Terms of Use",
+  "url": "https://hexfoxlabs.com/privacy.html",
+  "description": "Privacy policy and terms of use for HexFox, a free competition platform for schools.",
+  "isPartOf": { "@type": "WebSite", "url": "https://hexfoxlabs.com" },
   "breadcrumb": {
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://promptathon.uk/" },
-      { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://promptathon.uk/privacy.html" }
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://hexfoxlabs.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://hexfoxlabs.com/privacy.html" }
     ]
   }
 }
 </script>
 
 <style>
-  :root{
-    --paper:#F4F4F0; --paper-2:#EAE8E3; --paper-3:#E2E0D9;
-    --ink:#0A0A0A; --graphite:#5b5b54; --graphite-meta:#3a3a35;
-    --hazard:#E61919; --hazard-dark:#b51212;
-    --line:#0A0A0A; --line-soft:#cbc9c1;
-    --maxw:880px;
-    --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular','Menlo','Consolas',monospace;
-    --ease:cubic-bezier(.2,.7,.2,1);
-  }
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
-  body{
-    font-family:var(--sans); color:var(--ink); background:var(--paper); margin:0;
-    font-size:1.0rem; line-height:1.7; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-  }
-  body::before{
-    content:""; position:fixed; inset:0; z-index:1; pointer-events:none;
-    opacity:.022; mix-blend-mode:multiply;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
+@font-face {
+  font-family: 'Boldonse';
+  src: url('hexfox-brand-content/fonts/Boldonse.ttf') format('truetype');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Montserrat';
+  src: url('hexfox-brand-content/fonts/Montserrat.ttf') format('truetype');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
 
-  /* ── Nav — infrastructure bar ── */
-  .site-nav{
-    position:sticky; top:0; z-index:40;
-    background:rgba(244,244,240,.86);
-    backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px);
-    border-bottom:2px solid var(--line);
-  }
-  .nav-inner{ max-width:var(--maxw); margin:0 auto; display:flex; align-items:stretch; gap:0; min-height:58px; }
-  .nav-brand{
-    display:inline-flex; align-items:center; gap:10px; padding:0 24px;
-    text-decoration:none; color:var(--ink); font-weight:900; font-size:1.05rem;
-    letter-spacing:-.02em; border-right:2px solid var(--line); text-transform:uppercase;
-  }
-  .nav-brand .mark{ width:24px; height:24px; display:grid; place-items:center; background:var(--ink); color:var(--paper); font-weight:900; font-size:.85rem; }
-  .alpha-tag{ font-family:var(--mono); font-size:.62rem; font-weight:700; letter-spacing:.12em; color:var(--hazard); border:1px solid var(--hazard); padding:2px 6px; line-height:1; }
-  .nav-links{ display:flex; align-items:stretch; list-style:none; margin:0 0 0 auto; padding:0; }
-  .nav-links li{ display:flex; }
-  .nav-links a{
-    display:flex; align-items:center; padding:0 20px;
-    font-family:var(--mono); font-size:.74rem; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
-    color:var(--graphite-meta); text-decoration:none; border-left:1px solid var(--line-soft);
-    transition:color .15s var(--ease), background .15s var(--ease);
-  }
-  .nav-links a:hover{ color:var(--ink); background:var(--paper-2); }
-  .nav-cta{
-    display:inline-flex; align-items:center; padding:0 22px; border-left:2px solid var(--line);
-    background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:.74rem; font-weight:700;
-    letter-spacing:.08em; text-transform:uppercase; text-decoration:none;
-    transition:background .15s var(--ease), color .15s var(--ease);
-  }
-  .nav-cta:hover{ background:var(--hazard); color:#fff; }
+:root {
+  --white:   #ffffff;
+  --white-2: #f5f5f5;
+  --white-3: #ebebeb;
+  --ink:     #0a0a0a;
+  --graphite:#5b5b54;
+  --graph-m: #3a3a35;
+  --orange:  #f27d00;
+  --orange-d:#d46a00;
+  --line:    #0a0a0a;
+  --line-s:  #d4d4d0;
+  --maxw:    880px;
+  --title:   'Boldonse', serif;
+  --body:    'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --ease:    cubic-bezier(.2,.7,.2,1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--body); color: var(--ink); background: var(--white); margin: 0;
+  font-size: 1rem; line-height: 1.7; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: .016; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
 
-  /* ── Buttons ── */
-  .btn{
-    display:inline-flex; align-items:center; gap:10px; font-family:var(--mono); font-weight:700; font-size:.8rem;
-    letter-spacing:.06em; text-transform:uppercase; text-decoration:none; cursor:pointer;
-    padding:13px 20px; border:2px solid var(--ink);
-    transition:transform .08s var(--ease), background .15s var(--ease), color .15s var(--ease);
-  }
-  .btn-primary{ background:var(--ink); color:var(--paper); }
-  .btn-primary:hover{ background:var(--hazard); border-color:var(--hazard); color:#fff; }
-  .btn-primary:active{ transform:translate(1px,1px); }
+/* ── Nav ── */
+.site-nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 2px solid var(--line);
+}
+.nav-inner {
+  max-width: var(--maxw); margin: 0 auto; display: flex; align-items: stretch;
+  min-height: 58px; position: relative;
+}
+.nav-brand {
+  display: inline-flex; align-items: center; padding: 0 22px;
+  text-decoration: none; color: var(--ink);
+  border-right: 2px solid var(--line); flex-shrink: 0;
+}
+.nav-logo-text { height: 24px; width: auto; display: block; }
+.nav-links { display: flex; align-items: stretch; list-style: none; margin: 0 0 0 auto; padding: 0; }
+.nav-links li { display: flex; }
+.nav-links a {
+  display: flex; align-items: center; padding: 0 18px;
+  font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--graph-m); text-decoration: none; border-left: 1px solid var(--line-s);
+  transition: color .15s var(--ease), background .15s var(--ease);
+}
+.nav-links a:hover { color: var(--ink); background: var(--white-2); }
+.nav-cta {
+  display: inline-flex; align-items: center; padding: 0 20px; border-left: 2px solid var(--line);
+  background: var(--ink); color: var(--white); font-family: var(--mono); font-size: .72rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; text-decoration: none;
+  transition: background .15s var(--ease); flex-shrink: 0;
+}
+.nav-cta:hover { background: var(--orange); }
+.nav-toggle {
+  display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+  width: 52px; min-height: 58px; background: none; border: none;
+  border-left: 1px solid var(--line-s); cursor: pointer; padding: 0; flex-shrink: 0;
+}
+.nav-toggle span { display: block; width: 20px; height: 2px; background: var(--ink); transition: transform .2s var(--ease), opacity .2s var(--ease); }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ── Layout ── */
-  main{ max-width:var(--maxw); margin:0 auto; padding:0 24px; position:relative; z-index:2; }
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-weight: 700; font-size: .8rem;
+  letter-spacing: .06em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+  padding: 13px 20px; border: 2px solid var(--ink);
+  transition: transform .08s var(--ease), background .15s var(--ease), color .15s var(--ease);
+}
+.btn-primary { background: var(--ink); color: var(--white); }
+.btn-primary:hover { background: var(--orange); border-color: var(--orange); color: #fff; }
+.btn-primary:active { transform: translate(1px,1px); }
 
-  /* ── Page header ── */
-  .page-header{ padding:48px 0 28px; border-bottom:2px solid var(--line); margin-bottom:36px; }
-  .eyebrow{ font-family:var(--mono); font-size:.74rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--graphite-meta); margin:0 0 16px; display:flex; align-items:center; gap:10px; }
-  .eyebrow::before{ content:"//"; color:var(--hazard); font-weight:700; }
-  .page-header h1{ font-weight:900; letter-spacing:-.04em; text-transform:uppercase; font-size:clamp(2rem,5.5vw,3rem); line-height:.96; margin:0 0 14px; }
-  .page-header .meta{ font-family:var(--mono); font-size:.74rem; color:var(--graphite-meta); letter-spacing:.04em; text-transform:uppercase; }
+/* ── Layout ── */
+main { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; position: relative; z-index: 2; }
 
-  /* ── Typography ── */
-  h2{ font-weight:800; letter-spacing:-.025em; text-transform:uppercase; font-size:1.4rem; margin:3rem 0 .9rem; padding-bottom:.55rem; border-bottom:2px solid var(--line); scroll-margin-top:74px; }
-  h3{ font-family:var(--mono); font-size:.82rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin:1.8rem 0 .5rem; }
-  h3::before{ content:"› "; color:var(--hazard); }
-  p{ margin:0 0 .85rem; max-width:74ch; color:var(--graphite); }
-  p strong{ color:var(--ink); }
-  a{ color:var(--ink); text-decoration:none; border-bottom:2px solid var(--hazard); transition:color .15s var(--ease); }
-  a:hover{ color:var(--hazard); }
-  ul, ol{ margin:0 0 .85rem 1.4rem; color:var(--graphite); }
-  li{ margin-bottom:.4rem; }
-  li::marker{ color:var(--hazard); }
-  strong{ font-weight:700; }
-  em{ font-style:normal; font-family:var(--mono); font-size:.9em; background:var(--paper-3); padding:1px 5px; }
-  hr{ border:none; border-top:2px solid var(--line); margin:3rem 0; }
-  .section-num{ font-family:var(--mono); color:var(--hazard); font-size:.85rem; font-weight:700; margin-right:.5rem; }
+/* ── Page header ── */
+.page-header { padding: 48px 0 28px; border-bottom: 2px solid var(--line); margin-bottom: 36px; }
+.eyebrow { font-family: var(--mono); font-size: .74rem; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--graph-m); margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::before { content: "//"; color: var(--orange); font-weight: 700; }
+.page-header h1 { font-family: var(--title); letter-spacing: .03em; font-size: clamp(1.9rem,5.5vw,2.8rem); line-height: .96; margin: 0 0 14px; }
+.page-header .meta { font-family: var(--mono); font-size: .74rem; color: var(--graph-m); letter-spacing: .04em; text-transform: uppercase; }
 
-  /* ── Notices ── */
-  .notice{ padding:20px 22px; margin:1.2rem 0 1.8rem; font-size:.94rem; line-height:1.6; color:var(--graphite); border:1px solid var(--line); border-left:4px solid var(--hazard); background:var(--paper-2); }
-  .notice strong{ color:var(--ink); text-transform:uppercase; letter-spacing:-.01em; font-size:.9em; }
+/* ── Typography ── */
+h2 { font-family: var(--title); letter-spacing: .03em; font-size: 1.35rem; margin: 3rem 0 .9rem; padding-bottom: .55rem; border-bottom: 2px solid var(--line); scroll-margin-top: 74px; }
+h3 { font-family: var(--mono); font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin: 1.8rem 0 .5rem; }
+h3::before { content: "› "; color: var(--orange); }
+p { margin: 0 0 .85rem; max-width: 74ch; color: var(--graphite); }
+p strong { color: var(--ink); }
+a { color: var(--ink); text-decoration: none; border-bottom: 2px solid var(--orange); transition: color .15s var(--ease); }
+a:hover { color: var(--orange); }
+ul, ol { margin: 0 0 .85rem 1.4rem; color: var(--graphite); }
+li { margin-bottom: .4rem; }
+li::marker { color: var(--orange); }
+strong { font-weight: 700; }
+em { font-style: normal; font-family: var(--mono); font-size: .9em; background: var(--white-3); padding: 1px 5px; }
+hr { border: none; border-top: 2px solid var(--line); margin: 3rem 0; }
+.section-num { font-family: var(--mono); color: var(--orange); font-size: .85rem; font-weight: 700; margin-right: .5rem; }
 
-  /* ── Summary table ── */
-  .table-wrap{ overflow-x:auto; border:1px solid var(--line); margin:1.6rem 0 2.2rem; }
-  .summary{ width:100%; border-collapse:collapse; font-size:.88rem; min-width:560px; }
-  .summary caption{ font-family:var(--mono); font-weight:700; text-align:left; padding:14px 16px 12px; font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--paper); background:var(--ink); }
-  .summary th{ background:var(--paper-2); border-bottom:2px solid var(--line); border-right:1px solid var(--line-soft); padding:11px 14px; text-align:left; font-family:var(--mono); font-weight:700; font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; color:var(--graphite-meta); }
-  .summary td{ border-bottom:1px solid var(--line-soft); border-right:1px solid var(--line-soft); padding:11px 14px; vertical-align:top; font-size:.86rem; color:var(--graphite); }
-  .summary th:last-child, .summary td:last-child{ border-right:none; }
-  .summary tbody tr:last-child td{ border-bottom:none; }
-  .summary tr:nth-child(even) td{ background:rgba(226,224,217,.4); }
-  .yes{ color:var(--hazard); font-weight:700; font-family:var(--mono); font-size:.82rem; }
-  .no{ color:var(--graphite-meta); font-family:var(--mono); font-size:.82rem; }
+/* ── Notices ── */
+.notice { padding: 20px 22px; margin: 1.2rem 0 1.8rem; font-size: .94rem; line-height: 1.6; color: var(--graphite); border: 1px solid var(--line); border-left: 4px solid var(--orange); background: var(--white-2); }
+.notice strong { color: var(--ink); text-transform: uppercase; letter-spacing: -.01em; font-size: .9em; }
 
-  /* ── Table of contents ── */
-  .toc{ background:var(--paper-2); border:1px solid var(--line); border-left:4px solid var(--hazard); padding:20px 24px; margin:0 0 2.6rem; font-size:.92rem; }
-  .toc h2{ font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink); margin:0 0 .8rem; border:none; padding:0; }
-  .toc ol{ margin:0 0 0 1.25rem; padding:0; columns:2; column-gap:2rem; }
-  .toc li{ margin-bottom:.35rem; break-inside:avoid; }
-  .toc a{ border-bottom:none; color:var(--graphite); }
-  .toc a:hover{ color:var(--hazard); }
+/* ── Summary table ── */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); margin: 1.6rem 0 2.2rem; }
+.summary { width: 100%; border-collapse: collapse; font-size: .88rem; min-width: 560px; }
+.summary caption { font-family: var(--mono); font-weight: 700; text-align: left; padding: 14px 16px 12px; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--white); background: var(--ink); }
+.summary th { background: var(--white-2); border-bottom: 2px solid var(--line); border-right: 1px solid var(--line-s); padding: 11px 14px; text-align: left; font-family: var(--mono); font-weight: 700; font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--graph-m); }
+.summary td { border-bottom: 1px solid var(--line-s); border-right: 1px solid var(--line-s); padding: 11px 14px; vertical-align: top; font-size: .86rem; color: var(--graphite); }
+.summary th:last-child, .summary td:last-child { border-right: none; }
+.summary tbody tr:last-child td { border-bottom: none; }
+.summary tr:nth-child(even) td { background: rgba(235,235,235,.4); }
+.yes { color: var(--orange); font-weight: 700; font-family: var(--mono); font-size: .82rem; }
+.no  { color: var(--graph-m); font-family: var(--mono); font-size: .82rem; }
 
-  /* ── Rights grid ── */
-  .rights{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin:1.3rem 0; }
-  .right-item{ padding:18px 20px; background:var(--paper); font-size:.9rem; color:var(--graphite); }
-  .right-item .article{ font-family:var(--mono); font-size:.68rem; color:var(--hazard); display:block; margin-bottom:.4rem; font-weight:700; letter-spacing:.08em; }
-  .right-item strong{ display:block; margin-bottom:.3rem; color:var(--ink); text-transform:uppercase; font-size:.92rem; letter-spacing:-.01em; }
-  .right-item a{ border-bottom-width:2px; }
+/* ── Table of contents ── */
+.toc { background: var(--white-2); border: 1px solid var(--line); border-left: 4px solid var(--orange); padding: 20px 24px; margin: 0 0 2.6rem; font-size: .92rem; }
+.toc h2 { font-family: var(--mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--ink); margin: 0 0 .8rem; border: none; padding: 0; }
+.toc ol { margin: 0 0 0 1.25rem; padding: 0; columns: 2; column-gap: 2rem; }
+.toc li { margin-bottom: .35rem; break-inside: avoid; }
+.toc a { border-bottom: none; color: var(--graphite); }
+.toc a:hover { color: var(--orange); }
 
-  /* ── Footer ── */
-  .site-footer{ position:relative; z-index:2; border-top:2px solid var(--line); margin-top:4rem; background:var(--paper); }
-  .footer-inner{ max-width:var(--maxw); margin:0 auto; padding:30px 24px; font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--graphite-meta); display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; }
-  .footer-inner a{ color:var(--graphite-meta); border-bottom:none; }
-  .footer-inner a:hover{ color:var(--hazard); }
+/* ── Rights grid ── */
+.rights { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 1.3rem 0; }
+.right-item { padding: 18px 20px; background: var(--white); font-size: .9rem; color: var(--graphite); }
+.right-item .article { font-family: var(--mono); font-size: .68rem; color: var(--orange); display: block; margin-bottom: .4rem; font-weight: 700; letter-spacing: .08em; }
+.right-item strong { display: block; margin-bottom: .3rem; color: var(--ink); text-transform: uppercase; font-size: .92rem; letter-spacing: -.01em; }
 
-  a:focus-visible, .btn:focus-visible{ outline:2px solid var(--hazard); outline-offset:3px; }
+/* ── Footer ── */
+.site-footer { position: relative; z-index: 2; border-top: 2px solid var(--line); margin-top: 4rem; background: var(--white); }
+.footer-inner { max-width: var(--maxw); margin: 0 auto; padding: 28px 24px; font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--graph-m); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-inner a { color: var(--graph-m); border-bottom: none; }
+.footer-inner a:hover { color: var(--orange); }
+.footer-inner .sep { color: var(--line-s); }
 
-  @media (max-width: 680px){
-    .nav-links{ display:none; }
-    .toc ol{ columns:1; }
-    .rights{ grid-template-columns:1fr; }
-    .footer-inner{ flex-direction:column; }
-  }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *{ transition:none !important; }
-  }
+a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+
+@media (max-width: 680px) {
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-bottom: 2px solid var(--line); z-index: 100; }
+  .nav-links.is-open { display: flex; }
+  .nav-links li { display: block; }
+  .nav-links a { border-left: none; border-top: 1px solid var(--line-s); padding: 16px 22px; }
+  .nav-toggle { display: flex; }
+  .toc ol { columns: 1; }
+  .rights { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
 </style>
 </head>
 <body>
 
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
-    <a href="/" class="nav-brand"><span class="mark">P</span> Promptathon <span class="alpha-tag">ALPHA</span></a>
-    <ul class="nav-links">
+    <a href="/" class="nav-brand">
+      <img src="hexfox-brand-content/logo-text.svg" alt="HexFox" class="nav-logo-text">
+    </a>
+    <ul class="nav-links" id="navLinks">
       <li><a href="/#features">Features</a></li>
       <li><a href="/#faq">FAQ</a></li>
       <li><a href="/downloads/">Downloads</a></li>
     </ul>
-    <a href="mailto:contact@promptathon.uk" class="nav-cta">Get Access →</a>
+    <a href="mailto:contact@hexfoxlabs.com" class="nav-cta">Get Access →</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 </header>
 
@@ -194,16 +232,15 @@
 <div class="page-header">
   <p class="eyebrow">Legal</p>
   <h1>Privacy Policy &amp; Terms of Use</h1>
-  <p class="meta">Last updated: May 2026 &mdash; Promptathon Alpha &mdash; Applies to promptathon.uk and all alpha-hosted instances</p>
+  <p class="meta">Last updated: May 2026 &mdash; HexFox Alpha &mdash; Applies to hexfoxlabs.com and all alpha-hosted instances</p>
 </div>
 
-<p>This document covers two things: how Promptathon handles personal data (privacy policy) and the terms under which the software and hosted service are provided (terms of use). Please read both sections. If you have questions, contact us at <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a>.</p>
+<p>This document covers two things: how HexFox handles personal data (privacy policy) and the terms under which the software and hosted service are provided (terms of use). Please read both sections. If you have questions, contact us at <a href="mailto:contact@hexfoxlabs.com">contact@hexfoxlabs.com</a>.</p>
 
 <div class="notice">
-  <strong>Key distinction.</strong> There are two fundamentally different relationships: (1) this marketing website, where we are data controller and collect almost nothing; and (2) alpha-hosted Promptathon instances, where the school is the data controller and we are the data processor. Post-alpha self-hosted instances are entirely outside our control.
+  <strong>Key distinction.</strong> There are two fundamentally different relationships: (1) this marketing website, where we are data controller and collect almost nothing; and (2) alpha-hosted HexFox instances, where the school is the data controller and we are the data processor. Post-alpha self-hosted instances are entirely outside our control.
 </div>
 
-<!-- At-a-glance table -->
 <div class="table-wrap">
 <table class="summary" aria-label="Privacy at a glance">
   <caption>Privacy at a glance</caption>
@@ -216,65 +253,19 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Cookies</td>
-      <td><span class="no">None</span></td>
-      <td>Session cookie only (login)</td>
-      <td>School's responsibility</td>
-    </tr>
-    <tr>
-      <td>Analytics or tracking</td>
-      <td><span class="no">None</span></td>
-      <td><span class="no">None</span></td>
-      <td>School's responsibility</td>
-    </tr>
-    <tr>
-      <td>Third-party scripts</td>
-      <td><span class="no">None</span></td>
-      <td><span class="no">None</span></td>
-      <td>School's responsibility</td>
-    </tr>
-    <tr>
-      <td>Data sold or shared</td>
-      <td><span class="no">Never</span></td>
-      <td><span class="no">Never</span></td>
-      <td>School's responsibility</td>
-    </tr>
-    <tr>
-      <td>Data controller</td>
-      <td>Promptathon developers</td>
-      <td>The school</td>
-      <td>The school</td>
-    </tr>
-    <tr>
-      <td>Data processor</td>
-      <td>N/A</td>
-      <td>Promptathon developers</td>
-      <td>N/A (zero access)</td>
-    </tr>
-    <tr>
-      <td>Storage location</td>
-      <td>GitHub Pages + Cloudflare (US); see Section 9</td>
-      <td>VPS in the EU/UK, logically isolated per school</td>
-      <td>Wherever the school deploys</td>
-    </tr>
-    <tr>
-      <td>GDPR request portal</td>
-      <td>N/A</td>
-      <td><span class="yes">Built in</span></td>
-      <td><span class="yes">Built in</span></td>
-    </tr>
-    <tr>
-      <td>DPA available</td>
-      <td>N/A</td>
-      <td><span class="yes">Yes, on request</span></td>
-      <td>Not needed</td>
-    </tr>
+    <tr><td>Cookies</td><td><span class="no">None</span></td><td>Session cookie only (login)</td><td>School's responsibility</td></tr>
+    <tr><td>Analytics or tracking</td><td><span class="no">None</span></td><td><span class="no">None</span></td><td>School's responsibility</td></tr>
+    <tr><td>Third-party scripts</td><td><span class="no">None</span></td><td><span class="no">None</span></td><td>School's responsibility</td></tr>
+    <tr><td>Data sold or shared</td><td><span class="no">Never</span></td><td><span class="no">Never</span></td><td>School's responsibility</td></tr>
+    <tr><td>Data controller</td><td>HexFox developers</td><td>The school</td><td>The school</td></tr>
+    <tr><td>Data processor</td><td>N/A</td><td>HexFox developers</td><td>N/A (zero access)</td></tr>
+    <tr><td>Storage location</td><td>GitHub Pages + Cloudflare (US); see Section 9</td><td>VPS in the EU/UK, logically isolated per school</td><td>Wherever the school deploys</td></tr>
+    <tr><td>GDPR request portal</td><td>N/A</td><td><span class="yes">Built in</span></td><td><span class="yes">Built in</span></td></tr>
+    <tr><td>DPA available</td><td>N/A</td><td><span class="yes">Yes, on request</span></td><td>Not needed</td></tr>
   </tbody>
 </table>
 </div>
 
-<!-- Table of contents -->
 <div class="toc">
   <h2>Contents</h2>
   <ol>
@@ -300,11 +291,11 @@
   </ol>
 </div>
 
-<!-- ── PRIVACY POLICY ─────────────────────────────────── -->
+<!-- ── PRIVACY POLICY ── -->
 
 <h2 id="s1"><span class="section-num">1.</span> Who we are and scope</h2>
-<p>Promptathon is a software project developed and maintained by its student creators (referred to as "we," "us," or "the developers"). This document applies to this marketing website (promptathon.uk), alpha-hosted Promptathon instances we operate on behalf of schools, and direct communications between you and us.</p>
-<p>It does not apply to the internal operations of self-hosted Promptathon instances. Schools deploying Promptathon independently are solely responsible for their own privacy obligations and must provide their own privacy notices to participants.</p>
+<p>HexFox is a software project developed and maintained by its student creators (referred to as "we," "us," or "the developers"). This document applies to this marketing website (hexfoxlabs.com), alpha-hosted HexFox instances we operate on behalf of schools, and direct communications between you and us.</p>
+<p>It does not apply to the internal operations of self-hosted HexFox instances. Schools deploying HexFox independently are solely responsible for their own privacy obligations and must provide their own privacy notices to participants.</p>
 
 <h2 id="s2"><span class="section-num">2.</span> Data collected on this website</h2>
 <p>This is a static HTML page with no database, no user accounts, and no server-side application logic. The only personal data we may process through this website is:</p>
@@ -313,23 +304,23 @@
 <p>Our web server generates standard access logs recording your IP address, the resource requested, HTTP method, response status code, bytes transferred, and timestamp. These are used exclusively for security monitoring and diagnosing technical issues. Retained for a maximum of 30 days. Never shared with third parties or used for profiling.</p>
 
 <h3>Email correspondence</h3>
-<p>If you contact us at the email address published on this page, we receive and store that communication, including any personal information you include, solely to respond to your enquiry. We do not add you to any mailing list without explicit consent. Retained for a maximum of two years from the last exchange, then deleted. Earlier deletion available on request.</p>
+<p>If you contact us at the email address published on this page, we receive and store that communication, including any personal information you include, solely to respond to your enquiry. We do not add you to any mailing list without explicit consent. Retained for a maximum of two years from the last exchange, then deleted.</p>
 
 <p>We do not use analytics, tracking pixels, advertising scripts, or any fingerprinting on this website. No personal data beyond the above is collected.</p>
 
-<p><strong>Important:</strong> This website is hosted on GitHub Pages and served through Cloudflare. These services are operated by third parties and have their own data collection practices. See Section 9 (Hosting and Infrastructure) for details on what data GitHub Pages and Cloudflare collect.</p>
+<p><strong>Important:</strong> This website is hosted on GitHub Pages and served through Cloudflare. These services are operated by third parties and have their own data collection practices. See Section 9 for details.</p>
 
 <h2 id="s3"><span class="section-num">3.</span> Data on alpha-hosted instances</h2>
-<p>During the alpha period, we provision and operate Promptathon instances on a Virtual Private Server (VPS) hosted in the EU/UK on behalf of schools. In this arrangement:</p>
+<p>During the alpha period, we provision and operate HexFox instances on a VPS hosted in the EU/UK on behalf of schools. In this arrangement:</p>
 <ul>
-  <li><strong>The school is the data controller.</strong> The school determines the purposes and means of processing participant data and is responsible for providing appropriate privacy notices to participants and ensuring a lawful basis for processing.</li>
+  <li><strong>The school is the data controller.</strong> The school determines the purposes and means of processing participant data and is responsible for providing appropriate privacy notices to participants.</li>
   <li><strong>We are the data processor.</strong> We process personal data only on the school's instructions and only to the extent necessary to operate, maintain, and support the instance.</li>
 </ul>
 
 <h3>Categories of data processed</h3>
 <ul>
   <li><strong>Participant identity:</strong> email address (required for login), name or display name if collected by the school.</li>
-  <li><strong>Participation records:</strong> Academy module progress, task selection, submission text, uploaded files, timestamps.</li>
+  <li><strong>Participation records:</strong> Learning Hub module progress, task selection, submission text, uploaded files, timestamps.</li>
   <li><strong>Judge records:</strong> scores and notes attributed to submissions. Judge notes are encrypted at rest using AES-256.</li>
   <li><strong>Authentication events:</strong> login timestamps, OTP issuance and use, IP addresses at login.</li>
   <li><strong>Connection data:</strong> IP addresses, country codes, and HTTP metadata for security monitoring.</li>
@@ -347,18 +338,18 @@
 </ul>
 
 <h2 id="s4"><span class="section-num">4.</span> Data on self-hosted instances</h2>
-<p>Once a school deploys their own Promptathon instance, we have zero technical access to that instance, its database, or any data it contains. We are not a data controller or processor in relation to that data. The school is the sole data controller and is fully responsible for its own privacy obligations.</p>
-<p>The Promptathon software includes built-in tools to help operators meet GDPR obligations: a participant-facing data request portal, subject access request tracking, automated deletion workflows, an immutable audit log, and encrypted storage of sensitive fields.</p>
+<p>Once a school deploys their own HexFox instance, we have zero technical access to that instance, its database, or any data it contains. We are not a data controller or processor in relation to that data. The school is the sole data controller and is fully responsible for its own privacy obligations.</p>
+<p>The HexFox software includes built-in tools to help operators meet GDPR obligations: a participant-facing data request portal, subject access request tracking, automated deletion workflows, an immutable audit log, and encrypted storage of sensitive fields.</p>
 
 <h2 id="s5"><span class="section-num">5.</span> Cookies</h2>
 <p>This marketing website uses no cookies of any kind.</p>
-<p>Alpha-hosted Promptathon instances use a single strictly-necessary session cookie to maintain login state after OTP authentication. This cookie is set only after successful authentication, contains no personal information (only an encrypted session identifier), expires on browser close or after a fixed inactivity period, and is marked HttpOnly, Secure, and SameSite=Lax. It cannot be declined without disabling login. No third-party cookies are set on any Promptathon instance.</p>
+<p>Alpha-hosted HexFox instances use a single strictly-necessary session cookie to maintain login state after OTP authentication. This cookie is set only after successful authentication, contains no personal information (only an encrypted session identifier), expires on browser close or after a fixed inactivity period, and is marked HttpOnly, Secure, and SameSite=Lax. No third-party cookies are set on any HexFox instance.</p>
 
 <h2 id="s6"><span class="section-num">6.</span> Lawful basis for processing</h2>
 <p>Where we process personal data as controller (this website and direct communications):</p>
 <ul>
   <li><strong>Legitimate interests (Article 6(1)(f) UK GDPR):</strong> server access logs for the security and operation of this website.</li>
-  <li><strong>Contract performance (Article 6(1)(b)):</strong> email correspondence relating to setting up or supporting an alpha-hosted instance.</li>
+  <li><strong>Contract performance (Article 6(1)(b)):</strong> email correspondence relating to setting up or supporting a alpha-hosted instance.</li>
 </ul>
 <p>Where we process personal data as processor on behalf of a school, processing is carried out under a Data Processing Agreement pursuant to Article 28 UK GDPR. The school as controller determines the lawful basis for each category of processing.</p>
 
@@ -366,7 +357,7 @@
 <ul>
   <li><strong>Website server logs:</strong> maximum 30 days, then automatically deleted.</li>
   <li><strong>Email correspondence:</strong> maximum two years from the last exchange. Earlier deletion available on request.</li>
-  <li><strong>Alpha instance data:</strong> retained for the duration of the school's participation plus a 60-day grace period for data export. Deleted on request at any time, or automatically at the end of the grace period.</li>
+  <li><strong>Alpha instance data:</strong> retained for the duration of the school's participation plus a 60-day grace period for data export. Deleted on request at any time.</li>
   <li><strong>Alpha instance audit logs:</strong> retained for 12 months from the event date.</li>
 </ul>
 <p>Schools may request immediate deletion of all data associated with their instance at any time. Deletion is permanent and irreversible; we recommend exporting any data you wish to retain beforehand.</p>
@@ -375,39 +366,31 @@
 <p>We implement the following measures to protect personal data:</p>
 <ul>
   <li>All connections use HTTPS with TLS 1.2 or higher. HSTS headers are enforced.</li>
-  <li>Sensitive database fields (including judge notes) are encrypted using AES-256 before storage. Encryption keys are stored separately from the data.</li>
-  <li>File processing runs as a dedicated system user with no network access, no shell access, and write access limited to a single directory.</li>
-  <li>All uploaded files are structurally verified and sanitised before storage; active content (JavaScript, macros, embedded scripts) is stripped.</li>
+  <li>Sensitive database fields (including judge notes) are encrypted using AES-256 before storage.</li>
+  <li>File processing runs as a dedicated system user with no network access and write access limited to a single directory.</li>
+  <li>All uploaded files are structurally verified and sanitised before storage; active content is stripped.</li>
   <li>UFW firewall rules restrict inbound connections to SSH, HTTP, and HTTPS only.</li>
   <li>The security dashboard monitors for unusual login patterns, suspicious file uploads, and anomalous connection activity in real time.</li>
   <li>All access events are logged in an immutable audit trail.</li>
 </ul>
 
 <div class="notice">
-  <strong>Alpha caveat.</strong> Promptathon has not undergone formal independent security audit. While we implement substantive measures, schools processing sensitive student data should conduct a Data Protection Impact Assessment (DPIA) before large-scale deployment and contact us to establish a Data Processing Agreement.
+  <strong>Alpha caveat.</strong> HexFox has not undergone formal independent security audit. While we implement substantive measures, schools processing sensitive student data should conduct a Data Protection Impact Assessment (DPIA) before large-scale deployment and contact us to establish a Data Processing Agreement.
 </div>
 
 <h2 id="s9"><span class="section-num">9.</span> Hosting and infrastructure</h2>
 
 <h3>Website hosting</h3>
-<p>This specific website (privacy policy, documentation, and public-facing pages) is hosted on <strong>GitHub Pages</strong>, which is operated by GitHub, Inc. (a Microsoft subsidiary, based in the United States). When you visit this website, GitHub Pages infrastructure processes your connection and may collect standard web server logs including your IP address, browser user agent, referrer, and timestamp. This data is subject to <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy policy</a>.</p>
+<p>This website is hosted on <strong>GitHub Pages</strong>, operated by GitHub, Inc. (a Microsoft subsidiary, based in the United States). When you visit, GitHub Pages infrastructure processes your connection and may collect standard web server logs. This data is subject to <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy policy</a>.</p>
 
 <h3>Cloudflare proxy</h3>
-<p>This website is served through <strong>Cloudflare</strong>, a content delivery network and DDoS protection service operated by Cloudflare, Inc. (based in the United States). All traffic passes through Cloudflare's servers, which means Cloudflare receives and processes:</p>
-<ul>
-  <li>Your IP address and geolocation data (inferred from IP)</li>
-  <li>HTTP request headers including User-Agent, Referer, and Accept-Language</li>
-  <li>Request timing and frequency data</li>
-  <li>Security threat assessment data (to detect and block malicious requests)</li>
-  <li>Performance analytics (page load times, bandwidth usage)</li>
-</ul>
-<p>Cloudflare may retain this data for up to 30 days for security and analytics purposes. This data is subject to <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>. We do not have control over Cloudflare's data collection practices beyond what is documented in their policy.</p>
+<p>This website is served through <strong>Cloudflare</strong>, operated by Cloudflare, Inc. (United States). All traffic passes through Cloudflare's servers, which means Cloudflare receives and processes your IP address, geolocation data, HTTP request headers, and request timing data. This is subject to <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>.</p>
 
-<p><strong>Note:</strong> These privacy disclosures apply only to this website (promptathon.uk). If you use the Promptathon alpha-hosted service (the competition platform itself), please see Sections 3–8 above for information about how data is handled on the platform.</p>
+<p><strong>Note:</strong> These disclosures apply only to this website (hexfoxlabs.com). If you use a alpha-hosted HexFox instance, please see Sections 3–8 for how data is handled on the platform.</p>
 
 <h2 id="s9b"><span class="section-num">9b.</span> International transfers</h2>
 <p>This website is hosted on US-based infrastructure (GitHub Pages and Cloudflare). By accessing this website, you consent to the transfer of your IP address and request metadata to the United States for processing by GitHub and Cloudflare.</p>
-<p>If you use the Promptathon alpha-hosted platform (the competition service itself), that service and all alpha-hosted instances are hosted on a VPS in the EU/UK. We do not transfer personal data from the platform outside the UK or EEA without explicit consent. The platform loads no external resources that would result in international transfers.</p>
+<p>Alpha-hosted platform instances are hosted on a VPS in the EU/UK. We do not transfer personal data from the platform outside the UK or EEA without explicit consent.</p>
 
 <h2 id="s10"><span class="section-num">10.</span> Your rights under UK GDPR</h2>
 <p>Where we are the data controller, you have the following rights:</p>
@@ -419,29 +402,29 @@
   <div class="right-item"><span class="article">Article 21</span><strong>Object</strong>Object to processing based on legitimate interests.</div>
   <div class="right-item"><span class="article">Article 77</span><strong>Complain</strong>Lodge a complaint with the ICO at <a href="https://ico.org.uk">ico.org.uk</a>.</div>
 </div>
-<p>To exercise any right, contact us at <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a>. We will acknowledge within 72 hours and respond substantively within 30 days. No fee is charged for reasonable requests.</p>
-<p>For rights requests relating to data on an alpha-hosted instance, participants should use the built-in data request portal within Promptathon or contact the school directly. The school is the data controller and is responsible for responding. We will cooperate with the school to fulfil any request.</p>
+<p>To exercise any right, contact us at <a href="mailto:contact@hexfoxlabs.com">contact@hexfoxlabs.com</a>. We will acknowledge within 72 hours and respond substantively within 30 days.</p>
+<p>For rights requests relating to data on a alpha-hosted instance, participants should use the built-in data request portal within HexFox or contact the school directly. The school is the data controller and is responsible for responding.</p>
 
 <h2 id="s11"><span class="section-num">11.</span> Children's data</h2>
-<p>Promptathon is designed for school environments and may process personal data relating to children under 18. As data processor for alpha-hosted instances, we do not use children's data for any purpose other than operating the platform, do not share children's data with third parties other than email delivery providers for OTP codes, do not build profiles of or make automated decisions about children, and collect only the minimum data necessary for platform functionality.</p>
-<p>Schools as data controllers are responsible for ensuring they have an appropriate lawful basis to process children's data. Schools should consult their Data Protection Officer before deploying Promptathon for students under 13.</p>
+<p>HexFox is designed for school environments and may process personal data relating to children under 18. As data processor for alpha-hosted instances, we do not use children's data for any purpose other than operating the platform, do not share children's data with third parties other than email delivery providers for OTP codes, do not build profiles of or make automated decisions about children, and collect only the minimum data necessary for platform functionality.</p>
+<p>Schools as data controllers are responsible for ensuring they have an appropriate lawful basis to process children's data. Schools should consult their Data Protection Officer before deploying HexFox for students under 13.</p>
 
 <h2 id="s12"><span class="section-num">12.</span> Data Processing Agreements</h2>
-<p>Article 28 UK GDPR requires a binding Data Processing Agreement (DPA) between controller and processor. Schools processing personal data on an alpha-hosted instance with us should have a DPA in place before doing so at scale. Contact us at <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a> with the subject line "DPA Request." We will provide a standard DPA covering subject matter, duration, nature and purpose of processing, types of personal data and categories of data subjects, obligations and rights of both parties, security measures, sub-processor disclosure, and procedures for data subject requests, security incidents, and deletion at contract end.</p>
+<p>Article 28 UK GDPR requires a binding Data Processing Agreement (DPA) between controller and processor. Schools processing personal data on a alpha-hosted instance with us should have a DPA in place before doing so at scale. Contact us at <a href="mailto:contact@hexfoxlabs.com">contact@hexfoxlabs.com</a> with the subject line "DPA Request."</p>
 
 <hr>
 
-<!-- ── TERMS OF USE ────────────────────────────────────── -->
+<!-- ── TERMS OF USE ── -->
 
 <h2 id="s13"><span class="section-num">13.</span> Terms of use</h2>
-<p>These terms govern your use of the Promptathon software and the alpha-hosted service. By accessing or using Promptathon, you agree to these terms. If you are accepting on behalf of a school or other organisation, you represent that you have authority to bind that organisation.</p>
+<p>These terms govern your use of the HexFox software and the alpha-hosted service. By accessing or using HexFox, you agree to these terms. If you are accepting on behalf of a school or other organisation, you represent that you have authority to bind that organisation.</p>
 
 <h3>The alpha-hosted service</h3>
-<p>During the alpha period, we provide access to a hosted Promptathon instance at no charge. We make no formal service level commitments. We will make reasonable efforts to keep instances available during competition events, but we do not guarantee uptime, data durability, or feature availability. We may update the software at any time, including changes that alter functionality.</p>
+<p>During the alpha period, we provide access to a hosted HexFox instance at no charge. We make no formal service level commitments. We will make reasonable efforts to keep instances available during competition events, but we do not guarantee uptime, data durability, or feature availability. We may update the software at any time, including changes that alter functionality.</p>
 
 <h3>What you may do</h3>
 <ul>
-  <li>Use Promptathon to run genuine educational competition events at your school or institution.</li>
+  <li>Use HexFox to run genuine educational competition events at your school or institution.</li>
   <li>Customise the platform through the admin interface: branding, tasks, rubrics, content.</li>
   <li>Export your data at any time using the built-in export tools.</li>
   <li>Request migration to a self-hosted instance at any time.</li>
@@ -449,21 +432,21 @@
 
 <h3>What you may not do</h3>
 <ul>
-  <li>Use Promptathon for any unlawful purpose or in violation of applicable law, including data protection legislation.</li>
+  <li>Use HexFox for any unlawful purpose or in violation of applicable law, including data protection legislation.</li>
   <li>Attempt to gain unauthorised access to any system, account, or data belonging to another school or to our infrastructure.</li>
   <li>Use the service to collect personal data beyond what is necessary for running a legitimate competition.</li>
   <li>Misrepresent your school or your authority to accept these terms.</li>
-  <li>Reverse-engineer, decompile, or attempt to extract source code from the hosted service (note: the source code is source-available; there is no legitimate reason to do this covertly).</li>
+  <li>Reverse-engineer, decompile, or attempt to extract source code from the hosted service.</li>
   <li>Resell, sublicense, or otherwise commercialise access to the hosted service.</li>
   <li>Conduct automated testing, load testing, or penetration testing against the hosted service without our prior written consent.</li>
 </ul>
 
 <h2 id="s14"><span class="section-num">14.</span> Software licence</h2>
-<p>The Promptathon source code is source-available. You may inspect, use, modify, and deploy it subject to the terms of the applicable source-available licence included with the source code repository. Use of the hosted service is subject to these terms regardless of the source-available licence.</p>
+<p>The HexFox source code is source-available. You may inspect, use, modify, and deploy it subject to the terms of the applicable source-available licence included with the source code repository. Use of the hosted service is subject to these terms regardless of the source-available licence.</p>
 <p>Nothing in these terms restricts your right to deploy your own self-hosted instance using the source-available software.</p>
 
 <h2 id="s15"><span class="section-num">15.</span> Alpha disclaimer and liability</h2>
-<p>Promptathon is provided as alpha software on an "as is" and "as available" basis. We make no warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+<p>HexFox is provided as alpha software on an "as is" and "as available" basis. We make no warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
 <p>We do not warrant that the service will be uninterrupted, error-free, or free from security vulnerabilities. The software has not undergone formal independent security or penetration testing.</p>
 <p>To the fullest extent permitted by applicable law:</p>
 <ul>
@@ -471,26 +454,23 @@
   <li>Our total aggregate liability to you for any claim arising from these terms or your use of the service is limited to &pound;100.</li>
   <li>We are not liable for any loss of data except where such loss results directly from our gross negligence or wilful misconduct.</li>
 </ul>
-<p>Nothing in these terms excludes or limits liability that cannot be excluded or limited under applicable law, including liability for death or personal injury caused by our negligence, fraud or fraudulent misrepresentation, or any other liability that cannot be excluded by law.</p>
+<p>Nothing in these terms excludes or limits liability that cannot be excluded or limited under applicable law, including liability for death or personal injury caused by our negligence.</p>
 <p>Given that the service is provided free of charge during the alpha period, schools accept that the absence of a commercial relationship reflects in the scope of our liability.</p>
 
 <h2 id="s16"><span class="section-num">16.</span> Acceptable use</h2>
-<p>You are responsible for all activity that occurs under your school's instance. You must ensure that participants are informed of how their data is used and that appropriate consents or other lawful bases are in place. You must not use Promptathon to collect data from children under 13 without appropriate parental consent and safeguards in place.</p>
-<p>You must maintain reasonable security practices for admin credentials. If you become aware of any security incident or suspected unauthorised access to your instance, you must notify us promptly at <a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a>.</p>
-<p>We reserve the right to suspend or terminate access to an instance immediately if we have reasonable grounds to believe it is being used in a manner that violates these terms, endangers data subjects, or exposes us or others to legal liability.</p>
+<p>You are responsible for all activity that occurs under your school's instance. You must ensure that participants are informed of how their data is used and that appropriate consents or other lawful bases are in place. You must not use HexFox to collect data from children under 13 without appropriate parental consent and safeguards in place.</p>
+<p>You must maintain reasonable security practices for admin credentials. If you become aware of any security incident or suspected unauthorised access to your instance, you must notify us promptly at <a href="mailto:contact@hexfoxlabs.com">contact@hexfoxlabs.com</a>.</p>
 
 <h2 id="s17"><span class="section-num">17.</span> Termination</h2>
 <p>Either party may end the arrangement at any time without cause. You may request deletion of your instance and all associated data at any time. We will delete the instance within 30 days of a written request and confirm deletion in writing.</p>
-<p>We may terminate your access to the hosted service if you materially breach these terms, if we reasonably believe continued operation poses a security or legal risk, or if we discontinue the alpha programme. In the event of termination by us other than for cause, we will give you not less than 30 days' notice to export your data, except where immediate termination is required to address an urgent security or legal issue.</p>
-<p>On termination, your right to access the hosted service ceases. Your data will be deleted in accordance with the retention policy in Section 7. Your right to use the source-available software independently is unaffected by termination of the hosted service.</p>
+<p>We may terminate your access if you materially breach these terms, if we reasonably believe continued operation poses a security or legal risk, or if we discontinue the alpha programme. In the event of termination by us other than for cause, we will give you not less than 30 days' notice to export your data.</p>
 
 <h2 id="s18"><span class="section-num">18.</span> Changes to this document</h2>
-<p>We may update this document as the platform develops. Material changes affecting schools with alpha-hosted instances will be communicated to the contact email on record at least 14 days before taking effect where reasonably practicable. The date at the top of this page reflects the most recent update. Continued use of the service after notification of material changes constitutes acceptance of the updated terms, unless you object in writing before the effective date.</p>
-<p>Changes to the terms of use that materially reduce your rights or materially increase your obligations will be highlighted clearly in any notification we send.</p>
+<p>We may update this document as the platform develops. Material changes affecting schools with alpha-hosted instances will be communicated to the contact email on record at least 14 days before taking effect where reasonably practicable. Continued use of the service after notification of material changes constitutes acceptance of the updated terms.</p>
 
 <h2 id="s19"><span class="section-num">19.</span> Contact and complaints</h2>
 <p>For any query relating to this document, to exercise your data protection rights, to request a Data Processing Agreement, or to report a data or security incident:</p>
-<p><strong><a href="mailto:contact@promptathon.uk">contact@promptathon.uk</a></strong></p>
+<p><strong><a href="mailto:contact@hexfoxlabs.com">contact@hexfoxlabs.com</a></strong></p>
 <p>We aim to acknowledge all enquiries within 72 hours and respond substantively within 30 calendar days.</p>
 <p>If you are not satisfied with our handling of a privacy matter, you have the right to complain to the Information Commissioner's Office (ICO):</p>
 <ul>
@@ -498,16 +478,34 @@
   <li>Telephone: 0303 123 1113</li>
   <li>Address: Information Commissioner's Office, Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF</li>
 </ul>
-<p>Governing law: these terms and any dispute arising from them are governed by the laws of England and Wales. The courts of England and Wales have exclusive jurisdiction, except where mandatory applicable law provides otherwise.</p>
+<p>Governing law: these terms and any dispute arising from them are governed by the laws of England and Wales.</p>
 
 </main>
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <span>Promptathon&trade; &mdash; Alpha &middot; Built by students</span>
-    <span><a href="/">Home</a> <span class="sep">/</span> <a href="mailto:contact@promptathon.uk">Contact</a></span>
+    <span><img src="hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" style="height:16px;width:auto;display:block;opacity:.7"></span>
+    <span><a href="/">Home</a> <span class="sep">/</span> <a href="mailto:contact@hexfoxlabs.com">Contact</a></span>
   </div>
 </footer>
+
+<script>
+  (function(){
+    var toggle = document.getElementById('navToggle');
+    var links  = document.getElementById('navLinks');
+    if(!toggle) return;
+    toggle.addEventListener('click', function(){
+      var open = links.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', function(e){
+      if(!toggle.contains(e.target) && !links.contains(e.target)){
+        links.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
