@@ -133,11 +133,11 @@ body::before {
 }
 .nav-brand {
   display: inline-flex; align-items: center;
-  padding: 0 22px; text-decoration: none; color: var(--white);
-  border-right: 2px solid var(--line); background: var(--ink);
-  flex-shrink: 0; transition: background .15s var(--ease);
+  padding: 0 22px; text-decoration: none; color: var(--ink);
+  border-right: 2px solid var(--line);
+  flex-shrink: 0; transition: opacity .15s var(--ease);
 }
-.nav-brand:hover { background: var(--orange); }
+.nav-brand:hover { opacity: .75; }
 .nav-logo-text { height: 26px; width: auto; display: block; }
 .nav-links {
   display: flex; align-items: stretch; list-style: none; margin: 0 0 0 auto; padding: 0;
@@ -321,7 +321,13 @@ h1.hero-title .accent { color: var(--orange); }
 
 /* ════ STATUS BOARD ════ */
 .board { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-.board > div { background: var(--white); padding: 26px 22px 28px; }
+.board > div { background: var(--white); padding: 26px 22px 28px; position: relative; }
+.board > div::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 3px;
+  background: var(--orange); transition: width .25s var(--ease);
+}
+.board > div:hover { background: var(--white-2); }
+.board > div:hover::after { width: 100%; }
 .board .col-head {
   font-family: var(--mono); font-size: .7rem; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; color: var(--ink); margin: 0 0 16px; padding-bottom: 12px;
@@ -440,10 +446,8 @@ h1.hero-title { animation: heroSlideUp .9s var(--ease) .2s both; }
 /* FAQ dramatic hover */
 details.qa summary { transition: background .15s var(--ease), transform .15s var(--ease); }
 details.qa summary:hover { background: var(--white-2); transform: translateX(4px); }
+details.qa .a { overflow: hidden; }
 
-/* Board items hover */
-.board > div.child-in { transition: transform .45s var(--ease), opacity .45s var(--ease), background .18s var(--ease), border-left .18s var(--ease); }
-.board > div.child-in:hover { border-left: 3px solid var(--orange); transform: translateX(3px); }
 
 /* Features hover boost */
 .features li.child-in { transition: transform .45s var(--ease), opacity .45s var(--ease), background .18s var(--ease); }
@@ -485,7 +489,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
     <a href="/" class="nav-brand">
-      <img src="hexfox-brand-content/hexfox-logo-text-white.svg" alt="HexFox Labs" class="nav-logo-text">
+      <img src="hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" class="nav-logo-text">
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#competitions">Competitions</a></li>
@@ -771,6 +775,38 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
         links.classList.remove('is-open');
         toggle.setAttribute('aria-expanded', 'false');
       }
+    });
+  })();
+  (function(){
+    var ease = 'cubic-bezier(.2,.7,.2,1)';
+    document.querySelectorAll('details.qa').forEach(function(detail){
+      var summary = detail.querySelector('summary');
+      var content = detail.querySelector('.a');
+      summary.addEventListener('click', function(e){
+        e.preventDefault();
+        if(detail.open){
+          var h = content.scrollHeight;
+          content.style.height = h + 'px';
+          content.style.overflow = 'hidden';
+          content.offsetHeight;
+          content.style.transition = 'height .3s '+ease+', opacity .22s '+ease;
+          content.style.height = '0';
+          content.style.opacity = '0';
+          setTimeout(function(){
+            detail.removeAttribute('open');
+            content.style.cssText = '';
+          }, 300);
+        } else {
+          detail.setAttribute('open','');
+          var h = content.scrollHeight;
+          content.style.cssText = 'height:0;opacity:0;overflow:hidden';
+          content.offsetHeight;
+          content.style.transition = 'height .35s '+ease+', opacity .28s '+ease;
+          content.style.height = h + 'px';
+          content.style.opacity = '1';
+          setTimeout(function(){ content.style.cssText = ''; }, 350);
+        }
+      });
     });
   })();
   (function(){

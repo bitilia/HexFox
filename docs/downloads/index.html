@@ -79,11 +79,11 @@ body::before {
 .nav-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: stretch; min-height: 58px; position: relative; }
 .nav-brand {
   display: inline-flex; align-items: center; padding: 0 22px;
-  text-decoration: none; color: var(--white);
-  border-right: 2px solid var(--line); background: var(--ink);
-  flex-shrink: 0; transition: background .15s var(--ease);
+  text-decoration: none; color: var(--ink);
+  border-right: 2px solid var(--line);
+  flex-shrink: 0; transition: opacity .15s var(--ease);
 }
-.nav-brand:hover { background: var(--orange); }
+.nav-brand:hover { opacity: .75; }
 .nav-logo-text { height: 26px; width: auto; display: block; }
 .nav-links { display: flex; align-items: stretch; list-style: none; margin: 0 0 0 auto; padding: 0; }
 .nav-links li { display: flex; }
@@ -225,7 +225,7 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
     <a href="/" class="nav-brand">
-      <img src="../hexfox-brand-content/hexfox-logo-text-white.svg" alt="HexFox Labs" class="nav-logo-text">
+      <img src="../hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" class="nav-logo-text">
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/#competitions">Competitions</a></li>
