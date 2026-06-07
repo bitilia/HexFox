@@ -26,6 +26,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="../hexfox-brand-content/logo.svg" as="image" type="image/svg+xml">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -252,16 +253,16 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 <body>
 
 <div id="site-splash" aria-hidden="true">
-  <img src="../hexfox-brand-content/logo.svg" alt="" id="splash-logo">
+  <img src="../hexfox-brand-content/logo.svg" alt="" id="splash-logo" loading="eager">
 </div>
 
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
     <a href="/" class="nav-brand">
-      <img src="hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" class="nav-logo-text">
+      <img src="../hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" class="nav-logo-text">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/#features/">Features</a></li>
+      <li><a href="/#features">Features</a></li>
       <li><a href="/downloads/">Downloads</a></li>
     </ul>
     <a href="mailto:contact@hexfoxlabs.com" class="nav-cta">Get Access</a>
@@ -332,10 +333,36 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 <script>
 (function(){
   var splash = document.getElementById('site-splash');
-  setTimeout(function(){
+  var logo = document.getElementById('splash-logo');
+  if(!splash) return;
+
+  function imageReady(img){
+    return new Promise(function(resolve){
+      if(!img || (img.complete && img.naturalWidth !== 0)){
+        resolve();
+        return;
+      }
+      img.addEventListener('load', resolve, { once: true });
+      img.addEventListener('error', resolve, { once: true });
+    });
+  }
+
+  function fontsReady(){
+    if(document.fonts && document.fonts.ready){
+      return Promise.all([
+        document.fonts.ready,
+        document.fonts.load('1em Montserrat'),
+        document.fonts.load('1em JetBrains Mono'),
+        document.fonts.load('1em Boldonse')
+      ]).catch(function(){ });
+    }
+    return Promise.resolve();
+  }
+
+  Promise.all([imageReady(logo), fontsReady()]).then(function(){
     splash.classList.add('out');
     splash.addEventListener('transitionend', function(){ splash.remove(); }, { once: true });
-  }, 900);
+  });
 })();
 (function(){
   var toggle = document.getElementById('navToggle');
