@@ -79,8 +79,7 @@ body::before {
 .nav-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: stretch; min-height: 58px; position: relative; }
 .nav-brand {
   display: inline-flex; align-items: center; padding: 0 22px;
-  text-decoration: none; color: var(--ink);
-  border-right: 2px solid var(--line);
+  text-decoration: none; border-bottom: none; color: var(--ink);
   flex-shrink: 0; transition: opacity .15s var(--ease);
 }
 .nav-brand:hover { opacity: .75; }
@@ -190,6 +189,24 @@ pre.cmd { background: var(--ink); color: #eaeaea; padding: 14px 16px; font-famil
 
 a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
+/* ── Splash ── */
+#site-splash {
+  position: fixed; inset: 0; z-index: 10000;
+  background: #0a0a0a;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .85s cubic-bezier(.76,0,.24,1);
+  will-change: transform;
+}
+#site-splash.out { transform: translateY(-100%); }
+#splash-logo {
+  width: 80px; height: auto;
+  animation: splashIn .6s cubic-bezier(.2,.7,.2,1) .12s both;
+}
+@keyframes splashIn {
+  from { opacity: 0; transform: scale(.78) translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ── Dramatic animations ── */
 @keyframes slideUpIn { from { opacity:0; transform:translateY(36px); } to { opacity:1; transform:none; } }
 @keyframes glitchSlide {
@@ -222,16 +239,17 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 </head>
 <body>
 
+<div id="site-splash" aria-hidden="true">
+  <img src="../hexfox-brand-content/logo.svg" alt="" id="splash-logo">
+</div>
+
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
     <a href="/" class="nav-brand">
       <img src="../hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" class="nav-logo-text">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/#competitions">Competitions</a></li>
       <li><a href="/#features">Features</a></li>
-      <li><a href="/#hosting">Hosting</a></li>
-      <li><a href="/#faq">FAQ</a></li>
       <li><a href="/downloads/" class="is-active" aria-current="page">Downloads</a></li>
     </ul>
     <a href="mailto:contact@hexfoxlabs.com" class="nav-cta">Get Access →</a>
@@ -265,7 +283,7 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 <div id="cmd-area" class="card cmd-area" hidden>
   <strong id="cmd-title">Install command</strong>
   <ol class="steps">
-    <li>Download the installer above onto an Ubuntu 22.04 server.</li>
+    <li>Download the installer above onto an the latest Ubuntu server.</li>
     <li>Run it as root &mdash; it does the rest:</li>
   </ol>
   <pre id="cmd" class="cmd"></pre>
@@ -300,6 +318,13 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 </footer>
 
 <script>
+(function(){
+  var splash = document.getElementById('site-splash');
+  setTimeout(function(){
+    splash.classList.add('out');
+    splash.addEventListener('transitionend', function(){ splash.remove(); }, { once: true });
+  }, 900);
+})();
 (function(){
   var toggle = document.getElementById('navToggle');
   var links  = document.getElementById('navLinks');

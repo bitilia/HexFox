@@ -133,8 +133,7 @@ body::before {
 }
 .nav-brand {
   display: inline-flex; align-items: center;
-  padding: 0 22px; text-decoration: none; color: var(--ink);
-  border-right: 2px solid var(--line);
+  padding: 0 22px; text-decoration: none; border-bottom: none; color: var(--ink);
   flex-shrink: 0; transition: opacity .15s var(--ease);
 }
 .nav-brand:hover { opacity: .75; }
@@ -453,6 +452,24 @@ details.qa .a { overflow: hidden; }
 .features li.child-in { transition: transform .45s var(--ease), opacity .45s var(--ease), background .18s var(--ease); }
 .features li.child-in:hover { transform: translateY(-3px); }
 
+/* ════ SPLASH ════ */
+#site-splash {
+  position: fixed; inset: 0; z-index: 10000;
+  background: #0a0a0a;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .85s cubic-bezier(.76,0,.24,1);
+  will-change: transform;
+}
+#site-splash.out { transform: translateY(-100%); }
+#splash-logo {
+  width: 80px; height: auto;
+  animation: splashIn .6s var(--ease) .12s both;
+}
+@keyframes splashIn {
+  from { opacity: 0; transform: scale(.78) translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ════ FOCUS ════ */
 a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
 
@@ -486,16 +503,17 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
 </head>
 <body>
 
+<div id="site-splash" aria-hidden="true">
+  <img src="hexfox-brand-content/logo.svg" alt="" id="splash-logo">
+</div>
+
 <header class="site-nav">
   <nav class="nav-inner" aria-label="Main navigation">
     <a href="/" class="nav-brand">
       <img src="hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" class="nav-logo-text">
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#competitions">Competitions</a></li>
       <li><a href="#features">Features</a></li>
-      <li><a href="#hosting">Hosting</a></li>
-      <li><a href="#faq">FAQ</a></li>
       <li><a href="downloads/">Downloads</a></li>
     </ul>
     <a href="mailto:contact@hexfoxlabs.com" class="nav-cta">Get Access →</a>
@@ -602,7 +620,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       <li><span class="feat-idx">F-08</span><strong>GDPR Request Portal</strong><span>Participants submit access, export, and deletion requests through self-service. Every request is logged.</span></li>
       <li><span class="feat-idx">F-09</span><strong>Immutable Audit Log</strong><span>Every significant action recorded with timestamp, actor, and IP address.</span></li>
       <li><span class="feat-idx">F-10</span><strong>Content &amp; Theme Editor</strong><span>Edit page titles, body text, and FAQs from the admin panel. Theme editor for colours and branding. No code.</span></li>
-      <li><span class="feat-idx">F-11</span><strong>One-Command Deploy</strong><span>Post-alpha, a single script installs Caddy (auto HTTPS), the application, firewall, email, and all services on Ubuntu 22.04.</span></li>
+      <li><span class="feat-idx">F-11</span><strong>One-Command Deploy</strong><span>Post-alpha, a single script installs Caddy (auto HTTPS), the application, firewall, email, and all services on the latest Ubuntu.</span></li>
       <li style="background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:26px 24px 28px">
         <span class="feat-idx" style="color:var(--orange)">↳ NEXT</span>
         <strong style="color:var(--white);font-size:.98rem;margin-bottom:8px">Run Your Event</strong>
@@ -631,7 +649,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       <article>
         <span class="tag">○ After Alpha</span>
         <h3>You own it</h3>
-        <p>Once stable, any school can deploy HexFox independently. One script on Ubuntu 22.04 installs everything: Caddy with automatic HTTPS, the application, firewall, email, and all services.</p>
+        <p>Once stable, any school can deploy HexFox independently. One script on the latest Ubuntu installs everything: Caddy with automatic HTTPS, the application, firewall, email, and all services.</p>
         <p>Your domain, your database, your server — zero dependency on us. Alpha schools get first access and full migration support. <a class="inline" href="downloads/">See downloads →</a></p>
       </article>
     </div>
@@ -763,6 +781,13 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
 </footer>
 
 <script>
+  (function(){
+    var splash = document.getElementById('site-splash');
+    setTimeout(function(){
+      splash.classList.add('out');
+      splash.addEventListener('transitionend', function(){ splash.remove(); }, { once: true });
+    }, 900);
+  })();
   (function(){
     var toggle = document.getElementById('navToggle');
     var links  = document.getElementById('navLinks');
