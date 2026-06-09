@@ -32,7 +32,7 @@
   "@type": "SoftwareApplication",
   "name": "HexFox",
   "url": "https://hexfoxlabs.com",
-  "description": "Free, self-hosted competition management software for schools. Includes a built-in Learning Hub, secure submissions, weighted judging, and GDPR-compliant data handling.",
+  "description": "Free competition management software for schools. Includes a built-in Learning Hub, secure submissions, weighted judging, and GDPR-compliant data handling.",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP", "description": "Free for schools during alpha" },
@@ -517,9 +517,9 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
     </a>
     <ul class="nav-links" id="navLinks">
       <li><a href="/#features">Features</a></li>
-      <li><a href="/downloads/">Downloads</a></li>
+      <li><a href="https://hexfox.app" target="_blank" rel="noopener noreferrer">Create Instance</a></li>
     </ul>
-    <a href="mailto:contact@hexfoxlabs.com" class="nav-cta">Get Access</a>
+    <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer" class="nav-cta">Create Instance</a>
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Toggle navigation" aria-controls="navLinks">
       <span></span><span></span><span></span>
     </button>
@@ -535,14 +535,14 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
     <h1 class="hero-title">Run a serious<br>competition. <span class="accent">End to end.</span></h1>
     <p class="lead">Registration, a built-in Learning Hub, secure submissions and weighted judging — one platform for educational competitions at schools and institutions. Free during alpha. We host it for you.</p>
     <div class="hero-actions">
-      <a href="mailto:contact@hexfoxlabs.com" class="btn btn-primary">Apply for access <span class="arrow" aria-hidden="true">→</span></a>
-      <a href="#features" class="btn btn-ghost">View features</a>
+      <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Create an instance <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="mailto:contact@hexfoxlabs.com" class="btn btn-ghost">Contact us</a>
     </div>
   </div>
   <div class="notices">
     <div class="notice notice-free">
-      <b>Free during alpha — we host it</b>
-      Get a subdomain like <code>yourschool.hexfox.app</code>, or connect your own domain. No servers, no setup, no payment.
+      <b>Free during alpha — hosted in the control panel</b>
+      Create your instance at <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer">hexfox.app</a>, then use your own subdomain or connect a custom domain. No servers, no setup, no payment.
     </div>
     <div class="notice">
       <b>Alpha software</b>
@@ -597,8 +597,8 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       </div>
       <div>
         <h3>Why privacy is the foundation</h3>
-        <p>HexFox is designed to be entirely self-hosted, so data never leaves the institution responsible for it. During alpha we host it carefully on a VPS in the EU/UK, in per-school logically isolated databases.</p>
-        <p>After alpha, any school can run HexFox independently on their own server — with zero access from us.</p>
+        <p>HexFox is hosted in a secure, school-isolated environment, so participant data stays under the institution’s control. During alpha we run each instance in the EU/UK on logically isolated databases.</p>
+        <p>For independent deployments, the control panel and hosted setup path remain the primary route for schools that want a fast start.</p>
       </div>
     </div>
   </div>
@@ -652,8 +652,8 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       <article>
         <span class="tag">○ After Alpha</span>
         <h3>You own it</h3>
-        <p>Once stable, any school can deploy HexFox independently. One script on the latest Ubuntu installs everything: Caddy with automatic HTTPS, the application, firewall, email, and all services.</p>
-        <p>Your domain, your database, your server — zero dependency on us. Alpha schools get first access and full migration support. <a class="inline" href="downloads/">See downloads →</a></p>
+        <p>Once stable, any school can deploy HexFox independently with a one-command setup flow on the latest Ubuntu. It provisions HTTPS, the application, firewall, email, and all supporting services.</p>
+        <p>Alpha schools get first access and migration support through the hosted control panel at <a class="inline" href="https://hexfox.app" target="_blank" rel="noopener noreferrer">hexfox.app</a>.</p>
       </article>
     </div>
   </div>
@@ -685,7 +685,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       <div>
         <p class="col-head">Improving <span class="n">[WIP]</span></p>
         <ul>
-          <li>Self-hosted email hardening</li>
+          <li>Hosted email hardening</li>
           <li>Bulk result exports</li>
           <li>More Learning Hub formats</li>
           <li>Documentation</li>
@@ -730,7 +730,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-02</span> Do I need to run a server? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Not during alpha. We host every instance — you contact us, we set it up, you get a link. No servers, no SSH, no configuration required. Post-alpha, self-hosting is an option for full data sovereignty via a single setup script on a cheap VPS.</div>
+        <div class="a">Not during alpha. We host every instance through the control panel — you create it, we provision it, and you get a link. No servers, no SSH, no configuration required. Independent deployment remains available for teams that want to run their own stack.</div>
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-03</span> Can I use my own domain? <span class="q-sign" aria-hidden="true">+</span></summary>
@@ -738,7 +738,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-04</span> Where is participant data stored? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">During beta: on a VPS in the EU/UK in a per-school logically isolated database. We treat all data as strictly confidential and never access it except when explicitly asked for support. Post-alpha self-hosted: entirely on your own server, with zero access from us.</div>
+        <div class="a">During beta: on a VPS in the EU/UK in a per-school logically isolated database. We treat all data as strictly confidential and never access it except when explicitly asked for support. Independent deployments keep the same platform logic on your own server.</div>
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-05</span> Is it GDPR compliant? <span class="q-sign" aria-hidden="true">+</span></summary>
@@ -769,8 +769,8 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
     <h2>Get in touch.</h2>
     <p>Want to run a competition, or just have questions? Email us — apply for free hosted access and we'll provision your instance.</p>
     <div class="hero-actions">
-      <a href="mailto:contact@hexfoxlabs.com" class="btn btn-primary">contact@hexfoxlabs.com <span class="arrow" aria-hidden="true">→</span></a>
-      <a href="downloads/" class="btn btn-ghost">Downloads</a>
+      <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open the control panel <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="mailto:contact@hexfoxlabs.com" class="btn btn-ghost">contact@hexfoxlabs.com</a>
     </div>
   </div>
 </section>
@@ -779,7 +779,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
   <hr class="rule">
   <div class="foot-inner">
     <a href="/" class="foot-logo"><img src="hexfox-brand-content/hexfox-labs-text.svg" alt="HexFox Labs" style="height:30px;width:auto;display:block;"></a>
-    <span><a href="privacy.html">Privacy</a> <span class="sep">/</span> <a href="mailto:contact@hexfoxlabs.com">Contact</a> <span class="sep">/</span> <a href="downloads/">Downloads</a></span>
+    <span><a href="privacy.html">Privacy</a> <span class="sep">/</span> <a href="mailto:contact@hexfoxlabs.com">Contact</a> <span class="sep">/</span> <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer">hexfox.app</a></span>
   </div>
 </footer>
 
