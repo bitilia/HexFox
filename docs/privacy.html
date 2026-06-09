@@ -326,7 +326,7 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
     <tr><td>Data sold or shared</td><td><span class="no">Never</span></td><td><span class="no">Never</span></td><td>School's responsibility</td></tr>
     <tr><td>Data controller</td><td>HexFox developers</td><td>The school</td><td>The school</td></tr>
     <tr><td>Data processor</td><td>N/A</td><td>HexFox developers</td><td>N/A (zero access)</td></tr>
-    <tr><td>Storage location</td><td>GitHub Pages + Cloudflare (US); see Section 9</td><td>VPS in the EU/UK, logically isolated per school</td><td>Wherever the school deploys</td></tr>
+    <tr><td>Storage location</td><td>GitHub Pages + Cloudflare (US); see Section 9</td><td>VPS in the EU/UK, logically isolated per school, with Cloudflare proxying for hosted traffic</td><td>Wherever the school deploys</td></tr>
     <tr><td>GDPR request portal</td><td>N/A</td><td><span class="yes">Built in</span></td><td><span class="yes">Built in</span></td></tr>
     <tr><td>DPA available</td><td>N/A</td><td><span class="yes">Yes, on request</span></td><td>Not needed</td></tr>
   </tbody>
@@ -451,9 +451,9 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
 <p>This website is hosted on <strong>GitHub Pages</strong>, operated by GitHub, Inc. (a Microsoft subsidiary, based in the United States). When you visit, GitHub Pages infrastructure processes your connection and may collect standard web server logs. This data is subject to <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">GitHub's privacy policy</a>.</p>
 
 <h3>Cloudflare proxy</h3>
-<p>This website is served through <strong>Cloudflare</strong>, operated by Cloudflare, Inc. (United States). All traffic passes through Cloudflare's servers, which means Cloudflare receives and processes your IP address, geolocation data, HTTP request headers, and request timing data. This is subject to <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>.</p>
+<p>This website and alpha-hosted HexFox instances are served through <strong>Cloudflare</strong>, operated by Cloudflare, Inc. (United States). All traffic passes through Cloudflare's servers, which means Cloudflare receives and processes your IP address, geolocation data, HTTP request headers, and request timing data. This applies to both the public website and alpha-hosted instances that are proxied through Cloudflare. This is subject to <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare's privacy policy</a>.</p>
 
-<p><strong>Note:</strong> These disclosures apply only to this website (hexfoxlabs.com). If you use a alpha-hosted HexFox instance, please see Sections 3–8 for how data is handled on the platform.</p>
+<p><strong>Note:</strong> These disclosures apply to the public website and to alpha-hosted instances that are proxied through Cloudflare. If you use a alpha-hosted HexFox instance, please also see Sections 3–8 for how data is handled on the platform.</p>
 
 <h2 id="s9b"><span class="section-num">9b.</span> International transfers</h2>
 <p>This website is hosted on US-based infrastructure (GitHub Pages and Cloudflare). By accessing this website, you consent to the transfer of your IP address and request metadata to the United States for processing by GitHub and Cloudflare.</p>
