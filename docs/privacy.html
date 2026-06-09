@@ -257,7 +257,9 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--orange); outline-
   .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-bottom: 2px solid var(--line); z-index: 100; }
   .nav-links.is-open { display: flex; }
   .nav-links li { display: block; }
+  .nav-links li:last-child { display: none; }
   .nav-links a { border-left: none; border-top: 1px solid var(--line-s); padding: 16px 22px; }
+  .nav-cta { display: none; }
   .nav-toggle { display: flex; }
   .toc ol { columns: 1; }
   .rights { grid-template-columns: 1fr; }
