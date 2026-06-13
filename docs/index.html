@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>HexFox — Competition Platform for Schools</title>
-<meta name="description" content="HexFox is free competition management software for schools. Run essay competitions, design challenges, and more — with secure submissions, weighted judging, and GDPR-compliant data handling.">
+<meta name="description" content="HexFox is free competition management software for schools. Sign up, complete a short setup wizard, and your instance is live — secure submissions, weighted judging, custom domains, and GDPR-compliant data handling.">
 <meta name="keywords" content="competition software schools, school competition platform, essay competition, design competition, free school software">
 <meta name="author" content="HexFox">
 <link rel="canonical" href="https://hexfoxlabs.com/">
@@ -49,8 +49,9 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Is HexFox free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, completely free for schools willing to test it during alpha and provide honest feedback. No hidden costs, no premium tier, no expiry." } },
-    { "@type": "Question", "name": "Do I need a server to use HexFox?", "acceptedAnswer": { "@type": "Answer", "text": "Not during alpha. We host every instance on our infrastructure. You contact us, we set it up, and you receive a link. No servers, no SSH, no configuration." } },
-    { "@type": "Question", "name": "Can I use my own domain with HexFox?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. By default we give you a subdomain like yourschool.hexfox.app. If you prefer your own domain, mention it when you get in touch and we will set it up." } }
+    { "@type": "Question", "name": "Do I need a server to use HexFox?", "acceptedAnswer": { "@type": "Answer", "text": "Not during alpha. Sign up at hexfox.app, complete the setup wizard, and your instance is provisioned automatically. No servers, no SSH, no configuration required." } },
+    { "@type": "Question", "name": "Can I use my own domain with HexFox?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. By default you get a subdomain like yourschool.hexfox.app. To connect your own domain, use the domain settings in your instance dashboard — point a DNS record at our server and HTTPS is provisioned automatically." } },
+    { "@type": "Question", "name": "Can I use my own email provider?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. During setup you choose between platform email — where DKIM is configured automatically — and bring-your-own SMTP, where you supply your own server credentials. You can switch between them from the instance settings at any time." } }
   ]
 }
 </script>
@@ -536,7 +537,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
   <div class="hero-main">
     <p class="eyebrow">Free · Student-Built · Alpha <span class="status-dot" aria-hidden="true"></span></p>
     <h1 class="hero-title">Run a serious<br>competition. <span class="accent">End to end.</span></h1>
-    <p class="lead">Registration, a built-in Learning Hub, secure submissions and weighted judging — one platform for educational competitions at schools and institutions. Free during alpha. We host it for you.</p>
+    <p class="lead">Sign up, complete a short setup wizard, and your instance is live — participant registration, a built-in Learning Hub, secure file submissions and weighted judging. One platform, free during alpha, no servers required.</p>
     <div class="hero-actions">
       <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Create an instance <span class="arrow" aria-hidden="true">→</span></a>
       <a href="mailto:contact@hexfoxlabs.com" class="btn btn-ghost">Contact us</a>
@@ -544,8 +545,8 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
   </div>
   <div class="notices">
     <div class="notice notice-free">
-      <b>Free during alpha — hosted in the control panel</b>
-      Create your instance at <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer">hexfox.app</a>, then use your own subdomain or connect a custom domain. No servers, no setup, no payment.
+      <b>Free during alpha — self-service setup</b>
+      Sign up at <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer">hexfox.app</a>, complete the setup wizard, and your instance is provisioned automatically. Connect your own domain from the dashboard at any time. No servers, no payment.
     </div>
     <div class="notice">
       <b>Alpha software</b>
@@ -595,13 +596,13 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
     <div class="about-grid" data-reveal>
       <div>
         <h3>What it is</h3>
-        <p>Competition management software built for educational events at schools and institutions. It covers the entire event: participant registration, a built-in Learning Hub, secure file submissions, structured judging with weighted rubrics, and GDPR-compliant data handling.</p>
-        <p>We built it because running a good competition is hard work, and no decent free tool existed for schools.</p>
+        <p>Competition management software built for educational events at schools and institutions. Sign up at hexfox.app, work through a short wizard — choose a subdomain, configure email, add optional OAuth SSO — and your instance is provisioned automatically.</p>
+        <p>It covers the entire event: participant registration, a built-in Learning Hub, secure file submissions, structured judging with weighted rubrics, and GDPR-compliant data handling. We built it because running a good competition is hard work, and no decent free tool existed for schools.</p>
       </div>
       <div>
         <h3>Why privacy is the foundation</h3>
-        <p>HexFox is hosted in a secure, school-isolated environment, so participant data stays under the institution’s control. During alpha we run each instance in the EU/UK on logically isolated databases.</p>
-        <p>For independent deployments, the control panel and hosted setup path remain the primary route for schools that want a fast start.</p>
+        <p>HexFox is hosted in a secure, school-isolated environment, so participant data stays under the institution’s control. During alpha we run each instance in the EU/UK on logically isolated databases — no cross-school access is possible at any layer.</p>
+        <p>Custom domains, bring-your-own email, and self-service data exports give schools full operational control. The same privacy architecture carries over when deploying independently.</p>
       </div>
     </div>
   </div>
@@ -620,13 +621,13 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       <li><span class="feat-idx">F-02</span><strong>Configurable Tasks</strong><span>Multiple briefs across difficulty levels. Participants choose their task at submission, not registration.</span></li>
       <li><span class="feat-idx">F-03</span><strong>Weighted Judging</strong><span>Define criteria with custom weights. Judges score independently; results aggregate automatically. No spreadsheets.</span></li>
       <li><span class="feat-idx">F-04</span><strong>Secure Submissions</strong><span>PDF and DOCX accepted. DOCX converts to PDF in an isolated, network-free process. Every file is verified and sanitised.</span></li>
-      <li><span class="feat-idx">F-05</span><strong>OTP Email Login</strong><span>No passwords. One-time codes by email. Registration can be locked to your institution's email domain.</span></li>
-      <li><span class="feat-idx">F-06</span><strong>Security Dashboard</strong><span>Live connection logs, login-failure rates, suspicious-file counts, IP tracking, country restrictions, and blocking.</span></li>
-      <li><span class="feat-idx">F-07</span><strong>Emergency Lockdown</strong><span>One click halts all registrations and submissions site-wide.</span></li>
-      <li><span class="feat-idx">F-08</span><strong>GDPR Request Portal</strong><span>Participants submit access, export, and deletion requests through self-service. Every request is logged.</span></li>
-      <li><span class="feat-idx">F-09</span><strong>Immutable Audit Log</strong><span>Every significant action recorded with timestamp, actor, and IP address.</span></li>
+      <li><span class="feat-idx">F-05</span><strong>No-Password Login</strong><span>One-time codes by email. Optionally add Google, Microsoft, or GitHub OAuth for staff. Lock registration to your institution's email domain.</span></li>
+      <li><span class="feat-idx">F-06</span><strong>Security Dashboard</strong><span>Live connection logs, login-failure rates, suspicious-file counts, IP tracking, country restrictions, and blocking. Every action recorded in an immutable audit trail.</span></li>
+      <li><span class="feat-idx">F-07</span><strong>Emergency Lockdown</strong><span>One click halts all registrations and submissions site-wide. Admin panel and sign-in remain reachable to turn it back off.</span></li>
+      <li><span class="feat-idx">F-08</span><strong>GDPR Request Portal</strong><span>Participants submit access, export, and deletion requests through self-service. Every request is tracked and logged.</span></li>
+      <li><span class="feat-idx">F-09</span><strong>Custom Domain</strong><span>Connect your own domain from the instance dashboard. Point a DNS record at our server and Caddy provisions HTTPS automatically — no configuration beyond the DNS change.</span></li>
       <li><span class="feat-idx">F-10</span><strong>Content &amp; Theme Editor</strong><span>Edit page titles, body text, and FAQs from the admin panel. Theme editor for colours and branding. No code.</span></li>
-      <li><span class="feat-idx">F-11</span><strong>One-Command Deploy</strong><span>Post-alpha, a single script installs Caddy (auto HTTPS), the application, firewall, email, and all services on the latest Ubuntu.</span></li>
+      <li><span class="feat-idx">F-11</span><strong>Platform Email or Your Own SMTP</strong><span>Choose platform-managed email — DKIM configured automatically — or enter your own SMTP credentials. Switch between them from instance settings at any time.</span></li>
       <li style="background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:26px 24px 28px">
         <span class="feat-idx" style="color:var(--orange)">↳ NEXT</span>
         <strong style="color:var(--white);font-size:.98rem;margin-bottom:8px">Run Your Event</strong>
@@ -674,25 +675,27 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       <div>
         <p class="col-head">Operational <span class="n">[OK]</span></p>
         <ul>
-          <li>Registration &amp; OTP login</li>
+          <li>Self-service sign-up &amp; wizard</li>
+          <li>OTP + OAuth login (Google/MS/GitHub)</li>
           <li>Learning Hub + progress</li>
           <li>Task selection</li>
-          <li>File submissions + sanitisation</li>
+          <li>File submissions + conversion</li>
           <li>Weighted judging</li>
+          <li>Platform email &amp; BYOS SMTP</li>
+          <li>Custom domain management</li>
           <li>Admin panel</li>
           <li>GDPR portal</li>
           <li>Security dashboard</li>
-          <li>Deploy script</li>
         </ul>
       </div>
       <div>
         <p class="col-head">Improving <span class="n">[WIP]</span></p>
         <ul>
-          <li>Hosted email hardening</li>
           <li>Bulk result exports</li>
           <li>More Learning Hub formats</li>
           <li>Documentation</li>
           <li>Scale testing (500+ users)</li>
+          <li>Email analytics</li>
         </ul>
       </div>
       <div>
@@ -724,7 +727,7 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
     <div class="sec-head">
       <span class="sec-idx">06</span>
       <h2 class="sec-title">FAQ</h2>
-      <span class="sec-meta">8 Entries</span>
+      <span class="sec-meta">9 Entries</span>
     </div>
     <div class="faq-list" data-reveal>
       <details class="qa" open>
@@ -733,11 +736,11 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-02</span> Do I need to run a server? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Not during alpha. We host every instance through the control panel — you create it, we provision it, and you get a link. No servers, no SSH, no configuration required. Independent deployment remains available for teams that want to run their own stack.</div>
+        <div class="a">Not during alpha. Sign up at <em>hexfox.app</em>, complete the setup wizard, and your instance is provisioned automatically. You receive a live subdomain with no servers, no SSH, and no configuration required. Independent deployment remains available for teams that want to run their own stack post-alpha.</div>
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-03</span> Can I use my own domain? <span class="q-sign" aria-hidden="true">+</span></summary>
-        <div class="a">Yes. By default we give you a subdomain like <em>yourschool.hexfox.app</em>. Prefer your own domain? Mention it and we'll set it up — you point a DNS CNAME or A record at our server.</div>
+        <div class="a">Yes. By default you get a subdomain like <em>yourschool.hexfox.app</em>. To connect your own domain, go to domain settings in your instance dashboard, add a DNS CNAME record pointing at our server, and HTTPS is provisioned automatically — no further configuration needed on your end.</div>
       </details>
       <details class="qa">
         <summary><span class="q-idx">Q-04</span> Where is participant data stored? <span class="q-sign" aria-hidden="true">+</span></summary>
@@ -756,7 +759,11 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
         <div class="a">We haven't fixed a commercial model. Alpha schools get plenty of notice before anything changes, and will always be credited for helping build this. The core software will remain source-available.</div>
       </details>
       <details class="qa">
-        <summary><span class="q-idx">Q-08</span> Who built HexFox? <span class="q-sign" aria-hidden="true">+</span></summary>
+        <summary><span class="q-idx">Q-08</span> Can I use my own email provider? <span class="q-sign" aria-hidden="true">+</span></summary>
+        <div class="a">Yes. During the setup wizard you choose between platform-managed email — where DKIM is configured automatically on your subdomain — and bring-your-own SMTP, where you enter your own server credentials. You can switch between the two from your instance settings panel at any time.</div>
+      </details>
+      <details class="qa">
+        <summary><span class="q-idx">Q-09</span> Who built HexFox? <span class="q-sign" aria-hidden="true">+</span></summary>
         <div class="a">Students who believe good competitions should be accessible to every school, not only well-funded ones. We built the thing we wished existed and are sharing it freely while we work out what it wants to become.</div>
       </details>
     </div>
@@ -770,9 +777,9 @@ a:focus-visible, .btn:focus-visible, summary:focus-visible { outline: 2px solid 
   <div class="wrap">
     <p class="eyebrow">Direct Line · A Real Person Replies</p>
     <h2>Get in touch.</h2>
-    <p>Want to run a competition, or just have questions? Email us — apply for free hosted access and we'll provision your instance.</p>
+    <p>Want to run a competition, or just have questions? Sign up and start the wizard, or email us directly — we reply to every message.</p>
     <div class="hero-actions">
-      <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Open the control panel <span class="arrow" aria-hidden="true">→</span></a>
+      <a href="https://hexfox.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Create your instance <span class="arrow" aria-hidden="true">→</span></a>
       <a href="mailto:contact@hexfoxlabs.com" class="btn btn-ghost">contact@hexfoxlabs.com</a>
     </div>
   </div>
