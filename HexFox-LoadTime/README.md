@@ -4,10 +4,22 @@ A local desktop tool (Python + [customtkinter](https://github.com/TomSchimansky/
 comparing two website performance metrics, side by side, across one or more sites:
 
 - **TIME TO FIRST LOAD** — how long it takes for the site to start showing something
-  (time until the initial HTML document is fully downloaded: DNS + connect + TLS + TTFB + HTML transfer).
+  (time until the initial HTML document is fully downloaded).
 - **TIME TO LOAD ALL ELEMENTS** — how long it takes for *everything* on the page to finish loading
   (time until every discoverable image, stylesheet, script, font, and icon referenced by the page —
   including assets referenced from inside CSS — has finished downloading).
+
+Both metrics are reported two ways:
+
+- **RAW** (the headline number) — just the HTML/asset transfer itself, with connection setup
+  (DNS lookup + TCP handshake + TLS negotiation) subtracted out. This is a test of *the content*,
+  not the server or network path to it.
+- **Total, incl. connection** — what actually happened on the wire, connection overhead included.
+  Shown alongside the raw number so you can see how much of the total is "the server/network being
+  slow to connect" vs. "the page being heavy."
+
+Connection time is measured precisely per request (not estimated) by timing the real DNS+TCP+TLS
+handshake of the actual connection used — see the "Methodology" section below.
 
 This is a standalone internal tool and is **not** part of the hexfox.com website codebase.
 It's meant to be run locally on your own machine.
@@ -46,8 +58,11 @@ py -3 -m venv .venv
    - **Include CSS-referenced assets** — also follow `url(...)` / `@import` references inside
      stylesheets (fonts, background images) so "Time to Load All Elements" is more complete.
 3. Click **Run Comparison**. Progress streams live into the log panel.
-4. Results appear as cards per site (median time + range across trials, resource counts,
-   transferred size, failures) plus a comparison bar chart, and can be exported to CSV.
+4. Results appear as cards per site — a big **RAW** number (content-only, connection setup
+   subtracted) with the **total incl. connection** shown just underneath — plus resource counts,
+   transferred size, and failures. The comparison chart draws each metric as a stacked bar: a grey
+   "connection setup" segment followed by the raw content segment, so both pieces are visible at a
+   glance. Results can be exported to CSV, which includes both the raw and total figures.
 
 ## 3. Methodology & limitations
 
@@ -61,6 +76,23 @@ dependency-light, and easy to run anywhere, but it does mean:
 - "Time to First Load" approximates the earliest point a browser *could* start rendering (as soon
   as it has the HTML), not a pixel-perfect First Contentful Paint measurement from DevTools.
 - Nested `@import` stylesheets are only followed one level deep.
+
+**Raw vs. total timing.** Every request's connection setup (DNS lookup + TCP handshake + TLS
+negotiation) is timed precisely by hooking the real `urllib3` connection object used for that
+request — not estimated or measured via a separate probe connection. That measured connect time is
+then subtracted from the total to produce the "raw" number:
+
+```
+raw_time_to_first_load   = time_to_first_load   - connect_time
+raw_time_to_all_elements = time_to_all_elements - connect_time
+```
+
+`connect_time` reflects the *document* request's handshake. If a connection is reused (HTTP
+keep-alive, e.g. for a second trial in the same run or for same-host resources after the first),
+no new handshake happens and `connect_time` for that request is correctly `0`. Individual resources
+also record their own connect time (visible in the live log for failures/successes), but the
+headline "raw" adjustment always uses the document's connection cost, since that's the one
+unavoidable prerequisite before any HTML/asset content can flow at all.
 
 In exchange, the numbers are cheap to produce, fully reproducible, and great for **relative**
 comparisons — "is site A's markup + first-party assets lighter/faster than site B's?" — which is

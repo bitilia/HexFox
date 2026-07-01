@@ -28,6 +28,25 @@ invisible to a static HTML/CSS parser and are not counted. Results are
 therefore a strong, reproducible *approximation* -- not a substitute for
 a real-browser trace (e.g. Lighthouse/DevTools) -- but are consistent and
 great for side-by-side comparisons.
+
+Raw (connection-excluded) timing
+---------------------------------
+Both headline metrics above bundle in DNS lookup + TCP handshake + TLS
+negotiation for the first connection made to the site -- overhead that's
+about the *server/network path*, not the HTML/assets themselves. To let
+this tool answer "is the markup/content itself fast?" independently of
+that, every result also reports a "raw" variant with that one-time
+connection-establishment cost subtracted out:
+
+    raw_time_to_first_load    = time_to_first_load    - connect_time
+    raw_time_to_all_elements  = time_to_all_elements  - connect_time
+
+`connect_time` is measured precisely (not estimated) by timing the actual
+DNS+TCP+TLS handshake of the real request via a small urllib3 hook -- see
+`_install_connection_timing_patch()` below -- so it reflects exactly what
+happened on the wire for that request, not a separate probe connection.
+Both the raw and total (including connection) numbers are kept around so
+the UI can show either or both.
 """
 
 from __future__ import annotations
@@ -43,6 +62,53 @@ from urllib.parse import urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
+
+try:
+    from urllib3.connection import HTTPConnection, HTTPSConnection
+except ImportError:  # pragma: no cover - requests always ships urllib3
+    HTTPConnection = HTTPSConnection = None
+
+_connect_timing_local = threading.local()
+_connect_timing_installed = False
+
+
+def _install_connection_timing_patch() -> None:
+    """Instrument urllib3 so we can read exactly how long the most recent
+    connection handshake (DNS + TCP + TLS) took, per-thread.
+
+    This patches `connect()` once per process. It's additive (wraps, doesn't
+    replace, the original implementation) and safe to call multiple times.
+    When a pooled/keep-alive connection is reused, `connect()` isn't called
+    again, so the thread-local value correctly comes back empty for that
+    request -- which is exactly right, since no new handshake happened.
+    """
+    global _connect_timing_installed
+    if _connect_timing_installed or HTTPConnection is None:
+        return
+
+    def _wrap(cls):
+        original = cls.connect
+
+        def timed_connect(self, _original=original):
+            start = time.perf_counter()
+            _original(self)
+            _connect_timing_local.duration = time.perf_counter() - start
+
+        cls.connect = timed_connect
+
+    _wrap(HTTPConnection)
+    if HTTPSConnection is not HTTPConnection:
+        _wrap(HTTPSConnection)
+    _connect_timing_installed = True
+
+
+def _measure_with_connect_time(fn):
+    """Call fn() and return (result, connect_time_or_0.0) for the request(s)
+    fn performs, reading the thread-local set by the urllib3 patch above."""
+    _connect_timing_local.duration = None
+    result = fn()
+    connect_time = getattr(_connect_timing_local, "duration", None) or 0.0
+    return result, connect_time
 
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -83,6 +149,7 @@ class ResourceResult:
     status_code: Optional[int] = None
     size_bytes: int = 0
     finished_at: float = 0.0  # seconds relative to the run's t0
+    connect_time: float = 0.0  # DNS+TCP+TLS handshake time for this request (0 if connection was reused)
     error: Optional[str] = None
     text: Optional[str] = None  # decoded body, only kept for stylesheets (needed to find nested urls)
 
@@ -94,8 +161,11 @@ class SiteRunResult:
     ok: bool = False
     error: Optional[str] = None
     ttfb: float = 0.0
+    connect_time: float = 0.0  # DNS+TCP+TLS handshake time for the document request
     time_to_first_load: float = 0.0
     time_to_all_elements: float = 0.0
+    raw_time_to_first_load: float = 0.0  # time_to_first_load with connect_time subtracted
+    raw_time_to_all_elements: float = 0.0  # time_to_all_elements with connect_time subtracted
     status_code: Optional[int] = None
     total_bytes: int = 0
     resource_count: int = 0
@@ -128,6 +198,18 @@ class SiteTestSummary:
     @property
     def median_all_elements(self) -> Optional[float]:
         return self._median("time_to_all_elements")
+
+    @property
+    def median_raw_first_load(self) -> Optional[float]:
+        return self._median("raw_time_to_first_load")
+
+    @property
+    def median_raw_all_elements(self) -> Optional[float]:
+        return self._median("raw_time_to_all_elements")
+
+    @property
+    def median_connect_time(self) -> Optional[float]:
+        return self._median("connect_time")
 
     @property
     def median_ttfb(self) -> Optional[float]:
@@ -168,6 +250,7 @@ class LoadTimeTester:
         self.user_agent = user_agent or DEFAULT_USER_AGENT
         self.parse_css_for_subresources = parse_css_for_subresources
         self.stop_event = stop_event or threading.Event()
+        _install_connection_timing_patch()
 
     # -- public API ---------------------------------------------------
 
@@ -192,7 +275,9 @@ class LoadTimeTester:
         result = SiteRunResult(requested_url=url)
 
         try:
+            _connect_timing_local.duration = None
             resp = session.get(url, timeout=self.timeout, stream=True, allow_redirects=True)
+            result.connect_time = getattr(_connect_timing_local, "duration", None) or 0.0
             result.ttfb = time.perf_counter() - t0
             content = bytearray()
             for chunk in resp.iter_content(chunk_size=8192):
@@ -207,6 +292,7 @@ class LoadTimeTester:
 
             html_text = content.decode(resp.encoding or "utf-8", errors="replace")
             progress({"type": "doc_loaded", "label": label, "url": url, "elapsed": result.time_to_first_load,
+                      "connect_time": result.connect_time, "raw_elapsed": result.raw_time_to_first_load,
                       "status_code": resp.status_code})
 
             resource_urls = self._extract_resource_urls(html_text, resp.url)
@@ -227,6 +313,8 @@ class LoadTimeTester:
             result.resource_count = len(result.resources)
             result.failed_count = sum(1 for r in result.resources if not r.ok)
             result.total_bytes += sum(r.size_bytes for r in result.resources)
+            result.raw_time_to_first_load = max(0.0, result.time_to_first_load - result.connect_time)
+            result.raw_time_to_all_elements = max(0.0, result.time_to_all_elements - result.connect_time)
             result.ok = True
 
         except requests.exceptions.RequestException as exc:
@@ -295,7 +383,9 @@ class LoadTimeTester:
             if self.stop_event.is_set():
                 return ResourceResult(url=url, kind=kind, ok=False, error="cancelled")
             try:
+                _connect_timing_local.duration = None
                 r = session.get(url, timeout=self.timeout, stream=True)
+                connect_time = getattr(_connect_timing_local, "duration", None) or 0.0
                 size = 0
                 keep_body = kind == "stylesheet" and self.parse_css_for_subresources
                 body = bytearray() if keep_body else None
@@ -315,7 +405,7 @@ class LoadTimeTester:
                     except Exception:
                         text = None
                 return ResourceResult(url=url, kind=kind, ok=ok, status_code=r.status_code,
-                                       size_bytes=size, finished_at=finished_at,
+                                       size_bytes=size, finished_at=finished_at, connect_time=connect_time,
                                        error=None if ok else f"HTTP {r.status_code}",
                                        text=text,
                                        )

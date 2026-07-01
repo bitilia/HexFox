@@ -398,7 +398,9 @@ class HexFoxApp(ctk.CTk):
         if etype == "trial_start":
             self._log(f"[{label}] trial {evt['trial']}/{evt['trials']} — requesting {evt['url']}")
         elif etype == "doc_loaded":
-            self._log(f"[{label}] document loaded in {format_seconds(evt['elapsed'])} (HTTP {evt['status_code']})")
+            self._log(f"[{label}] document loaded in {format_seconds(evt['elapsed'])} "
+                      f"(connection {format_seconds(evt['connect_time'])}, "
+                      f"raw {format_seconds(evt['raw_elapsed'])}) — HTTP {evt['status_code']}")
         elif etype == "resources_found":
             tag = "nested css assets" if evt.get("nested") else "resources"
             self._log(f"[{label}] found {evt['count']} {tag} to fetch")
@@ -410,8 +412,10 @@ class HexFoxApp(ctk.CTk):
             r = evt["result"]
             if r.ok:
                 self._log(f"[{label}] trial {evt['trial']}/{evt['trials']} done — "
-                          f"first load {format_seconds(r.time_to_first_load)}, "
-                          f"all elements {format_seconds(r.time_to_all_elements)}", color=theme.SUCCESS)
+                          f"first load {format_seconds(r.raw_time_to_first_load)} raw / "
+                          f"{format_seconds(r.time_to_first_load)} total, "
+                          f"all elements {format_seconds(r.raw_time_to_all_elements)} raw / "
+                          f"{format_seconds(r.time_to_all_elements)} total", color=theme.SUCCESS)
             else:
                 self._log(f"[{label}] trial {evt['trial']}/{evt['trials']} failed: {r.error}", color=theme.DANGER)
         elif etype == "site_summary":
@@ -460,8 +464,9 @@ class HexFoxApp(ctk.CTk):
             if summary and summary.ok:
                 rows.append({
                     "label": summary.label,
-                    "first_load": summary.median_first_load or 0,
-                    "all_elements": summary.median_all_elements or 0,
+                    "connect_time": summary.median_connect_time or 0,
+                    "raw_first_load": summary.median_raw_first_load or 0,
+                    "raw_all_elements": summary.median_raw_all_elements or 0,
                 })
         self.chart.set_data(rows)
 
@@ -476,8 +481,10 @@ class HexFoxApp(ctk.CTk):
         with open(path, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
             writer.writerow([
-                "label", "url", "ok", "trials", "median_ttfb_s", "median_time_to_first_load_s",
-                "median_time_to_all_elements_s", "avg_resource_count", "avg_total_bytes", "avg_failed_resources",
+                "label", "url", "ok", "trials", "median_ttfb_s", "median_connect_time_s",
+                "median_time_to_first_load_total_s", "median_time_to_first_load_raw_s",
+                "median_time_to_all_elements_total_s", "median_time_to_all_elements_raw_s",
+                "avg_resource_count", "avg_total_bytes", "avg_failed_resources",
             ])
             for key in self._run_order:
                 s: SiteTestSummary = self._summaries.get(key)
@@ -486,8 +493,11 @@ class HexFoxApp(ctk.CTk):
                 writer.writerow([
                     s.label, s.url, s.ok, len(s.runs),
                     f"{s.median_ttfb:.4f}" if s.median_ttfb is not None else "",
+                    f"{s.median_connect_time:.4f}" if s.median_connect_time is not None else "",
                     f"{s.median_first_load:.4f}" if s.median_first_load is not None else "",
+                    f"{s.median_raw_first_load:.4f}" if s.median_raw_first_load is not None else "",
                     f"{s.median_all_elements:.4f}" if s.median_all_elements is not None else "",
+                    f"{s.median_raw_all_elements:.4f}" if s.median_raw_all_elements is not None else "",
                     f"{s.avg_resource_count:.1f}" if s.avg_resource_count is not None else "",
                     f"{s.avg_total_bytes:.0f}" if s.avg_total_bytes is not None else "",
                     f"{s.avg_failed_count:.1f}" if s.avg_failed_count is not None else "",

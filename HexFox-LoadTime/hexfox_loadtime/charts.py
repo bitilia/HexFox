@@ -9,9 +9,15 @@ from . import theme
 
 
 class ComparisonChart(ctk.CTkFrame):
+    """Stacked horizontal bars: [connection setup][raw content time] = total.
+
+    Makes it visually obvious how much of the total load time is server/
+    network connection overhead (DNS+TCP+TLS) vs. actual HTML/asset transfer.
+    """
+
     def __init__(self, master, **kwargs):
         super().__init__(master, fg_color=theme.BG_CARD, corner_radius=10, **kwargs)
-        self._data = []  # list of dicts: label, first_load, all_elements, fastest
+        self._data = []  # list of dicts: label, connect_time, raw_first_load, raw_all_elements
         self._mono = "Courier New"
 
         self.canvas = tk.Canvas(self, bg=theme.BG_CARD, highlightthickness=0, height=260)
@@ -20,8 +26,9 @@ class ComparisonChart(ctk.CTkFrame):
 
         legend = ctk.CTkFrame(self, fg_color="transparent")
         legend.pack(fill="x", padx=16, pady=(0, 14))
-        self._legend_dot(legend, theme.ACCENT, "Time to First Load")
-        self._legend_dot(legend, theme.PEACH, "Time to Load All Elements", pad=(24, 0))
+        self._legend_dot(legend, theme.TEXT_MUTED, "Connection setup (DNS+TCP+TLS)")
+        self._legend_dot(legend, theme.ACCENT, "Raw first load", pad=(24, 0))
+        self._legend_dot(legend, theme.PEACH, "Raw all elements", pad=(24, 0))
 
     def _legend_dot(self, parent, color, text, pad=(0, 0)):
         wrap = ctk.CTkFrame(parent, fg_color="transparent")
@@ -36,7 +43,7 @@ class ComparisonChart(ctk.CTkFrame):
         self._mono = family
 
     def set_data(self, rows: list):
-        """rows: list of dicts with keys label, first_load, all_elements"""
+        """rows: list of dicts with keys label, connect_time, raw_first_load, raw_all_elements"""
         self._data = rows
         self._redraw()
 
@@ -51,15 +58,19 @@ class ComparisonChart(ctk.CTkFrame):
         width = max(c.winfo_width(), 200)
         height = max(c.winfo_height(), 200)
         left_pad = 130
-        right_pad = 30
+        right_pad = 190
         top_pad = 10
         bottom_pad = 30
         row_h = max(34, (height - top_pad - bottom_pad) // max(1, len(self._data)))
 
-        max_val = max([max(r["first_load"], r["all_elements"]) for r in self._data] + [0.001])
+        totals = [r["connect_time"] + max(r["raw_first_load"], r["raw_all_elements"]) for r in self._data]
+        max_val = max(totals + [0.001])
         plot_w = width - left_pad - right_pad
 
-        fastest_idx = min(range(len(self._data)), key=lambda i: self._data[i]["all_elements"]) if self._data else None
+        fastest_idx = (
+            min(range(len(self._data)), key=lambda i: self._data[i]["connect_time"] + self._data[i]["raw_all_elements"])
+            if self._data else None
+        )
 
         for i, row in enumerate(self._data):
             y0 = top_pad + i * row_h
@@ -70,21 +81,33 @@ class ComparisonChart(ctk.CTkFrame):
             c.create_text(left_pad - 12, y0 + row_h / 2, anchor="e", text=label,
                            fill=theme.TEXT_PRIMARY, font=(self._mono, 11))
 
-            fl_w = (row["first_load"] / max_val) * plot_w
-            ae_w = (row["all_elements"] / max_val) * plot_w
+            connect_w = (row["connect_time"] / max_val) * plot_w
+            fl_w = (row["raw_first_load"] / max_val) * plot_w
+            ae_w = (row["raw_all_elements"] / max_val) * plot_w
 
             y_fl = y0 + row_h / 2 - bar_h - 3
             y_ae = y0 + row_h / 2 + 3
 
-            c.create_rectangle(left_pad, y_fl, left_pad + max(2, fl_w), y_fl + bar_h,
-                                fill=theme.ACCENT, outline="")
-            c.create_text(left_pad + max(2, fl_w) + 8, y_fl + bar_h / 2, anchor="w",
-                           text=f"{row['first_load']:.2f}s", fill=theme.ACCENT, font=(self._mono, 10))
+            # Connection segment (shared prefix, same on both bars)
+            if connect_w > 0.5:
+                c.create_rectangle(left_pad, y_fl, left_pad + connect_w, y_fl + bar_h,
+                                    fill=theme.TEXT_MUTED, outline="")
+                c.create_rectangle(left_pad, y_ae, left_pad + connect_w, y_ae + bar_h,
+                                    fill=theme.TEXT_MUTED, outline="")
 
-            c.create_rectangle(left_pad, y_ae, left_pad + max(2, ae_w), y_ae + bar_h,
+            c.create_rectangle(left_pad + connect_w, y_fl, left_pad + connect_w + max(2, fl_w), y_fl + bar_h,
+                                fill=theme.ACCENT, outline="")
+            total_fl = row["connect_time"] + row["raw_first_load"]
+            c.create_text(left_pad + connect_w + max(2, fl_w) + 8, y_fl + bar_h / 2, anchor="w",
+                           text=f"{row['raw_first_load']:.2f}s raw ({total_fl:.2f}s total)",
+                           fill=theme.ACCENT, font=(self._mono, 10))
+
+            c.create_rectangle(left_pad + connect_w, y_ae, left_pad + connect_w + max(2, ae_w), y_ae + bar_h,
                                 fill=theme.PEACH, outline="")
-            c.create_text(left_pad + max(2, ae_w) + 8, y_ae + bar_h / 2, anchor="w",
-                           text=f"{row['all_elements']:.2f}s", fill=theme.PEACH, font=(self._mono, 10))
+            total_ae = row["connect_time"] + row["raw_all_elements"]
+            c.create_text(left_pad + connect_w + max(2, ae_w) + 8, y_ae + bar_h / 2, anchor="w",
+                           text=f"{row['raw_all_elements']:.2f}s raw ({total_ae:.2f}s total)",
+                           fill=theme.PEACH, font=(self._mono, 10))
 
             if i == fastest_idx and len(self._data) > 1:
                 c.create_text(left_pad, y0 + row_h - 6, anchor="w", text="★ FASTEST OVERALL",

@@ -67,22 +67,38 @@ class SiteRow(ctk.CTkFrame):
 
 
 class StatBlock(ctk.CTkFrame):
-    """Big number + caption, e.g. TIME TO FIRST LOAD 0.84s"""
+    """Big RAW number + caption, plus a smaller 'total incl. connection' line.
+
+    Raw = connection (DNS+TCP+TLS) time subtracted out, i.e. just the HTML/
+    asset transfer itself. Total = what actually happened on the wire,
+    connection overhead included. Showing both keeps the "is the server slow
+    or is the content heavy?" question answerable at a glance.
+    """
 
     def __init__(self, master, title: str, mono_font, accent=theme.ACCENT, **kwargs):
         super().__init__(master, fg_color="transparent", **kwargs)
         ctk.CTkLabel(self, text=title, font=ctk.CTkFont(family=mono_font, size=11, weight="bold"),
                      text_color=theme.TEXT_MUTED, anchor="w").pack(anchor="w")
-        self.value_label = ctk.CTkLabel(self, text="—", font=ctk.CTkFont(family=mono_font, size=30, weight="bold"),
-                                         text_color=accent, anchor="w")
-        self.value_label.pack(anchor="w", pady=(2, 0))
-        self.sub_label = ctk.CTkLabel(self, text="", font=ctk.CTkFont(family=mono_font, size=10),
-                                       text_color=theme.TEXT_SECONDARY, anchor="w")
-        self.sub_label.pack(anchor="w")
 
-    def set(self, value_text: str, sub_text: str = ""):
+        raw_wrap = ctk.CTkFrame(self, fg_color="transparent")
+        raw_wrap.pack(anchor="w", pady=(2, 0))
+        self.value_label = ctk.CTkLabel(raw_wrap, text="—", font=ctk.CTkFont(family=mono_font, size=30, weight="bold"),
+                                         text_color=accent, anchor="w")
+        self.value_label.pack(side="left")
+        ctk.CTkLabel(raw_wrap, text=" RAW", font=ctk.CTkFont(family=mono_font, size=11, weight="bold"),
+                     text_color=theme.TEXT_MUTED, anchor="w").pack(side="left", padx=(4, 0), pady=(8, 0))
+
+        self.sub_label = ctk.CTkLabel(self, text="", font=ctk.CTkFont(family=mono_font, size=10),
+                                       text_color=theme.TEXT_SECONDARY, anchor="w", justify="left")
+        self.sub_label.pack(anchor="w")
+        self.total_label = ctk.CTkLabel(self, text="", font=ctk.CTkFont(family=mono_font, size=10),
+                                         text_color=theme.TEXT_MUTED, anchor="w", justify="left")
+        self.total_label.pack(anchor="w")
+
+    def set(self, value_text: str, sub_text: str = "", total_text: str = ""):
         self.value_label.configure(text=value_text)
         self.sub_label.configure(text=sub_text)
+        self.total_label.configure(text=total_text)
 
 
 class SiteResultCard(ctk.CTkFrame):
@@ -145,25 +161,30 @@ class SiteResultCard(ctk.CTkFrame):
         trials = len(summary.runs)
         successful = [r for r in summary.runs if r.ok]
 
-        fl_vals = [r.time_to_first_load for r in successful]
-        ae_vals = [r.time_to_all_elements for r in successful]
+        raw_fl_vals = [r.raw_time_to_first_load for r in successful]
+        raw_ae_vals = [r.raw_time_to_all_elements for r in successful]
 
         self.first_load_stat.set(
-            format_seconds(summary.median_first_load),
-            f"range {format_seconds(min(fl_vals))}–{format_seconds(max(fl_vals))}" if len(fl_vals) > 1 else "median",
+            format_seconds(summary.median_raw_first_load),
+            f"range {format_seconds(min(raw_fl_vals))}–{format_seconds(max(raw_fl_vals))}"
+            if len(raw_fl_vals) > 1 else "median, content only",
+            f"total incl. connection: {format_seconds(summary.median_first_load)}",
         )
         self.all_elements_stat.set(
-            format_seconds(summary.median_all_elements),
-            f"range {format_seconds(min(ae_vals))}–{format_seconds(max(ae_vals))}" if len(ae_vals) > 1 else "median",
+            format_seconds(summary.median_raw_all_elements),
+            f"range {format_seconds(min(raw_ae_vals))}–{format_seconds(max(raw_ae_vals))}"
+            if len(raw_ae_vals) > 1 else "median, content only",
+            f"total incl. connection: {format_seconds(summary.median_all_elements)}",
         )
 
         avg_res = summary.avg_resource_count or 0
         avg_bytes = summary.avg_total_bytes or 0
         avg_failed = summary.avg_failed_count or 0
         ttfb = summary.median_ttfb or 0
+        connect = summary.median_connect_time or 0
         self.detail_label.configure(
-            text=(f"TTFB {format_seconds(ttfb)}  ·  ~{avg_res:.0f} resources  ·  "
-                  f"~{format_bytes(avg_bytes)} transferred  ·  "
+            text=(f"TTFB {format_seconds(ttfb)}  ·  connection setup {format_seconds(connect)}  ·  "
+                  f"~{avg_res:.0f} resources  ·  ~{format_bytes(avg_bytes)} transferred  ·  "
                   f"{avg_failed:.0f} failed  ·  {trials} trial{'s' if trials != 1 else ''}"),
             text_color=theme.TEXT_SECONDARY,
         )
