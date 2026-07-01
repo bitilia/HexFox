@@ -24,8 +24,10 @@ from PIL import Image
 from . import theme, fonts
 from .network import LoadTimeTester, SiteTestSummary
 from .charts import ComparisonChart
+from .throttle import NETWORK_PRESETS, CPU_PRESETS
 from .utils import normalize_url, format_seconds, short_host
 from .widgets import SiteRow, SiteResultCard
+from . import pdf_report
 
 ctk.set_appearance_mode("dark")
 
@@ -66,6 +68,11 @@ class HexFoxApp(ctk.CTk):
         self._summaries = {}
         self._run_order = []
         self._log_tags = set()
+        self._last_network_label = "No throttling"
+        self._last_network_description = NETWORK_PRESETS["No throttling"].description
+        self._last_cpu_label = "No throttling"
+        self._last_trials = 3
+        self._last_device_label = "Desktop · Chrome"
 
         self._build_header()
         self._build_body()
@@ -183,6 +190,15 @@ class HexFoxApp(ctk.CTk):
         self.device_var = ctk.StringVar(value="Desktop · Chrome")
         self._labeled_segment(row, "SIMULATED DEVICE", list(USER_AGENTS.keys()), self.device_var)
 
+        throttle_row = ctk.CTkFrame(panel, fg_color="transparent")
+        throttle_row.pack(fill="x", padx=18, pady=(0, 16))
+
+        self.network_var = ctk.StringVar(value="No throttling")
+        self._labeled_segment(throttle_row, "NETWORK THROTTLE", list(NETWORK_PRESETS.keys()), self.network_var)
+
+        self.cpu_var = ctk.StringVar(value="No throttling")
+        self._labeled_segment(throttle_row, "CPU THROTTLE", list(CPU_PRESETS.keys()), self.cpu_var)
+
         adv = ctk.CTkFrame(panel, fg_color="transparent")
         adv.pack(fill="x", padx=18, pady=(0, 16))
 
@@ -241,16 +257,32 @@ class HexFoxApp(ctk.CTk):
         )
         self.stop_btn.pack(side="left", padx=(10, 0))
 
-        self.export_btn = ctk.CTkButton(
+        self.export_csv_btn = ctk.CTkButton(
             wrap, text="⇩  EXPORT CSV", height=42, width=140, corner_radius=6, fg_color="transparent",
             border_width=1, border_color=theme.BORDER, hover_color=theme.BG_CARD_HOVER, text_color=theme.TEXT_SECONDARY,
             font=ctk.CTkFont(family=self.mono, size=13, weight="bold"), command=self._export_csv, state="disabled",
         )
-        self.export_btn.pack(side="left", padx=(10, 0))
+        self.export_csv_btn.pack(side="left", padx=(10, 0))
+
+        self.export_pdf_btn = ctk.CTkButton(
+            wrap, text="⇩  EXPORT PDF", height=42, width=140, corner_radius=6, fg_color="transparent",
+            border_width=1, border_color=theme.BORDER, hover_color=theme.BG_CARD_HOVER, text_color=theme.TEXT_SECONDARY,
+            font=ctk.CTkFont(family=self.mono, size=13, weight="bold"), command=self._export_pdf, state="disabled",
+        )
+        self.export_pdf_btn.pack(side="left", padx=(10, 0))
 
         self.status_label = ctk.CTkLabel(wrap, text="Ready.", font=ctk.CTkFont(family=self.mono, size=11),
                                           text_color=theme.TEXT_MUTED)
         self.status_label.pack(side="left", padx=(20, 0))
+
+        options_row = ctk.CTkFrame(parent, fg_color="transparent")
+        options_row.pack(fill="x", pady=(10, 0))
+        self.branding_var = ctk.BooleanVar(value=True)
+        ctk.CTkCheckBox(
+            options_row, text="Include HexFox branding in PDF export", variable=self.branding_var,
+            font=ctk.CTkFont(family=self.mono, size=11), fg_color=theme.ORANGE, hover_color=theme.ORANGE_DARK,
+            text_color=theme.TEXT_SECONDARY, checkmark_color=theme.INK,
+        ).pack(side="left")
 
         self.progress = ctk.CTkProgressBar(parent, mode="indeterminate", progress_color=theme.ORANGE,
                                             fg_color=theme.BG_CARD)
@@ -310,7 +342,9 @@ class HexFoxApp(ctk.CTk):
         except ValueError:
             trials = 3
         user_agent = USER_AGENTS.get(self.device_var.get(), list(USER_AGENTS.values())[0])
-        return timeout, concurrency, trials, user_agent, self.parse_css_var.get()
+        network_profile = NETWORK_PRESETS.get(self.network_var.get(), NETWORK_PRESETS["No throttling"])
+        cpu_multiplier = CPU_PRESETS.get(self.cpu_var.get(), 1.0)
+        return timeout, concurrency, trials, user_agent, self.parse_css_var.get(), network_profile, cpu_multiplier
 
     def _start_run(self):
         if self._running:
@@ -336,12 +370,20 @@ class HexFoxApp(ctk.CTk):
 
         self.run_btn.configure(state="disabled")
         self.stop_btn.configure(state="normal")
-        self.export_btn.configure(state="disabled")
+        self.export_csv_btn.configure(state="disabled")
+        self.export_pdf_btn.configure(state="disabled")
         self.status_label.configure(text="Running…", text_color=theme.ORANGE)
         self.progress.configure(mode="indeterminate")
         self.progress.start()
 
-        timeout, concurrency, trials, user_agent, parse_css = self._read_settings()
+        timeout, concurrency, trials, user_agent, parse_css, network_profile, cpu_multiplier = self._read_settings()
+        self._last_network_label = network_profile.name
+        self._last_network_description = network_profile.description
+        self._last_cpu_label = self.cpu_var.get()
+        self._last_trials = trials
+        self._last_device_label = self.device_var.get()
+        self._log(f"Network: {network_profile.name} ({network_profile.description})  ·  "
+                  f"CPU: {self._last_cpu_label}")
 
         def worker():
             for i, (label, url) in enumerate(targets):
@@ -350,7 +392,8 @@ class HexFoxApp(ctk.CTk):
                 key = f"row-{i}"
                 display_label = label or short_host(url)
                 tester = LoadTimeTester(timeout=timeout, concurrency=concurrency, user_agent=user_agent,
-                                         parse_css_for_subresources=parse_css, stop_event=self._stop_event)
+                                         parse_css_for_subresources=parse_css, stop_event=self._stop_event,
+                                         network_profile=network_profile, cpu_multiplier=cpu_multiplier)
                 summary = tester.run(display_label, url, trials, progress=lambda evt: self._events.put(evt))
                 self._events.put({"type": "site_summary", "key": key, "summary": summary})
             self._events.put({"type": "all_done"})
@@ -371,7 +414,9 @@ class HexFoxApp(ctk.CTk):
         self.progress.configure(mode="determinate")
         self.progress.set(0)
         has_results = any(s.ok for s in self._summaries.values())
-        self.export_btn.configure(state="normal" if has_results else "disabled")
+        export_state = "normal" if has_results else "disabled"
+        self.export_csv_btn.configure(state=export_state)
+        self.export_pdf_btn.configure(state=export_state)
         self.status_label.configure(
             text="Done." if not self._stop_event.is_set() else "Stopped.",
             text_color=theme.SUCCESS if not self._stop_event.is_set() else theme.TEXT_MUTED,
@@ -480,6 +525,8 @@ class HexFoxApp(ctk.CTk):
             return
         with open(path, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
+            writer.writerow(["# network_throttle", self._last_network_label])
+            writer.writerow(["# cpu_throttle", self._last_cpu_label])
             writer.writerow([
                 "label", "url", "ok", "trials", "median_ttfb_s", "median_connect_time_s",
                 "median_time_to_first_load_total_s", "median_time_to_first_load_raw_s",
@@ -503,6 +550,56 @@ class HexFoxApp(ctk.CTk):
                     f"{s.avg_failed_count:.1f}" if s.avg_failed_count is not None else "",
                 ])
         self._log(f"Exported results to {path}", color=theme.SUCCESS)
+
+    def _site_export_row(self, summary: SiteTestSummary) -> dict:
+        error = None
+        if not summary.ok and summary.runs:
+            error = summary.runs[-1].error
+        return {
+            "label": summary.label,
+            "url": summary.url,
+            "ok": summary.ok,
+            "error": error,
+            "trials": len(summary.runs),
+            "ttfb": summary.median_ttfb or 0.0,
+            "connect_time": summary.median_connect_time or 0.0,
+            "total_first_load": summary.median_first_load or 0.0,
+            "raw_first_load": summary.median_raw_first_load or 0.0,
+            "total_all_elements": summary.median_all_elements or 0.0,
+            "raw_all_elements": summary.median_raw_all_elements or 0.0,
+            "avg_resource_count": summary.avg_resource_count or 0.0,
+            "avg_total_bytes": summary.avg_total_bytes or 0.0,
+            "avg_failed_count": summary.avg_failed_count or 0.0,
+        }
+
+    def _export_pdf(self):
+        from tkinter import filedialog
+        path = filedialog.asksaveasfilename(
+            defaultextension=".pdf", filetypes=[("PDF document", "*.pdf")],
+            initialfile=f"hexfox-loadtime-{datetime.now().strftime('%Y%m%d-%H%M%S')}.pdf",
+        )
+        if not path:
+            return
+
+        site_rows = [self._site_export_row(self._summaries[key]) for key in self._run_order if key in self._summaries]
+        if not site_rows:
+            self._log("Nothing to export yet — run a comparison first.", color=theme.DANGER)
+            return
+
+        run_meta = {
+            "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "trials": self._last_trials,
+            "device_label": self._last_device_label,
+            "network_label": self._last_network_label,
+            "network_description": self._last_network_description,
+            "cpu_label": self._last_cpu_label,
+        }
+
+        try:
+            pdf_report.build_pdf(path, run_meta, site_rows, include_branding=self.branding_var.get())
+            self._log(f"Exported PDF report to {path}", color=theme.SUCCESS)
+        except Exception as exc:
+            self._log(f"PDF export failed: {exc}", color=theme.DANGER)
 
 
 def main():

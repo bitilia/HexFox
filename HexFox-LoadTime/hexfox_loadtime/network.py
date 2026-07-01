@@ -63,6 +63,8 @@ from urllib.parse import urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
+from .throttle import NETWORK_PRESETS, RateLimiter, estimate_cpu_delay, sleep_respecting_stop
+
 try:
     from urllib3.connection import HTTPConnection, HTTPSConnection
 except ImportError:  # pragma: no cover - requests always ships urllib3
@@ -101,14 +103,6 @@ def _install_connection_timing_patch() -> None:
         _wrap(HTTPSConnection)
     _connect_timing_installed = True
 
-
-def _measure_with_connect_time(fn):
-    """Call fn() and return (result, connect_time_or_0.0) for the request(s)
-    fn performs, reading the thread-local set by the urllib3 patch above."""
-    _connect_timing_local.duration = None
-    result = fn()
-    connect_time = getattr(_connect_timing_local, "duration", None) or 0.0
-    return result, connect_time
 
 DEFAULT_USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -166,6 +160,8 @@ class SiteRunResult:
     time_to_all_elements: float = 0.0
     raw_time_to_first_load: float = 0.0  # time_to_first_load with connect_time subtracted
     raw_time_to_all_elements: float = 0.0  # time_to_all_elements with connect_time subtracted
+    cpu_delay_first_load: float = 0.0  # simulated CPU parse/exec delay folded into the numbers above
+    cpu_delay_all_elements: float = 0.0
     status_code: Optional[int] = None
     total_bytes: int = 0
     resource_count: int = 0
@@ -212,6 +208,10 @@ class SiteTestSummary:
         return self._median("connect_time")
 
     @property
+    def median_cpu_delay_all_elements(self) -> Optional[float]:
+        return self._median("cpu_delay_all_elements")
+
+    @property
     def median_ttfb(self) -> Optional[float]:
         return self._median("ttfb")
 
@@ -244,12 +244,16 @@ class LoadTimeTester:
         user_agent: str = DEFAULT_USER_AGENT,
         parse_css_for_subresources: bool = True,
         stop_event: Optional[threading.Event] = None,
+        network_profile=None,
+        cpu_multiplier: float = 1.0,
     ):
         self.timeout = timeout
         self.concurrency = max(1, concurrency)
         self.user_agent = user_agent or DEFAULT_USER_AGENT
         self.parse_css_for_subresources = parse_css_for_subresources
         self.stop_event = stop_event or threading.Event()
+        self.network_profile = network_profile or NETWORK_PRESETS["No throttling"]
+        self.cpu_multiplier = cpu_multiplier or 1.0
         _install_connection_timing_patch()
 
     # -- public API ---------------------------------------------------
@@ -273,11 +277,16 @@ class LoadTimeTester:
         session.headers.update({"User-Agent": self.user_agent, "Accept-Language": "en-US,en;q=0.9"})
         t0 = time.perf_counter()
         result = SiteRunResult(requested_url=url)
+        latency_s = self.network_profile.latency_ms / 1000.0
+        # One shared limiter for the whole run: the document plus every
+        # concurrently-fetched resource all draw from the same simulated pipe.
+        rate_limiter = RateLimiter(self.network_profile.download_kbps)
 
         try:
+            sleep_respecting_stop(latency_s, self.stop_event)
             _connect_timing_local.duration = None
             resp = session.get(url, timeout=self.timeout, stream=True, allow_redirects=True)
-            result.connect_time = getattr(_connect_timing_local, "duration", None) or 0.0
+            result.connect_time = (getattr(_connect_timing_local, "duration", None) or 0.0) + latency_s
             result.ttfb = time.perf_counter() - t0
             content = bytearray()
             for chunk in resp.iter_content(chunk_size=8192):
@@ -285,10 +294,19 @@ class LoadTimeTester:
                     break
                 if chunk:
                     content.extend(chunk)
-            result.time_to_first_load = time.perf_counter() - t0
+                    rate_limiter.consume(len(chunk), self.stop_event)
             result.final_url = resp.url
             result.status_code = resp.status_code
             result.total_bytes += len(content)
+
+            # Simulated CPU parse/layout cost for the document itself, since a
+            # slower "device" needs the HTML parsed before it can even discover
+            # (let alone request) subresources -- same ordering a real browser
+            # follows for non-preloaded assets.
+            cpu_delay_doc = estimate_cpu_delay(len(content), self.cpu_multiplier)
+            sleep_respecting_stop(cpu_delay_doc, self.stop_event)
+            result.cpu_delay_first_load = cpu_delay_doc
+            result.time_to_first_load = time.perf_counter() - t0
 
             html_text = content.decode(resp.encoding or "utf-8", errors="replace")
             progress({"type": "doc_loaded", "label": label, "url": url, "elapsed": result.time_to_first_load,
@@ -298,18 +316,29 @@ class LoadTimeTester:
             resource_urls = self._extract_resource_urls(html_text, resp.url)
             progress({"type": "resources_found", "label": label, "url": url, "count": len(resource_urls)})
 
-            fetched = self._fetch_all(session, resource_urls, t0, label, url, progress)
+            fetched = self._fetch_all(session, resource_urls, t0, label, url, progress, rate_limiter, latency_s)
             result.resources = fetched
 
             if self.parse_css_for_subresources:
                 css_children = self._collect_css_subresources(fetched, resource_urls)
                 if css_children:
                     progress({"type": "resources_found", "label": label, "url": url, "count": len(css_children), "nested": True})
-                    fetched_children = self._fetch_all(session, css_children, t0, label, url, progress)
+                    fetched_children = self._fetch_all(session, css_children, t0, label, url, progress,
+                                                        rate_limiter, latency_s)
                     result.resources = result.resources + fetched_children
 
             all_finish_times = [result.time_to_first_load] + [r.finished_at for r in result.resources if r.ok]
-            result.time_to_all_elements = max(all_finish_times) if all_finish_times else result.time_to_first_load
+            pre_cpu_finish = max(all_finish_times) if all_finish_times else result.time_to_first_load
+
+            # Additional simulated CPU cost (script execution / extra layout)
+            # for everything beyond the document itself.
+            total_bytes_so_far = len(content) + sum(r.size_bytes for r in result.resources if r.ok)
+            cpu_delay_total = estimate_cpu_delay(total_bytes_so_far, self.cpu_multiplier)
+            extra_cpu_delay = max(0.0, cpu_delay_total - cpu_delay_doc)
+            sleep_respecting_stop(extra_cpu_delay, self.stop_event)
+            result.cpu_delay_all_elements = cpu_delay_total
+
+            result.time_to_all_elements = pre_cpu_finish + extra_cpu_delay
             result.resource_count = len(result.resources)
             result.failed_count = sum(1 for r in result.resources if not r.ok)
             result.total_bytes += sum(r.size_bytes for r in result.resources)
@@ -372,7 +401,7 @@ class LoadTimeTester:
         return [{"url": u, "kind": k} for u, k in found.items()]
 
     def _fetch_all(self, session, resource_specs: list, t0: float, label: str, site_url: str,
-                    progress: ProgressCallback) -> list:
+                    progress: ProgressCallback, rate_limiter: RateLimiter, latency_s: float = 0.0) -> list:
         results = []
         if not resource_specs:
             return results
@@ -383,9 +412,10 @@ class LoadTimeTester:
             if self.stop_event.is_set():
                 return ResourceResult(url=url, kind=kind, ok=False, error="cancelled")
             try:
+                sleep_respecting_stop(latency_s, self.stop_event)
                 _connect_timing_local.duration = None
                 r = session.get(url, timeout=self.timeout, stream=True)
-                connect_time = getattr(_connect_timing_local, "duration", None) or 0.0
+                connect_time = (getattr(_connect_timing_local, "duration", None) or 0.0) + latency_s
                 size = 0
                 keep_body = kind == "stylesheet" and self.parse_css_for_subresources
                 body = bytearray() if keep_body else None
@@ -394,6 +424,7 @@ class LoadTimeTester:
                         break
                     if chunk:
                         size += len(chunk)
+                        rate_limiter.consume(len(chunk), self.stop_event)
                         if keep_body and size <= 2_000_000:  # cap CSS parsing at 2MB/file
                             body.extend(chunk)
                 finished_at = time.perf_counter() - t0

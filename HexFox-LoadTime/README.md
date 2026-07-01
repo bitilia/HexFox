@@ -32,7 +32,7 @@ tick "Add python.exe to PATH" during install).
 1. Copy this whole folder to `C:\AI_CURSOR\HexFox-LoadTime` (or wherever you like).
 2. Double-click **`run_windows.bat`**.
    - First run: it creates a local virtual environment in `.venv` and installs the dependencies
-     listed in `requirements.txt` (customtkinter, requests, beautifulsoup4, Pillow).
+     listed in `requirements.txt` (customtkinter, requests, beautifulsoup4, Pillow, reportlab).
    - Every run after that just launches the app immediately.
 
 Prefer doing it by hand instead of the `.bat` file?
@@ -57,12 +57,23 @@ py -3 -m venv .venv
      parallel (browsers typically open ~6-8 connections per host, so 8 is a realistic default).
    - **Include CSS-referenced assets** — also follow `url(...)` / `@import` references inside
      stylesheets (fonts, background images) so "Time to Load All Elements" is more complete.
+   - **Network throttle** — cap download bandwidth and add latency to simulate a slower
+     connection: `Fast 5G`, `Fast 4G`, `Slow 4G`, or `3G` (see the table below for exact figures).
+   - **CPU throttle** — simulate a slower device (`2x` / `4x` / `6x` slowdown), Chrome DevTools-style.
 3. Click **Run Comparison**. Progress streams live into the log panel.
 4. Results appear as cards per site — a big **RAW** number (content-only, connection setup
    subtracted) with the **total incl. connection** shown just underneath — plus resource counts,
    transferred size, and failures. The comparison chart draws each metric as a stacked bar: a grey
    "connection setup" segment followed by the raw content segment, so both pieces are visible at a
-   glance. Results can be exported to CSV, which includes both the raw and total figures.
+   glance.
+5. Results can be exported:
+   - **Export CSV** — raw data (all figures, both raw and total, plus the throttle settings used) for
+     spreadsheets/further analysis.
+   - **Export PDF** — a clean, print-friendly report: test settings, a section per site (both timing
+     numbers, TTFB, connection setup, resource/byte counts), and a comparison chart + table for
+     multi-site runs. Check **"Include HexFox branding in PDF export"** to control whether the report
+     uses the HexFox logo/colors/fonts or a neutral black-and-white style (handy for reports you want
+     to share without company branding). Either way, you'll be asked where to save the file.
 
 ## 3. Methodology & limitations
 
@@ -100,6 +111,30 @@ exactly the comparison this tool is built for. For pixel-perfect, JS-inclusive m
 Contentful Paint, Largest Contentful Paint, Time to Interactive, etc.) reach for Chrome DevTools,
 Lighthouse, or WebPageTest instead.
 
+**Network throttling.** Bandwidth and latency are enforced for real, not just labeled — every byte
+of every request (the document and every concurrently-fetched resource) in a run is metered through
+one shared rate limiter, so the whole page load genuinely can't exceed the target throughput, the
+same way a real constrained connection is shared across a page's requests rather than throttled
+per-connection. Added latency is applied once per request and folded into that request's
+`connect_time` (a network-path cost, kept separate from the raw content numbers).
+
+| Preset | Download | Added latency | Basis |
+|---|---|---|---|
+| No throttling | unlimited | 0 ms | your real connection |
+| Fast 5G | ~300 Mbps | 10 ms | approximate, representative of a strong 5G connection |
+| Fast 4G | ~20 Mbps | 40 ms | approximate, representative LTE connection |
+| Slow 4G | ~1.6 Mbps | 150 ms | matches Lighthouse's `mobileSlow4G` throttling profile |
+| 3G | ~700 Kbps | 300 ms | matches Lighthouse's `mobileRegular3G` throttling profile |
+
+**CPU throttling.** This tool has no rendering engine, so there's no real main thread to slow down
+the way Chrome DevTools does. Instead, CPU throttling adds a clearly-*simulated* parse/execute delay
+proportional to page weight and the chosen multiplier (assuming a rough, coarse baseline of ~8 MB/s
+of combined parse+layout+script throughput on an unthrottled CPU) — enough to meaningfully separate
+"heavy page on a slow device" from "light page," without pretending to be a real CPU profile. It's
+applied twice per run: once after the HTML document downloads (since parsing must finish before a
+real browser could discover subresources) and again after every resource finishes, representing
+the extra script-execution/layout cost of the full page.
+
 ## 4. Project structure
 
 ```
@@ -110,6 +145,8 @@ HexFox-LoadTime/
 ├── hexfox_loadtime/
 │   ├── app.py                 # customtkinter GUI
 │   ├── network.py             # measurement engine (the actual timing logic)
+│   ├── throttle.py             # network/CPU throttling presets + rate limiter
+│   ├── pdf_report.py           # PDF report generation (branded + neutral styles)
 │   ├── widgets.py             # branded reusable widgets (site rows, result cards)
 │   ├── charts.py              # dependency-free comparison bar chart
 │   ├── theme.py                # HexFox brand colors / fonts
