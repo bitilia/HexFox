@@ -57,6 +57,9 @@ py -3 -m venv .venv
      parallel (browsers typically open ~6-8 connections per host, so 8 is a realistic default).
    - **Include CSS-referenced assets** — also follow `url(...)` / `@import` references inside
      stylesheets (fonts, background images) so "Time to Load All Elements" is more complete.
+   - **Network throttle** — cap download bandwidth and add latency to simulate a slower
+     connection: `Fast 5G`, `Fast 4G`, `Slow 4G`, or `3G` (see the table below for exact figures).
+   - **CPU throttle** — simulate a slower device (`2x` / `4x` / `6x` slowdown), Chrome DevTools-style.
 3. Click **Run Comparison**. Progress streams live into the log panel.
 4. Results appear as cards per site — a big **RAW** number (content-only, connection setup
    subtracted) with the **total incl. connection** shown just underneath — plus resource counts,
@@ -100,6 +103,30 @@ exactly the comparison this tool is built for. For pixel-perfect, JS-inclusive m
 Contentful Paint, Largest Contentful Paint, Time to Interactive, etc.) reach for Chrome DevTools,
 Lighthouse, or WebPageTest instead.
 
+**Network throttling.** Bandwidth and latency are enforced for real, not just labeled — every byte
+of every request (the document and every concurrently-fetched resource) in a run is metered through
+one shared rate limiter, so the whole page load genuinely can't exceed the target throughput, the
+same way a real constrained connection is shared across a page's requests rather than throttled
+per-connection. Added latency is applied once per request and folded into that request's
+`connect_time` (a network-path cost, kept separate from the raw content numbers).
+
+| Preset | Download | Added latency | Basis |
+|---|---|---|---|
+| No throttling | unlimited | 0 ms | your real connection |
+| Fast 5G | ~300 Mbps | 10 ms | approximate, representative of a strong 5G connection |
+| Fast 4G | ~20 Mbps | 40 ms | approximate, representative LTE connection |
+| Slow 4G | ~1.6 Mbps | 150 ms | matches Lighthouse's `mobileSlow4G` throttling profile |
+| 3G | ~700 Kbps | 300 ms | matches Lighthouse's `mobileRegular3G` throttling profile |
+
+**CPU throttling.** This tool has no rendering engine, so there's no real main thread to slow down
+the way Chrome DevTools does. Instead, CPU throttling adds a clearly-*simulated* parse/execute delay
+proportional to page weight and the chosen multiplier (assuming a rough, coarse baseline of ~8 MB/s
+of combined parse+layout+script throughput on an unthrottled CPU) — enough to meaningfully separate
+"heavy page on a slow device" from "light page," without pretending to be a real CPU profile. It's
+applied twice per run: once after the HTML document downloads (since parsing must finish before a
+real browser could discover subresources) and again after every resource finishes, representing
+the extra script-execution/layout cost of the full page.
+
 ## 4. Project structure
 
 ```
@@ -110,6 +137,7 @@ HexFox-LoadTime/
 ├── hexfox_loadtime/
 │   ├── app.py                 # customtkinter GUI
 │   ├── network.py             # measurement engine (the actual timing logic)
+│   ├── throttle.py             # network/CPU throttling presets + rate limiter
 │   ├── widgets.py             # branded reusable widgets (site rows, result cards)
 │   ├── charts.py              # dependency-free comparison bar chart
 │   ├── theme.py                # HexFox brand colors / fonts
