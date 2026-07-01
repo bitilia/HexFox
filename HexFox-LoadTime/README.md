@@ -32,7 +32,7 @@ tick "Add python.exe to PATH" during install).
 1. Copy this whole folder to `C:\AI_CURSOR\HexFox-LoadTime` (or wherever you like).
 2. Double-click **`run_windows.bat`**.
    - First run: it creates a local virtual environment in `.venv` and installs the dependencies
-     listed in `requirements.txt` (customtkinter, requests, beautifulsoup4, Pillow).
+     listed in `requirements.txt` (customtkinter, requests, beautifulsoup4, Pillow, reportlab).
    - Every run after that just launches the app immediately.
 
 Prefer doing it by hand instead of the `.bat` file?
@@ -65,7 +65,15 @@ py -3 -m venv .venv
    subtracted) with the **total incl. connection** shown just underneath — plus resource counts,
    transferred size, and failures. The comparison chart draws each metric as a stacked bar: a grey
    "connection setup" segment followed by the raw content segment, so both pieces are visible at a
-   glance. Results can be exported to CSV, which includes both the raw and total figures.
+   glance.
+5. Results can be exported:
+   - **Export CSV** — raw data (all figures, both raw and total, plus the throttle settings used) for
+     spreadsheets/further analysis.
+   - **Export PDF** — a clean, print-friendly report: test settings, a section per site (both timing
+     numbers, TTFB, connection setup, resource/byte counts), and a comparison chart + table for
+     multi-site runs. Check **"Include HexFox branding in PDF export"** to control whether the report
+     uses the HexFox logo/colors/fonts or a neutral black-and-white style (handy for reports you want
+     to share without company branding). Either way, you'll be asked where to save the file.
 
 ## 3. Methodology & limitations
 
@@ -138,6 +146,7 @@ HexFox-LoadTime/
 │   ├── app.py                 # customtkinter GUI
 │   ├── network.py             # measurement engine (the actual timing logic)
 │   ├── throttle.py             # network/CPU throttling presets + rate limiter
+│   ├── pdf_report.py           # PDF report generation (branded + neutral styles)
 │   ├── widgets.py             # branded reusable widgets (site rows, result cards)
 │   ├── charts.py              # dependency-free comparison bar chart
 │   ├── theme.py                # HexFox brand colors / fonts
