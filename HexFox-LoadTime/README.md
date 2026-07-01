@@ -121,5 +121,5 @@ HexFox-LoadTime/
 ## 5. Branding
 
 Colors, the Boldonse/Montserrat typefaces, and the logo mark are pulled directly from the
-`hexfox.com` brand kit for a first-party look and feel. This tool is for internal/local use only
+`hexfoxlabs.com` brand kit for a first-party look and feel. This tool is for internal/local use only
 and is intentionally kept out of the public `hexfox` repository.
